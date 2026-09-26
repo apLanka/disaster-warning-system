@@ -1,159 +1,72 @@
-# Turborepo starter
+# Disaster Warning System
 
-This Turborepo starter is maintained by the Turborepo core team.
+A pnpm + Turborepo workspace holding three applications and one shared contract
+package.
 
-## Using this example
+| Package | What it is | Dev port |
+|---|---|---|
+| `apps/web` | Vite 8 + React 19 + React Router 7 + Tailwind 4 | 5173 |
+| `apps/api` | Nest 12 (ESM) | 3000 |
+| `apps/mobile` | Expo 57 / React Native 0.86 | Expo dev server |
+| `packages/types` | `@repo/types` — shared DTOs and constants, no runtime deps | — |
 
-Run the following command:
+## Setup
 
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+Requires Node `>=22.13.0` and pnpm `12.6.0`.
 
 ```sh
-cd my-turborepo
-turbo build
+corepack enable          # or: npm i -g pnpm@12.6.0
+pnpm install             # always from the repo root; one lockfile for the workspace
 ```
 
-Without global `turbo`, use your package manager:
+## Commands
+
+Run from the root; turbo fans out across the workspace.
 
 ```sh
-cd my-turborepo
-npx turbo build
-bun exec turbo build
-bun exec turbo build
+pnpm dev            # all three dev servers
+pnpm build          # production builds
+pnpm test           # web + api (vitest) and mobile (jest)
+pnpm check-types    # tsc across every package
+pnpm lint           # oxlint across every package
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+To run one app:
 
 ```sh
-turbo build --filter=docs
+pnpm --filter web dev
+pnpm --filter api dev
+pnpm --filter mobile dev
 ```
 
-Without global `turbo`:
+## Environment
 
-```sh
-npx turbo build --filter=docs
-bun exec turbo build --filter=docs
-bun exec turbo build --filter=docs
-```
+| Variable | App | Default |
+|---|---|---|
+| `VITE_API_BASE_URL` | web | `http://localhost:3000` |
+| `EXPO_PUBLIC_API_BASE_URL` | mobile | `http://localhost:3000` |
+| `CORS_ORIGIN` | api | `http://localhost:5173` |
+| `PORT` | api | `3000` |
 
-### Develop
+The two client variables have different prefixes because Vite and Expo each
+expose their own convention.
 
-To develop all apps and packages, run the following command:
+## The shared contract
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+`@repo/types` is compiled to `dist/` with declarations and consumed by all three
+apps as a `workspace:*` dependency. Consumers get the built output, never the raw
+TypeScript. `turbo` gives `test` and `check-types` a `dependsOn: ["^build"]` edge,
+so the package is always rebuilt before anything that reads it — a contract change
+surfaces as a type error in every app at once rather than as a runtime surprise in
+one of them.
 
-```sh
-cd my-turborepo
-turbo dev
-```
+Metro needs no configuration. Expo SDK 52+ detects pnpm workspaces and wires up
+module resolution itself; there is deliberately no `metro.config.js`. If Metro
+ever misresolves, the fix is to remove any hand-written Metro properties and
+re-run with `npx expo start --clear`.
 
-Without global `turbo`, use your package manager:
+## Temporary scaffolding
 
-```sh
-cd my-turborepo
-npx turbo dev
-bun exec turbo dev
-bun exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-bun exec turbo dev --filter=web
-bun exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-bun exec turbo login
-bun exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-bun exec turbo link
-bun exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+`GET /api/health` and the `HealthStatus` component in both clients exist to prove
+the contract resolves in all three runtimes — Vite's bundler, Nest's `tsc`, and
+Metro. They are not a feature. Replace them with the first real alert feature.

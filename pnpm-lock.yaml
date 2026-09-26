@@ -361,6 +361,9 @@ importers:
 
   packages/types:
     devDependencies:
+      oxlint:
+        specifier: ^1.85.0
+        version: 1.85.0(oxlint-tsgolint@7.0.2003)
       typescript:
         specifier: ~6.0.3
         version: 6.0.3

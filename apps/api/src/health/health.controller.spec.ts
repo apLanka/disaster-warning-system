@@ -22,11 +22,32 @@ async function createApp(probe?: () => boolean): Promise<INestApplication> {
   return app;
 }
 
+// Builds the module with no provider override, so Nest's own dependency
+// injection has to resolve HealthService the same way it does at runtime.
+async function createAppWired(): Promise<INestApplication> {
+  const moduleRef = await Test.createTestingModule({
+    imports: [HealthModule],
+  }).compile();
+
+  const app = moduleRef.createNestApplication();
+  await app.init();
+  return app;
+}
+
 describe('HealthController', () => {
   let app: INestApplication;
 
   afterEach(async () => {
     await app?.close();
+  });
+
+  it('starts with the real module wiring and no provider override', async () => {
+    app = await createAppWired();
+
+    const response = await request(app.getHttpServer()).get('/api/health');
+
+    expect(response.status).toBe(200);
+    expect(response.body.status).toBe('ok');
   });
 
   it('returns 200 and an ok HealthResponse when the probe passes', async () => {
