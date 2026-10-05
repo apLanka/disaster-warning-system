@@ -1,25 +1,32 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { HealthStatus } from './components/HealthStatus';
+import { DashboardLayout } from './components/layout/DashboardLayout';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { ReportsListPage } from './pages/ReportsListPage';
+import { ReviewReportPage } from './pages/ReviewReportPage';
+import { PENDING_PATH } from './lib/routes';
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <h1 className="p-6 text-3xl font-bold">Disaster Warning System</h1>
-      <main className="p-6">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <HealthStatus />
-                <p className="mt-4">No active alerts.</p>
-              </>
-            }
-          />
-        </Routes>
-      </main>
-    </div>
+    <Routes>
+      <Route element={<DashboardLayout />}>
+        <Route index element={<Navigate to={PENDING_PATH} replace />} />
+        <Route
+          path="reports/pending"
+          element={<ReportsListPage status="PENDING_VERIFICATION" />}
+        />
+        <Route
+          path="reports/verified"
+          element={<ReportsListPage status="VERIFIED" />}
+        />
+        <Route
+          path="reports/rejected"
+          element={<ReportsListPage status="REJECTED" />}
+        />
+        <Route path="reports/:id" element={<ReviewReportPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 }
 
