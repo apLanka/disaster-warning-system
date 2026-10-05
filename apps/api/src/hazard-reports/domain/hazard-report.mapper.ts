@@ -2,6 +2,7 @@ import type { HazardReportDto } from '@repo/types';
 
 import type { HazardReportEntity } from './hazard-report.entity.js';
 
+/** The full view, for a Duty Officer. */
 export function toHazardReportDto(entity: HazardReportEntity): HazardReportDto {
   const { decision } = entity;
 
@@ -26,4 +27,22 @@ export function toHazardReportDto(entity: HazardReportEntity): HazardReportDto {
     createdAt: entity.createdAt.toISOString(),
     updatedAt: entity.updatedAt.toISOString(),
   };
+}
+
+/**
+ * What the reporter sees: the outcome and the reason given to them, but not
+ * which officer decided or the officer's internal notes.
+ */
+export function toReporterReportDto(
+  entity: HazardReportEntity,
+): HazardReportDto {
+  const dto = toHazardReportDto(entity);
+  if (!dto.decision) return dto;
+
+  const {
+    decidedBy: _decidedBy,
+    officerNotes: _officerNotes,
+    ...visible
+  } = dto.decision;
+  return { ...dto, decision: visible };
 }

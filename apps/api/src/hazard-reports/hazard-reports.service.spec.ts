@@ -1,11 +1,13 @@
-import { ConflictException, Logger } from '@nestjs/common';
+import { ConflictException, Logger, NotFoundException } from '@nestjs/common';
 
 import type { PhotoUpload } from '../storage/photo-storage.js';
 import type { CreateHazardReportDto } from './dto/create-hazard-report.dto.js';
 import { HazardReportsService } from './hazard-reports.service.js';
 import {
   CLIENT_REQUEST_ID,
+  decided,
   entity,
+  fakeNotifier,
   fakePhotoStorage,
   fakeRepository,
   JPEG,
@@ -45,7 +47,7 @@ describe('HazardReportsService.submit', () => {
       created: true,
     }));
     vi.spyOn(Logger.prototype, 'warn').mockImplementation(() => undefined);
-    service = new HazardReportsService(repository, storage);
+    service = new HazardReportsService(repository, storage, fakeNotifier());
   });
 
   afterEach(() => {
@@ -166,9 +168,176 @@ describe('HazardReportsService.findMine', () => {
     const repository = fakeRepository();
     const reports = [entity(), entity({ id: '665f1f77bcf86cd799439012' })];
     repository.findByReporter.mockResolvedValue(reports);
-    const service = new HazardReportsService(repository, fakePhotoStorage());
+    const service = new HazardReportsService(
+      repository,
+      fakePhotoStorage(),
+      fakeNotifier(),
+    );
 
     expect(await service.findMine(REPORTER_ID)).toBe(reports);
     expect(repository.findByReporter).toHaveBeenCalledWith(REPORTER_ID);
+  });
+});
+
+describe('HazardReportsService (officer use cases)', () => {
+  let repository: ReturnType<typeof fakeRepository>;
+  let notifier: ReturnType<typeof fakeNotifier>;
+  let errorLog: ReturnType<typeof vi.spyOn>;
+  let service: HazardReportsService;
+
+  beforeEach(() => {
+    repository = fakeRepository();
+    notifier = fakeNotifier();
+    service = new HazardReportsService(
+      repository,
+      fakePhotoStorage(),
+      notifier,
+    );
+    errorLog = vi
+      .spyOn(Logger.prototype, 'error')
+      .mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  describe('list and stats', () => {
+    it('passes the query straight to the repository', async () => {
+      const page = { items: [entity()], total: 1, page: 1, limit: 20 };
+      repository.list.mockResolvedValue(page);
+      const query = { sort: 'oldest', page: 1, limit: 20 } as const;
+
+      expect(await service.list(query)).toBe(page);
+      expect(repository.list).toHaveBeenCalledWith(query);
+    });
+
+    it('counts "verified today" from the start of the day in Sri Lanka', async () => {
+      const stats = { pending: 2, verifiedToday: 1, rejected: 0, total: 3 };
+      repository.stats.mockResolvedValue(stats);
+
+      const result = await service.stats(new Date('2026-10-05T10:00:00.000Z'));
+
+      expect(result).toBe(stats);
+      expect(repository.stats).toHaveBeenCalledWith(
+        new Date('2026-10-04T18:30:00.000Z'),
+      );
+    });
+  });
+
+  describe('findOne', () => {
+    const officer = { kind: 'officer', name: 'Officer Silva' } as const;
+
+    it('shows an officer any report', async () => {
+      repository.findById.mockResolvedValue(entity({ reporterId: 'anyone' }));
+
+      expect((await service.findOne('id', officer)).reporterId).toBe('anyone');
+    });
+
+    it('shows a reporter their own report', async () => {
+      repository.findById.mockResolvedValue(entity());
+
+      const report = await service.findOne('id', {
+        kind: 'reporter',
+        reporterId: REPORTER_ID,
+      });
+
+      expect(report.reporterId).toBe(REPORTER_ID);
+    });
+
+    it("says not found, not forbidden, for someone else's report", async () => {
+      repository.findById.mockResolvedValue(entity());
+
+      await expect(
+        service.findOne('id', { kind: 'reporter', reporterId: 'someone-else' }),
+      ).rejects.toBeInstanceOf(NotFoundException);
+    });
+
+    it('says not found for an unknown id', async () => {
+      repository.findById.mockResolvedValue(null);
+
+      await expect(service.findOne('id', officer)).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+    });
+  });
+
+  describe('verify', () => {
+    it('verifies, records who and their notes, and notifies the reporter', async () => {
+      const report = decided('VERIFIED');
+      repository.decide.mockResolvedValue({ outcome: 'DECIDED', report });
+
+      const result = await service.verify('id', 'Officer Silva', {
+        notes: 'Checked',
+      });
+
+      expect(repository.decide).toHaveBeenCalledWith('id', {
+        status: 'VERIFIED',
+        decidedBy: 'Officer Silva',
+        officerNotes: 'Checked',
+      });
+      expect(notifier.notifyDecision).toHaveBeenCalledExactlyOnceWith(report);
+      expect(result).toBe(report);
+    });
+  });
+
+  describe('reject', () => {
+    it('rejects with the reason and details, and notifies the reporter', async () => {
+      const report = decided('REJECTED');
+      repository.decide.mockResolvedValue({ outcome: 'DECIDED', report });
+
+      const result = await service.reject('id', 'Officer Silva', {
+        reason: 'OTHER',
+        details: 'Different location',
+        notes: 'Map does not match',
+      });
+
+      expect(repository.decide).toHaveBeenCalledWith('id', {
+        status: 'REJECTED',
+        decidedBy: 'Officer Silva',
+        officerNotes: 'Map does not match',
+        rejectionReason: 'OTHER',
+        rejectionDetails: 'Different location',
+      });
+      expect(notifier.notifyDecision).toHaveBeenCalledExactlyOnceWith(report);
+      expect(result).toBe(report);
+    });
+  });
+
+  describe.each([
+    ['verify', () => service.verify('id', 'Officer', {})],
+    ['reject', () => service.reject('id', 'Officer', { reason: 'DUPLICATE' })],
+  ])('%s edge cases', (_name, act) => {
+    it('says 409 when the report was already decided, and notifies no one', async () => {
+      repository.decide.mockResolvedValue({ outcome: 'ALREADY_DECIDED' });
+
+      await expect(act()).rejects.toBeInstanceOf(ConflictException);
+      expect(notifier.notifyDecision).not.toHaveBeenCalled();
+    });
+
+    it('says 404 for an unknown report, and notifies no one', async () => {
+      repository.decide.mockResolvedValue({ outcome: 'NOT_FOUND' });
+
+      await expect(act()).rejects.toBeInstanceOf(NotFoundException);
+      expect(notifier.notifyDecision).not.toHaveBeenCalled();
+    });
+
+    it('still succeeds when the notification fails, because the decision is already stored', async () => {
+      const report = decided('VERIFIED');
+      repository.decide.mockResolvedValue({ outcome: 'DECIDED', report });
+      notifier.notifyDecision.mockRejectedValue(new Error('notifier down'));
+
+      await expect(act()).resolves.toBe(report);
+      expect(errorLog).toHaveBeenCalledWith(
+        expect.stringContaining('notifier down'),
+      );
+    });
+
+    it('does not swallow a repository failure', async () => {
+      repository.decide.mockRejectedValue(new Error('atlas unreachable'));
+
+      await expect(act()).rejects.toThrow('atlas unreachable');
+      expect(notifier.notifyDecision).not.toHaveBeenCalled();
+    });
   });
 });

@@ -97,13 +97,13 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T5 Verify and Reject Use Cases (`apps/api`)
 
-- [ ] **T5.1** Create `common/guards/officer.guard.ts` that compares `x-officer-key` to `OFFICER_API_KEY` using a timing-safe compare. → Verify: tests for missing, wrong, and correct key.
-- [ ] **T5.2** Create `dto/verify-report.dto.ts` (`notes?` max 500) and `dto/reject-report.dto.ts` (`reason` enum required, `details` required when `reason` is `OTHER` via a conditional validator, `notes?`). → Verify: DTO tests including the conditional rule.
-- [ ] **T5.3** Implement `HazardReportService.verify(id, officer, dto)` and `reject(id, officer, dto)` using `repository.decide()`. Map outcomes: `NOT_FOUND` to 404, `ALREADY_DECIDED` to 409 with a clear message. → Verify: compiles.
-- [ ] **T5.4** After a successful decision, call `NotificationService.notifyDecision(report, decision)`. If the notification fails, log it and still return success. → Verify: covered in T5.6.
-- [ ] **T5.5** Add controller routes: `GET /hazard-reports` (officer, query DTO with status, type, sort, page, limit), `GET /hazard-reports/stats`, `GET /hazard-reports/:id` (officer, or the owning reporter), `PATCH /:id/verify`, `PATCH /:id/reject`. Static `stats` and `mine` routes are declared before `:id`. → Verify: `curl` with the officer key lists, verifies, and rejects.
-- [ ] **T5.6** Write tests: verify, reject with each reason, reject `OTHER` without details (400), already decided (409), unknown id (404), no or wrong officer key (401), notification failure does not fail the request, reporter cannot read another reporter's report (404). → Verify: green.
-- [ ] **T5.7** Commit `feat(api): add officer list, verify, and reject endpoints`.
+- [x] **T5.1** Create `common/guards/officer.guard.ts` that compares `x-officer-key` to `OFFICER_API_KEY` using a timing-safe compare. → Verify: tests for missing, wrong, and correct key.
+- [x] **T5.2** Create `dto/verify-report.dto.ts` (`notes?` max 500) and `dto/reject-report.dto.ts` (`reason` enum required, `details` required when `reason` is `OTHER` via a conditional validator, `notes?`). → Verify: DTO tests including the conditional rule.
+- [x] **T5.3** Implement `HazardReportService.verify(id, officer, dto)` and `reject(id, officer, dto)` using `repository.decide()`. Map outcomes: `NOT_FOUND` to 404, `ALREADY_DECIDED` to 409 with a clear message. → Verify: compiles.
+- [x] **T5.4** After a successful decision, call `NotificationService.notifyDecision(report, decision)`. If the notification fails, log it and still return success. → Verify: covered in T5.6.
+- [x] **T5.5** Add controller routes: `GET /hazard-reports` (officer, query DTO with status, type, sort, page, limit), `GET /hazard-reports/stats`, `GET /hazard-reports/:id` (officer, or the owning reporter), `PATCH /:id/verify`, `PATCH /:id/reject`. Static `stats` and `mine` routes are declared before `:id`. → Verify: `curl` with the officer key lists, verifies, and rejects.
+- [x] **T5.6** Write tests: verify, reject with each reason, reject `OTHER` without details (400), already decided (409), unknown id (404), no or wrong officer key (401), notification failure does not fail the request, reporter cannot read another reporter's report (404). → Verify: green.
+- [x] **T5.7** Commit `feat(api): add officer list, verify, and reject endpoints`.
 
 ## T6 Notifications (`apps/api`)
 

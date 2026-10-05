@@ -1,10 +1,13 @@
 import type { HazardPhoto } from '@repo/types';
 
+import type { DecisionNotifier } from '../../notifications/decision-notifier.js';
 import type { PhotoStorage } from '../../storage/photo-storage.js';
 import type { HazardReportEntity } from '../domain/hazard-report.entity.js';
 import type { HazardReportRepository } from '../hazard-report.repository.js';
 
 export const REPORTER_ID = '0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d';
+export const OFFICER_KEY = 'test-officer-key-0123456789';
+export const OTHER_REPORTER_ID = '11111111-2222-4333-8444-555555555555';
 export const CLIENT_REQUEST_ID = '7b0e6c0e-0f5e-4a52-9a77-3d3a0c1f9a11';
 
 /** Smallest buffers that carry each image signature. */
@@ -71,4 +74,32 @@ export function fakePhotoStorage() {
       .mockImplementation(async () => photo(++counter)),
     remove: vi.fn<PhotoStorage['remove']>().mockResolvedValue(undefined),
   };
+}
+
+export function fakeNotifier() {
+  return {
+    notifyDecision: vi
+      .fn<DecisionNotifier['notifyDecision']>()
+      .mockResolvedValue(undefined),
+  };
+}
+
+/** A report an officer has already decided. */
+export function decided(
+  status: 'VERIFIED' | 'REJECTED',
+  overrides: Partial<HazardReportEntity> = {},
+): HazardReportEntity {
+  return entity({
+    status,
+    decision: {
+      decidedAt: new Date('2026-10-05T07:00:00.000Z'),
+      decidedBy: 'Officer Silva',
+      officerNotes: 'Checked against the gauge readings',
+      ...(status === 'REJECTED' && {
+        rejectionReason: 'INSUFFICIENT_INFORMATION' as const,
+        rejectionDetails: 'Please add a photo',
+      }),
+    },
+    ...overrides,
+  });
 }

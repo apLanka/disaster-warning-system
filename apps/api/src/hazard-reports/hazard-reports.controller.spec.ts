@@ -1,19 +1,12 @@
 import { BadGatewayException, INestApplication, Logger } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
 import request from 'supertest';
 
 import { HAZARD_REPORT_LIMITS } from '@repo/types';
 
-import { configureApp } from '../app.setup.js';
-import { PHOTO_STORAGE } from '../storage/photo-storage.js';
-import { HAZARD_REPORT_REPOSITORY } from './hazard-report.repository.js';
-import { HazardReportsController } from './hazard-reports.controller.js';
-import { HazardReportsService } from './hazard-reports.service.js';
+import { createTestApp, type TestApp } from './testing/create-test-app.js';
 import {
   CLIENT_REQUEST_ID,
   entity,
-  fakePhotoStorage,
-  fakeRepository,
   JPEG,
   NOT_AN_IMAGE,
   photo,
@@ -28,32 +21,14 @@ const fields = {
   longitude: '80.6337',
 };
 
-describe('HazardReportsController', () => {
+describe('HazardReportsController (reporter)', () => {
   let app: INestApplication;
-  let repository: ReturnType<typeof fakeRepository>;
-  let storage: ReturnType<typeof fakePhotoStorage>;
+  let repository: TestApp['repository'];
+  let storage: TestApp['storage'];
 
   beforeEach(async () => {
-    repository = fakeRepository();
-    storage = fakePhotoStorage();
-    repository.findByClientRequestId.mockResolvedValue(null);
-    repository.create.mockImplementation(async (input) => ({
-      report: entity({ ...input, photos: input.photos }),
-      created: true,
-    }));
+    ({ app, repository, storage } = await createTestApp());
     vi.spyOn(Logger.prototype, 'error').mockImplementation(() => undefined);
-
-    const moduleRef = await Test.createTestingModule({
-      controllers: [HazardReportsController],
-      providers: [
-        HazardReportsService,
-        { provide: HAZARD_REPORT_REPOSITORY, useValue: repository },
-        { provide: PHOTO_STORAGE, useValue: storage },
-      ],
-    }).compile();
-    app = moduleRef.createNestApplication();
-    configureApp(app);
-    await app.init();
   });
 
   afterEach(async () => {
