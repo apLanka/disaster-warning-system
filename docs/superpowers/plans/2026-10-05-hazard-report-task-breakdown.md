@@ -55,15 +55,15 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T2 API Foundation (`apps/api`)
 
-- [ ] **T2.1** Install runtime deps: `bun add --exact @prisma/client@6.19.3` and `bun add @nestjs/config class-validator class-transformer @nestjs/swagger cloudinary multer`. Dev deps: `bun add -d --exact prisma@6.19.3` and `bun add -d @types/multer`. → Verify: `package.json` lists them.
-- [ ] **T2.2** Run `bunx prisma init --datasource-provider mongodb`. Make sure `.env` is untouched by Git and `prisma/schema.prisma` exists. → Verify: file present.
-- [ ] **T2.3** Create `src/config/env.validation.ts` that validates `DATABASE_URL`, `OFFICER_API_KEY`, `PORT`, and the Cloudinary variables, and fails fast with a clear message. Add `src/config/app-config.module.ts`. → Verify: a unit test fails when a variable is missing and passes when all are set.
-- [ ] **T2.4** Create `src/prisma/prisma.service.ts` (extends `PrismaClient`, `onModuleInit` connects, shutdown hook disconnects) and a global `prisma.module.ts`. → Verify: unit test that `$connect` is called on init (mocked).
-- [ ] **T2.5** Create `src/common/filters/http-exception.filter.ts` returning `{ statusCode, error, message }`. → Verify: unit test for an `HttpException` and for an unknown error (500, no stack leaked).
-- [ ] **T2.6** Update `main.ts`: global prefix `api`, global `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`, `transform`), the filter, shutdown hooks, and Swagger at `/api/docs`. Update `app.module.ts` imports. Keep the existing health route working (`API_HEALTH_PATH` is `/api/health`). → Verify: `bun run start:dev` boots.
-- [ ] **T2.7** Add `.env.example` with placeholder values for every variable. → Verify: no real secret in the file.
-- [ ] **T2.8** Run `bun run test`, `bun run lint`, `bun run check-types` in `apps/api`. → Verify: all green. `curl localhost:3000/api/health` returns 200.
-- [ ] **T2.9** Commit `feat(api): add config, prisma, validation, and error filter`.
+- [x] **T2.1** Install runtime deps: `bun add --exact @prisma/client@6.19.3` and `bun add @nestjs/config class-validator class-transformer @nestjs/swagger cloudinary multer`. Dev deps: `bun add -d --exact prisma@6.19.3` and `bun add -d @types/multer`. → Verify: `package.json` lists them.
+- [x] **T2.2** Write `prisma/schema.prisma` by hand (datasource `mongodb`, `prisma-client-js`); `prisma init` is skipped because it rewrites `.env`. → Verify: file present.
+- [x] **T2.3** Create `src/config/env.validation.ts` that validates `DATABASE_URL`, `OFFICER_API_KEY`, `PORT`, and the Cloudinary variables, and fails fast with a clear message. Add `src/config/app-config.module.ts`. → Verify: a unit test fails when a variable is missing and passes when all are set.
+- [x] **T2.4** Create `src/prisma/prisma.service.ts` (extends `PrismaClient`, `onModuleInit` connects, shutdown hook disconnects) and a global `prisma.module.ts`. → Verify: unit test that `$connect` is called on init (mocked).
+- [x] **T2.5** Create `src/common/filters/http-exception.filter.ts` returning `{ statusCode, error, message }`. → Verify: unit test for an `HttpException` and for an unknown error (500, no stack leaked).
+- [x] **T2.6** Update `main.ts`: global prefix `api`, global `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`, `transform`), the filter, shutdown hooks, and Swagger at `/api/docs`. Update `app.module.ts` imports. Keep the existing health route working (`API_HEALTH_PATH` is `/api/health`). → Verify: `bun run start:dev` boots.
+- [x] **T2.7** Add `.env.example` with placeholder values for every variable. → Verify: no real secret in the file.
+- [x] **T2.8** Run `bun run test`, `bun run lint`, `bun run check-types` in `apps/api`. → Verify: all green. `curl localhost:3000/api/health` returns 200.
+- [x] **T2.9** Commit `feat(api): add config, prisma, validation, and error filter`.
 
 ## T3 Data Layer (`apps/api`)
 

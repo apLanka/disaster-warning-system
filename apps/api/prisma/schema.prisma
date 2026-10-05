@@ -1,0 +1,9 @@
+// Models are added in T3. MongoDB support requires Prisma 6.x (pinned in package.json).
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
