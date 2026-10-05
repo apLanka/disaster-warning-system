@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check-types": "tsc -p tsconfig.test.json",
-    "lint": "oxlint src"
+    "lint": "oxlint --deny-warnings src"
   },
   "devDependencies": {
     "oxlint": "^1.85.0",
