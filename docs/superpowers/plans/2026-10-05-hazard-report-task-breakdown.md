@@ -115,11 +115,11 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T7 API Verification Gate
 
-- [ ] **T7.1** Write `test/hazard-reports.e2e-spec.ts` with `supertest`, the `dws_test` database, and a fake `PHOTO_STORAGE` provider: submit, replay, officer list, verify, citizen notification, reject path, 409 on second decision. Add a Vitest include for e2e or a separate config and script `test:e2e`. → Verify: passes.
-- [ ] **T7.2** Run `bun run test --coverage` in `apps/api`. Fix gaps until `hazard-reports/` and `notifications/` are at least 80% (lines and branches). → Verify: coverage summary.
-- [ ] **T7.3** Run `bun run lint` and `bun run check-types`. Fix findings (no `any`, no unused code). → Verify: zero warnings.
-- [ ] **T7.4** Export the Swagger JSON once and sanity-check the endpoint list against the plan's API Surface table. → Verify: tables match.
-- [ ] **T7.5** Commit `test(api): add e2e flow and raise coverage`.
+- [x] **T7.1** Write `test/hazard-reports.e2e-spec.ts` with `supertest`, the `dws_test` database, and a fake `PHOTO_STORAGE` provider: submit, replay, officer list, verify, citizen notification, reject path, 409 on second decision. Add a Vitest include for e2e or a separate config and script `test:e2e`. → Verify: passes.
+- [x] **T7.2** Run `bun run test --coverage` in `apps/api`. Fix gaps until `hazard-reports/` and `notifications/` are at least 80% (lines and branches). → Verify: coverage summary.
+- [x] **T7.3** Run `bun run lint` and `bun run check-types`. Fix findings (no `any`, no unused code). → Verify: zero warnings.
+- [x] **T7.4** Compare the generated Swagger document with the plan's API Surface table. Done as an automated e2e assertion (`documents exactly the endpoints in the plan`), so the check cannot drift. → Verify: the test passes.
+- [x] **T7.5** Commit `test(api): add e2e flow and raise coverage`.
 
 ## T8 DMC Portal (`apps/web`)
 
