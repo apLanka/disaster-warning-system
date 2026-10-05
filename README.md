@@ -3,12 +3,12 @@
 A bun + Turborepo workspace holding three applications and one shared contract
 package.
 
-| Package | What it is | Dev port |
-|---|---|---|
-| `apps/web` | Vite 8 + React 19 + React Router 7 + Tailwind 4 | 5173 |
-| `apps/api` | Nest 12 (ESM) | 3000 |
-| `apps/mobile` | Expo 57 / React Native 0.86 | Expo dev server |
-| `packages/types` | `@repo/types` — shared DTOs and constants, no runtime deps | — |
+| Package          | What it is                                                 | Dev port        |
+| ---------------- | ---------------------------------------------------------- | --------------- |
+| `apps/web`       | Vite 8 + React 19 + React Router 7 + Tailwind 4            | 5173            |
+| `apps/api`       | Nest 12 (ESM)                                              | 3000            |
+| `apps/mobile`    | Expo 57 / React Native 0.86                                | Expo dev server |
+| `packages/types` | `@repo/types` — shared DTOs and constants, no runtime deps | —               |
 
 ## Setup
 
@@ -41,12 +41,12 @@ bun run --filter mobile dev
 
 ## Environment
 
-| Variable | App | Default |
-|---|---|---|
-| `VITE_API_BASE_URL` | web | `http://localhost:3000` |
+| Variable                   | App    | Default                 |
+| -------------------------- | ------ | ----------------------- |
+| `VITE_API_BASE_URL`        | web    | `http://localhost:3000` |
 | `EXPO_PUBLIC_API_BASE_URL` | mobile | `http://localhost:3000` |
-| `CORS_ORIGIN` | api | `http://localhost:5173` |
-| `PORT` | api | `3000` |
+| `CORS_ORIGIN`              | api    | `http://localhost:5173` |
+| `PORT`                     | api    | `3000`                  |
 
 The two client variables have different prefixes because Vite and Expo each
 expose their own convention.

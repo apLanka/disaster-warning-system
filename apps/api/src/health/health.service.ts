@@ -10,9 +10,7 @@ export const HEALTH_PROBE = Symbol('HEALTH_PROBE');
 export class HealthService {
   private readonly probe: () => boolean;
 
-  constructor(
-    @Optional() @Inject(HEALTH_PROBE) probe?: () => boolean,
-  ) {
+  constructor(@Optional() @Inject(HEALTH_PROBE) probe?: () => boolean) {
     this.probe = probe ?? (() => true);
   }
 

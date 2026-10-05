@@ -1,0 +1,13 @@
+node_modules
+dist
+build
+coverage
+.turbo
+.expo
+.idea
+bun.lock
+*.pdf
+apps/mobile/assets
+apps/web/public
+# Long markdown tables reflow into huge diffs; docs are hand-formatted.
+docs

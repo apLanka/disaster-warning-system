@@ -48,7 +48,9 @@ describe('fetchHealth', () => {
   it('rejects when the API responds with an error status', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn().mockResolvedValue({ ok: false, status: 503, json: async () => ({}) }),
+      vi
+        .fn()
+        .mockResolvedValue({ ok: false, status: 503, json: async () => ({}) }),
     );
 
     await expect(fetchHealth()).rejects.toThrow();

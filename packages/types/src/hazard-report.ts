@@ -1,55 +1,55 @@
 export const HAZARD_TYPES = [
-  "FLOOD",
-  "RISING_RIVER_LEVEL",
-  "LANDSLIDE",
-  "ROAD_BLOCKAGE",
-  "WILDFIRE",
-  "STRONG_WINDS",
-  "OTHER",
+  'FLOOD',
+  'RISING_RIVER_LEVEL',
+  'LANDSLIDE',
+  'ROAD_BLOCKAGE',
+  'WILDFIRE',
+  'STRONG_WINDS',
+  'OTHER',
 ] as const;
 export type HazardType = (typeof HAZARD_TYPES)[number];
 
 export const HAZARD_TYPE_LABELS: Record<HazardType, string> = {
-  FLOOD: "Flood",
-  RISING_RIVER_LEVEL: "Rising River Level",
-  LANDSLIDE: "Landslide",
-  ROAD_BLOCKAGE: "Road Blockage",
-  WILDFIRE: "Wildfire",
-  STRONG_WINDS: "Strong Winds",
-  OTHER: "Other",
+  FLOOD: 'Flood',
+  RISING_RIVER_LEVEL: 'Rising River Level',
+  LANDSLIDE: 'Landslide',
+  ROAD_BLOCKAGE: 'Road Blockage',
+  WILDFIRE: 'Wildfire',
+  STRONG_WINDS: 'Strong Winds',
+  OTHER: 'Other',
 };
 
 // PENDING_SYNC exists only on the device (offline queue); the server never stores it.
 export const REPORT_STATUSES = [
-  "PENDING_SYNC",
-  "PENDING_VERIFICATION",
-  "VERIFIED",
-  "REJECTED",
+  'PENDING_SYNC',
+  'PENDING_VERIFICATION',
+  'VERIFIED',
+  'REJECTED',
 ] as const;
 export type ReportStatus = (typeof REPORT_STATUSES)[number];
 
 export const REPORT_STATUS_LABELS: Record<ReportStatus, string> = {
-  PENDING_SYNC: "Pending Synchronization",
-  PENDING_VERIFICATION: "Pending Verification",
-  VERIFIED: "Verified",
-  REJECTED: "Rejected",
+  PENDING_SYNC: 'Pending Synchronization',
+  PENDING_VERIFICATION: 'Pending Verification',
+  VERIFIED: 'Verified',
+  REJECTED: 'Rejected',
 };
 
 export const REJECTION_REASONS = [
-  "DUPLICATE",
-  "INSUFFICIENT_INFORMATION",
-  "UNVERIFIABLE",
-  "OUT_OF_AREA",
-  "OTHER",
+  'DUPLICATE',
+  'INSUFFICIENT_INFORMATION',
+  'UNVERIFIABLE',
+  'OUT_OF_AREA',
+  'OTHER',
 ] as const;
 export type RejectionReason = (typeof REJECTION_REASONS)[number];
 
 export const REJECTION_REASON_LABELS: Record<RejectionReason, string> = {
-  DUPLICATE: "Duplicate of an existing report",
-  INSUFFICIENT_INFORMATION: "Insufficient information",
-  UNVERIFIABLE: "Could not be verified",
-  OUT_OF_AREA: "Outside the monitored area",
-  OTHER: "Other",
+  DUPLICATE: 'Duplicate of an existing report',
+  INSUFFICIENT_INFORMATION: 'Insufficient information',
+  UNVERIFIABLE: 'Could not be verified',
+  OUT_OF_AREA: 'Outside the monitored area',
+  OTHER: 'Other',
 };
 
 export const HAZARD_REPORT_LIMITS = {
@@ -58,7 +58,7 @@ export const HAZARD_REPORT_LIMITS = {
   notesMax: 500,
   photosMax: 5,
   photoMaxBytes: 5 * 1024 * 1024,
-  photoMimeTypes: ["image/jpeg", "image/png", "image/webp"],
+  photoMimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
   pageSizeMax: 50,
 } as const;
 
@@ -94,7 +94,7 @@ export interface HazardReportDto {
   description: string;
   location: GeoLocation;
   photos: HazardPhoto[];
-  status: Exclude<ReportStatus, "PENDING_SYNC">;
+  status: Exclude<ReportStatus, 'PENDING_SYNC'>;
   decision?: HazardReportDecision;
   createdAt: string;
   updatedAt: string;
@@ -122,10 +122,10 @@ export interface RejectReportInput {
   notes?: string;
 }
 
-export type ReportSort = "newest" | "oldest";
+export type ReportSort = 'newest' | 'oldest';
 
 export interface ListReportsQuery {
-  status?: Exclude<ReportStatus, "PENDING_SYNC">;
+  status?: Exclude<ReportStatus, 'PENDING_SYNC'>;
   type?: HazardType;
   sort?: ReportSort;
   page?: number;
@@ -146,7 +146,7 @@ export interface ReportStats {
   total: number;
 }
 
-export type NotificationKind = "REPORT_VERIFIED" | "REPORT_REJECTED";
+export type NotificationKind = 'REPORT_VERIFIED' | 'REPORT_REJECTED';
 
 export interface NotificationDto {
   id: string;
