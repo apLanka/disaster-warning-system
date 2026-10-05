@@ -26,6 +26,8 @@ export function configureApp(app: INestApplication): void {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
+      // One clear message per field instead of every rule it broke.
+      stopAtFirstError: true,
     }),
   );
   app.useGlobalFilters(new HttpExceptionFilter());

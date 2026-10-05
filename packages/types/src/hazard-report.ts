@@ -77,7 +77,9 @@ export interface HazardPhoto {
 
 export interface HazardReportDecision {
   decidedAt: string;
-  decidedBy: string;
+  /** Officer-facing only: omitted from what a reporter sees. */
+  decidedBy?: string;
+  /** Officer-facing only: omitted from what a reporter sees. */
   officerNotes?: string;
   rejectionReason?: RejectionReason;
   rejectionDetails?: string;

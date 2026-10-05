@@ -1,5 +1,8 @@
 import type { HazardReportEntity } from './hazard-report.entity.js';
-import { toHazardReportDto } from './hazard-report.mapper.js';
+import {
+  toHazardReportDto,
+  toReporterReportDto,
+} from './hazard-report.mapper.js';
 
 const base: HazardReportEntity = {
   id: '665f1f77bcf86cd799439011',
@@ -72,5 +75,48 @@ describe('toHazardReportDto', () => {
     expect(dto.photos).toEqual([photo]);
     expect(dto.reporterName).toBe('Nimal Perera');
     expect(dto.reporterContact).toBe('+94 77 123 4567');
+  });
+});
+
+describe('toReporterReportDto', () => {
+  const rejected: HazardReportEntity = {
+    ...base,
+    status: 'REJECTED',
+    decision: {
+      decidedAt: new Date('2026-10-05T07:00:00.000Z'),
+      decidedBy: 'Officer Silva',
+      officerNotes: 'Looks like a duplicate of HR-2026-0003',
+      rejectionReason: 'DUPLICATE',
+      rejectionDetails: 'Already reported by a neighbour',
+    },
+  };
+
+  it('keeps the outcome and the reason given to the reporter', () => {
+    expect(toReporterReportDto(rejected).decision).toEqual({
+      decidedAt: '2026-10-05T07:00:00.000Z',
+      rejectionReason: 'DUPLICATE',
+      rejectionDetails: 'Already reported by a neighbour',
+    });
+  });
+
+  it('hides the officer name and internal notes', () => {
+    const decision = toReporterReportDto(rejected).decision;
+
+    expect(decision).not.toHaveProperty('officerNotes');
+    expect(decision).not.toHaveProperty('decidedBy');
+    expect(JSON.stringify(toReporterReportDto(rejected))).not.toContain(
+      'Silva',
+    );
+  });
+
+  it('shows the officer everything', () => {
+    expect(toHazardReportDto(rejected).decision).toMatchObject({
+      decidedBy: 'Officer Silva',
+      officerNotes: 'Looks like a duplicate of HR-2026-0003',
+    });
+  });
+
+  it('is unchanged while a report is still pending', () => {
+    expect(toReporterReportDto(base)).toEqual(toHazardReportDto(base));
   });
 });
