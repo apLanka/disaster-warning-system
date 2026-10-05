@@ -81,19 +81,19 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T4 Submit Use Case (`apps/api`)
 
-- [ ] **T4.1** Create `dto/create-hazard-report.dto.ts` with `class-validator` rules: `type` in enum, `description` 10-1000 characters trimmed, `latitude` -90..90, `longitude` -180..180, `clientRequestId` UUID. Use `@Type(() => Number)` for multipart numbers. → Verify: DTO unit test for each rule.
-- [ ] **T4.2** Create `storage/photo-storage.ts` (interface and `PHOTO_STORAGE` token): `upload(file): Promise<HazardPhoto>`, `remove(publicId): Promise<void>`. → Verify: compiles.
-- [ ] **T4.3** Implement `storage/cloudinary-photo-storage.ts` using `cloudinary.config` from config, `uploader.upload_stream` into `hazard-reports/`, and `uploader.destroy`. Map the result to `HazardPhoto`. → Verify: unit tests with the SDK mocked: success, SDK error surfaces as `BadGatewayException`, remove delegates to `destroy`.
-- [ ] **T4.4** Create `storage/photo-upload.pipe.ts` (or file filter): allow jpeg, png, webp, max 5 files, 5 MB each, and configure multer memory storage in the controller via `FilesInterceptor('photos', 5, options)`. → Verify: test for wrong type (415), too large (413), too many (400).
-- [ ] **T4.5** Implement `HazardReportService.submit(reporterId, dto, files)`:
+- [x] **T4.1** Create `dto/create-hazard-report.dto.ts` with `class-validator` rules: `type` in enum, `description` 10-1000 characters trimmed, `latitude` -90..90, `longitude` -180..180, `clientRequestId` UUID. Use `@Type(() => Number)` for multipart numbers. → Verify: DTO unit test for each rule.
+- [x] **T4.2** Create `storage/photo-storage.ts` (interface and `PHOTO_STORAGE` token): `upload(file): Promise<HazardPhoto>`, `remove(publicId): Promise<void>`. → Verify: compiles.
+- [x] **T4.3** Implement `storage/cloudinary-photo-storage.ts` using `cloudinary.config` from config, `uploader.upload_stream` into `hazard-reports/`, and `uploader.destroy`. Map the result to `HazardPhoto`. → Verify: unit tests with the SDK mocked: success, SDK error surfaces as `BadGatewayException`, remove delegates to `destroy`.
+- [x] **T4.4** Create `storage/photo-upload.pipe.ts` (or file filter): allow jpeg, png, webp, max 5 files, 5 MB each, and configure multer memory storage in the controller via `FilesInterceptor('photos', 5, options)`. → Verify: test for wrong type (415), too large (413), too many (400).
+- [x] **T4.5** Implement `HazardReportService.submit(reporterId, dto, files)`:
   1. Return the existing report if `clientRequestId` already exists (no upload).
   2. Upload photos.
   3. Create the report as `PENDING_VERIFICATION`.
   4. If create fails, remove the uploaded photos, then rethrow.
   → Verify: compiles.
-- [ ] **T4.6** Add `ReporterIdGuard` or decorator that reads `x-reporter-id` (UUID, 400 if missing). Add `HazardReportsController` with `POST /hazard-reports` and `GET /hazard-reports/mine`. Register `HazardReportsModule` (providers wired by token) and add Swagger decorators. → Verify: `curl -F` submit works against `dws_dev` and the image shows in Cloudinary.
-- [ ] **T4.7** Write service and controller tests (all mocked): valid submit, missing field, bad coordinates, wrong type, oversize, replayed id (same report, uploader not called), upload failure (no create), create failure after upload (photos removed), missing reporter header. → Verify: `bun run test` green.
-- [ ] **T4.8** Commit `feat(api): add submit hazard report endpoint with cloudinary photos`.
+- [x] **T4.6** Add `ReporterIdGuard` or decorator that reads `x-reporter-id` (UUID, 400 if missing). Add `HazardReportsController` with `POST /hazard-reports` and `GET /hazard-reports/mine`. Register `HazardReportsModule` (providers wired by token) and add Swagger decorators. → Verify: `curl -F` submit works against `dws_dev` and the image shows in Cloudinary.
+- [x] **T4.7** Write service and controller tests (all mocked): valid submit, missing field, bad coordinates, wrong type, oversize, replayed id (same report, uploader not called), upload failure (no create), create failure after upload (photos removed), missing reporter header. → Verify: `bun run test` green.
+- [x] **T4.8** Commit `feat(api): add submit hazard report endpoint with cloudinary photos`.
 
 ## T5 Verify and Reject Use Cases (`apps/api`)
 
