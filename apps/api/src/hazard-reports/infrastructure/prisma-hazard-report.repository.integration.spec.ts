@@ -1,19 +1,10 @@
-import type { ConfigService } from '@nestjs/config';
-
-import type { Env } from '../../config/env.js';
-import { PrismaService } from '../../prisma/prisma.service.js';
+import {
+  canRunIntegration,
+  createTestPrisma,
+} from '../../testing/integration.js';
+import type { PrismaService } from '../../prisma/prisma.service.js';
 import type { NewHazardReport } from '../hazard-report.repository.js';
 import { PrismaHazardReportRepository } from './prisma-hazard-report.repository.js';
-
-try {
-  process.loadEnvFile('.env');
-} catch {
-  // No .env file: the suite below skips itself.
-}
-
-const testUrl = process.env['DATABASE_URL_TEST'];
-// deleteMany below wipes collections, so never run against anything but a test database.
-const looksLikeTestDatabase = /\/[^/?]*test[^/?]*(\?|$)/i.test(testUrl ?? '');
 
 function newReport(n: number, overrides: Partial<NewHazardReport> = {}) {
   return {
@@ -27,18 +18,14 @@ function newReport(n: number, overrides: Partial<NewHazardReport> = {}) {
   } satisfies NewHazardReport;
 }
 
-describe.skipIf(!testUrl || !looksLikeTestDatabase)(
+describe.skipIf(!canRunIntegration)(
   'PrismaHazardReportRepository (integration, dws_test)',
   () => {
     let prisma: PrismaService;
     let repository: PrismaHazardReportRepository;
 
     beforeAll(async () => {
-      const config = { get: () => testUrl } as unknown as ConfigService<
-        Env,
-        true
-      >;
-      prisma = new PrismaService(config);
+      prisma = createTestPrisma();
       await prisma.onModuleInit();
       repository = new PrismaHazardReportRepository(prisma);
     });
