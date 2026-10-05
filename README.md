@@ -1,6 +1,6 @@
 # Disaster Warning System
 
-A pnpm + Turborepo workspace holding three applications and one shared contract
+A bun + Turborepo workspace holding three applications and one shared contract
 package.
 
 | Package | What it is | Dev port |
@@ -12,11 +12,11 @@ package.
 
 ## Setup
 
-Requires Node `>=22.13.0` and pnpm `12.6.0`.
+Requires Node `>=22.13.0` and bun `1.2.20` or later version.
 
 ```sh
-corepack enable          # or: npm i -g pnpm@12.6.0
-pnpm install             # always from the repo root; one lockfile for the workspace
+corepack enable          # or: npm i -g bun@1.2.20
+bun install             # always from the repo root; one lockfile for the workspace
 ```
 
 ## Commands
@@ -24,19 +24,19 @@ pnpm install             # always from the repo root; one lockfile for the works
 Run from the root; turbo fans out across the workspace.
 
 ```sh
-pnpm dev            # all three dev servers
-pnpm build          # production builds
-pnpm test           # web + api (vitest) and mobile (jest)
-pnpm check-types    # tsc across every package
-pnpm lint           # oxlint across every package
+bun run dev            # all three dev servers
+bun run build          # production builds
+bun run test           # web + api (vitest) and mobile (jest)
+bun run check-types    # tsc across every package
+bun lint           # oxlint across every package
 ```
 
 To run one app:
 
 ```sh
-pnpm --filter web dev
-pnpm --filter api dev
-pnpm --filter mobile dev
+bun run --filter web dev
+bun run --filter api dev
+bun run --filter mobile dev
 ```
 
 ## Environment
