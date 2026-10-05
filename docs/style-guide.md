@@ -278,6 +278,11 @@ These match what the repo already enforces. Run `bun run lint`, `bun run check-t
 - Branch from `dev/<name>`. Keep each commit small and focused.
 - Conventional commits, as in the existing history: `feat(api): ...`, `fix(web): ...`, `chore: ...`, `test(mobile): ...`, `docs: ...`. Scope is `api`, `web`, `mobile`, or `types`.
 - Do not commit `.env`, credentials, `node_modules`, or build output.
+- Git hooks (husky) run automatically after `bun install`:
+  - **pre-commit:** prettier formats the staged files, then lint runs on every workspace. Lint warnings fail the commit.
+  - **pre-push:** `format:check`, lint, and type-check across all workspaces. Tests are not part of the hook, so run `bun run test` yourself.
+  - Never bypass them with `--no-verify`. Fix the cause instead.
+- Prettier config lives once at the repo root (`.prettierrc`). Do not add per-package configs. The `docs/` folder is excluded.
 - Changing a shared token, shared type, or shared component? Say so in the commit message and tell the group, since it affects every use case.
 
 ## 13. Checklist Before You Open a PR

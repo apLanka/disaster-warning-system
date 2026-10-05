@@ -1,6 +1,6 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom';
 
-import { HealthStatus } from './components/HealthStatus'
+import { HealthStatus } from './components/HealthStatus';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         </Routes>
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

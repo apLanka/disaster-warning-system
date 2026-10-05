@@ -27,7 +27,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "oxlint",
+    "lint": "oxlint --deny-warnings",
     "check-types": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch"

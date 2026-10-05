@@ -35,11 +35,7 @@ export function HealthStatus() {
   }
 
   return (
-    <p
-      className={
-        health.status === 'ok' ? 'text-green-700' : 'text-amber-700'
-      }
-    >
+    <p className={health.status === 'ok' ? 'text-green-700' : 'text-amber-700'}>
       {health.service}: {health.status}
     </p>
   );

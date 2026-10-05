@@ -1,4 +1,5 @@
-// Models are added in T3. MongoDB support requires Prisma 6.x (pinned in package.json).
+// MongoDB support requires Prisma 6.x (pinned in package.json).
+// Server-side statuses only: PENDING_SYNC exists on the device and is never stored.
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,4 +7,95 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+enum HazardType {
+  FLOOD
+  RISING_RIVER_LEVEL
+  LANDSLIDE
+  ROAD_BLOCKAGE
+  WILDFIRE
+  STRONG_WINDS
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
+}
+
+enum RejectionReason {
+  DUPLICATE
+  INSUFFICIENT_INFORMATION
+  UNVERIFIABLE
+  OUT_OF_AREA
+  OTHER
+}
+
+enum NotificationKind {
+  REPORT_VERIFIED
+  REPORT_REJECTED
+}
+
+type GeoLocation {
+  latitude  Float
+  longitude Float
+}
+
+type HazardPhoto {
+  publicId  String
+  secureUrl String
+  width     Int
+  height    Int
+  bytes     Int
+}
+
+model HazardReport {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  reference        String           @unique
+  reporterId       String
+  clientRequestId  String           @unique
+  reporterName     String?
+  reporterContact  String?
+  type             HazardType
+  description      String
+  location         GeoLocation
+  photos           HazardPhoto[]
+  status           ReportStatus     @default(PENDING_VERIFICATION)
+  decidedAt        DateTime?
+  decidedBy        String?
+  officerNotes     String?
+  rejectionReason  RejectionReason?
+  rejectionDetails String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@index([reporterId, createdAt])
+  @@index([status, createdAt])
+  @@map("hazard_reports")
+}
+
+// Notifications point at a report by id; MongoDB does not enforce the reference.
+model Notification {
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
+  reporterId String
+  reportId   String           @db.ObjectId
+  kind       NotificationKind
+  title      String
+  message    String
+  readAt     DateTime?
+  createdAt  DateTime         @default(now())
+
+  @@index([reporterId, createdAt])
+  @@index([reporterId, readAt])
+  @@map("notifications")
+}
+
+// One row per year, used to hand out readable references such as HR-2026-0042.
+model Counter {
+  id  String @id @map("_id")
+  seq Int
+
+  @@map("counters")
 }
