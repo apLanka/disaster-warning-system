@@ -3,7 +3,11 @@ import {
   RequestMethod,
   ValidationPipe,
 } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {
+  DocumentBuilder,
+  SwaggerModule,
+  type OpenAPIObject,
+} from '@nestjs/swagger';
 
 import { API_HEALTH_PATH } from '@repo/types';
 
@@ -33,7 +37,7 @@ export function configureApp(app: INestApplication): void {
   app.useGlobalFilters(new HttpExceptionFilter());
 }
 
-export function setupSwagger(app: INestApplication): void {
+export function createApiDocument(app: INestApplication): OpenAPIObject {
   const config = new DocumentBuilder()
     .setTitle('Disaster Warning System API')
     .setDescription('Hazard reporting and verification')
@@ -47,9 +51,9 @@ export function setupSwagger(app: INestApplication): void {
       'reporter-id',
     )
     .build();
-  SwaggerModule.setup(
-    `${API_PREFIX}/docs`,
-    app,
-    SwaggerModule.createDocument(app, config),
-  );
+  return SwaggerModule.createDocument(app, config);
+}
+
+export function setupSwagger(app: INestApplication): void {
+  SwaggerModule.setup(`${API_PREFIX}/docs`, app, createApiDocument(app));
 }
