@@ -107,11 +107,11 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T6 Notifications (`apps/api`)
 
-- [ ] **T6.1** Create `notifications/notification.repository.ts` (interface and token) and `PrismaNotificationRepository`: `create`, `listByReporter(reporterId, { unreadOnly })`, `markRead(id, reporterId)`. → Verify: mocked-Prisma unit tests.
-- [ ] **T6.2** Implement `NotificationService.notifyDecision(report, decision)` building the message: verified ("Your hazard report has been verified by the Disaster Management Centre.") and rejected (includes the reason label). Copy follows SG section 9. → Verify: unit tests for both messages.
-- [ ] **T6.3** Add `NotificationsController`: `GET /notifications` and `PATCH /notifications/:id/read`, reporter-scoped via `x-reporter-id`. → Verify: `curl` returns the notification after a decision.
-- [ ] **T6.4** Tests: create on verify, create on reject with reason, list only own, mark read (404 for another reporter's), idempotent read. → Verify: green.
-- [ ] **T6.5** Commit `feat(api): add decision notifications`.
+- [x] **T6.1** Create `notifications/notification.repository.ts` (interface and token) and `PrismaNotificationRepository`: `create`, `listByReporter(reporterId, { unreadOnly })`, `markRead(id, reporterId)`. → Verify: mocked-Prisma unit tests.
+- [x] **T6.2** Implement `NotificationService.notifyDecision(report, decision)` building the message: verified ("Your hazard report has been verified by the Disaster Management Centre.") and rejected (includes the reason label). Copy follows SG section 9. → Verify: unit tests for both messages.
+- [x] **T6.3** Add `NotificationsController`: `GET /notifications` and `PATCH /notifications/:id/read`, reporter-scoped via `x-reporter-id`. → Verify: `curl` returns the notification after a decision.
+- [x] **T6.4** Tests: create on verify, create on reject with reason, list only own, mark read (404 for another reporter's), idempotent read. → Verify: green.
+- [x] **T6.5** Commit `feat(api): add decision notifications`.
 
 ## T7 API Verification Gate
 
