@@ -67,17 +67,17 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T3 Data Layer (`apps/api`)
 
-- [ ] **T3.1** Write the Prisma models in `prisma/schema.prisma`:
+- [x] **T3.1** Write the Prisma models in `prisma/schema.prisma`:
   - `HazardReport` with `@id @default(auto()) @map("_id") @db.ObjectId`, `reporterId`, `clientRequestId @unique`, `type`, `description`, `status`, embedded `location` (composite type) and `photos` (composite type list), decision fields (`decidedAt`, `decidedBy`, `officerNotes`, `rejectionReason`, `rejectionDetails`), timestamps.
   - `Notification` with `reporterId`, `reportId`, `kind`, `title`, `message`, `readAt`, `createdAt`.
   - Indexes: `@@index([reporterId, createdAt])`, `@@index([status, createdAt])`, `@@index([reporterId, readAt])`.
   → Verify: `bunx prisma validate`.
-- [ ] **T3.2** Run `bunx prisma generate` and `bunx prisma db push` against `dws_dev`. → Verify: collections and the unique index appear in Atlas.
-- [ ] **T3.3** Create `src/hazard-reports/domain/hazard-report.entity.ts` (plain state, no logic beyond a mapper to `HazardReportDto`) and `hazard-report.repository.ts` (interface plus `HAZARD_REPORT_REPOSITORY` token): `create`, `findById`, `findByClientRequestId`, `findByReporter`, `list(query)`, `stats(now)`, `decide(id, decision)`. → Verify: compiles.
-- [ ] **T3.4** Implement `PrismaHazardReportRepository`. `create` catches `P2002` on `clientRequestId` and returns the existing record. `decide` uses `updateMany({ where: { id, status: 'PENDING_VERIFICATION' } })` and returns `'DECIDED' | 'ALREADY_DECIDED' | 'NOT_FOUND'`. `list` supports status, type, sort (`oldest`/`newest`), page, and limit (max 50). → Verify: compiles and the mapper is covered in T3.5.
-- [ ] **T3.5** Write unit tests with a mocked `PrismaService` for: create, duplicate `clientRequestId` returns existing, findById null, list filter and pagination, stats counts, `decide` for all three outcomes. → Verify: `bun run test` green.
-- [ ] **T3.6** Write one integration test against `dws_test` (separate `DATABASE_URL_TEST`) covering the unique constraint and two concurrent `decide` calls (exactly one wins). Skip the test when `DATABASE_URL_TEST` is unset. → Verify: passes locally.
-- [ ] **T3.7** Commit `feat(api): add hazard report schema and repository`.
+- [x] **T3.2** Run `bunx prisma generate` and `bunx prisma db push` against `dws_dev`. → Verify: collections and the unique index appear in Atlas.
+- [x] **T3.3** Create `src/hazard-reports/domain/hazard-report.entity.ts` (plain state, no logic beyond a mapper to `HazardReportDto`) and `hazard-report.repository.ts` (interface plus `HAZARD_REPORT_REPOSITORY` token): `create`, `findById`, `findByClientRequestId`, `findByReporter`, `list(query)`, `stats(now)`, `decide(id, decision)`. → Verify: compiles.
+- [x] **T3.4** Implement `PrismaHazardReportRepository`. `create` catches `P2002` on `clientRequestId` and returns the existing record. `decide` uses `updateMany({ where: { id, status: 'PENDING_VERIFICATION' } })` and returns `'DECIDED' | 'ALREADY_DECIDED' | 'NOT_FOUND'`. `list` supports status, type, sort (`oldest`/`newest`), page, and limit (max 50). → Verify: compiles and the mapper is covered in T3.5.
+- [x] **T3.5** Write unit tests with a mocked `PrismaService` for: create, duplicate `clientRequestId` returns existing, findById null, list filter and pagination, stats counts, `decide` for all three outcomes. → Verify: `bun run test` green.
+- [x] **T3.6** Write one integration test against `dws_test` (separate `DATABASE_URL_TEST`) covering the unique constraint and two concurrent `decide` calls (exactly one wins). Skip the test when `DATABASE_URL_TEST` is unset. → Verify: passes locally.
+- [x] **T3.7** Commit `feat(api): add hazard report schema and repository`.
 
 ## T4 Submit Use Case (`apps/api`)
 
