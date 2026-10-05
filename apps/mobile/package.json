@@ -10,6 +10,7 @@
     "react-native": "0.86.3"
   },
   "devDependencies": {
+    "@babel/runtime": "^8.0.5",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^14.0.1",
     "@types/jest": "^30.0.0",
