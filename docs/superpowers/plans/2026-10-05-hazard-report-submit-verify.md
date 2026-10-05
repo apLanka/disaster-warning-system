@@ -59,14 +59,16 @@ Photo evidence is returned as Cloudinary `secureUrl` values inside the report pa
 
 ## UI Style Guide (Follow the Report's Hi-Fi Wireframes)
 
-Both UIs must reuse the visual language of the hi-fi wireframes in the report (pp. 38-41), so the screens read as one product. Define these once as tokens (Tailwind theme in `apps/web/src/index.css`, a `theme.ts` in `apps/mobile/src`) and never hard-code colors in components.
+The full, shared style guide is [`docs/style-guide.md`](../../style-guide.md). It is the source of truth for colors, typography, components, states, accessibility, and code conventions, and every group member follows it. The summary below is only a reminder.
 
-| Token | Value (sampled from the wireframes, confirm against the PDF) | Use |
+Both UIs must reuse the visual language of the hi-fi wireframes in the report (pp. 38-41), so the screens read as one product. Define the tokens once (Tailwind `@theme` in `apps/web/src/index.css`, a `theme.ts` in `apps/mobile/src`, as shown in style guide section 8) and never hard-code colors in components. The sampled values in the style guide replace the approximate ones in the table below.
+
+| Token | Value (sampled from the PDF) | Use |
 |---|---|---|
-| `navy` | deep navy (about `#14305a`) | App bars, portal sidebar, "Go to Home" and "View Report" buttons |
-| `orange` | orange (about `#e8821e`) | Primary call to action: Report a Hazard, Review report, Submit Report, Refresh, "View" links |
-| `success` | green | Verify button, Verified state, Safe status |
-| `danger` | red | Reject button, Rejected state, Critical |
+| `navy` | `#17324d` | App bars, portal sidebar, "Go to Home" and "View Report" buttons |
+| `orange` | `#e67e22` | Primary call to action: Report a Hazard, Review report, Submit Report, Refresh, "View" links |
+| `success` | `#2e8b57` | Verify button, Verified state, Safe status |
+| `danger` | `#c1392b` | Reject button, Rejected state, Critical |
 | `warning` | amber and pale-yellow banners | Pending Verification badge, review banner, emergency-number banner |
 | `surface` | white cards on light gray page background | Cards with a thin border and rounded corners |
 
