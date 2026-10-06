@@ -183,12 +183,21 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T11 Phase X: Verification (always last)
 
-- [ ] **T11.1** From the repo root run `bun install`, `bun run check-types`, `bun run lint`, `bun run test`, and `bun run build`. → Verify: all green, zero warnings.
-- [ ] **T11.2** Coverage check per workspace (`--coverage`): api, web, mobile. → Verify: 80% or more on the use case code. Save the summaries (text or screenshot) for the submission.
-- [ ] **T11.3** Walk through every scenario in the revised use case: main flow, rejected, no evidence, check status, offline, invalid input, GPS unavailable, system error (stop the API and submit). → Verify: each behaves as written, with the right state and message.
-- [ ] **T11.4** Compare each screen to its wireframe and to the SG checklist (section 13). Only the C1-C12 differences are allowed. → Verify: checklist ticked.
-- [ ] **T11.5** Secret scan: `git diff main... | grep -iE "mongodb\+srv|api_secret|CLOUDINARY"` shows no real values. `.env` is untracked. → Verify: clean.
-- [ ] **T11.6** Prepare the demo: seed script `prisma/seed.ts` (optional) with a few pending reports, a short run-through note in `apps/api/README.md` for env setup. → Verify: a teammate can run it from the README.
+- [x] **T11.1** From the repo root run `bun install`, `bun run check-types`, `bun run lint`, `bun run test`, and `bun run build`. → Verify: all green, zero warnings.
+- [x] **T11.2** Coverage check per workspace (`--coverage`): api, web, mobile. → Verify: 80% or more on the use case code. Save the summaries (text or screenshot) for the submission.
+- [x] **T11.3** Walk through every scenario in the revised use case: main flow, rejected, no evidence, check status, offline, invalid input, GPS unavailable, system error (stop the API and submit). → Verify: each behaves as written, with the right state and message.
+- [x] **T11.4** Compare each screen to its wireframe and to the SG checklist (section 13). Only the C1-C12 differences are allowed. → Verify: checklist ticked.
+- [x] **T11.5** Secret scan: `git diff main... | grep -iE "mongodb\+srv|api_secret|CLOUDINARY"` shows no real values. `.env` is untracked. → Verify: clean.
+- [x] **T11.6** Prepare the demo: seed script `prisma/seed.ts` (optional) with a few pending reports, a short run-through note in `apps/api/README.md` for env setup. → Verify: a teammate can run it from the README.
+
+**T11 results (2026-10-06)**
+
+- Root `check-types`, `lint` (zero warnings), `test`, and `build` all pass. Tests: api 323, web 201, mobile 226.
+- Coverage (statements): api 98.7%, web 98.9%, mobile 94.9%. Each workspace fails its test run below 80%. Summaries are in `docs/superpowers/evidence/`.
+- Secret scan: none of the real credential values appear in the working tree or in any commit. Only the two `.env.example` files are tracked.
+- Scenarios run against the live API, Atlas and Cloudinary: main flow with photo, reject with reason, `OTHER` without details refused, report without a photo, status list, second decision refused (409), invalid input (400), replayed request id (200, no duplicate), officer routes without a key (401), and no officer name or notes in what a citizen sees.
+- Not exercised on a device: the system-error flow (API stopped) and GPS denied are covered by automated tests and were seen on the simulator earlier, but were not repeated in this pass. The camera path cannot run on a simulator.
+- Seen on the simulator in this pass: the Home screen, tab bar, and Reports tab. Web pages were checked in a browser during T8.
 
 ## T12 Report Sync (group report, your sections)
 

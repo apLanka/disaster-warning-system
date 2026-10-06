@@ -28,3 +28,12 @@ beforeEach(async () => {
   const storage = require('@react-native-async-storage/async-storage');
   await (storage.default ?? storage).clear();
 });
+
+// The client warns about failed requests in development. Tests fail requests on
+// purpose, so that expected line is hidden; every other warning still shows.
+const realWarn = console.warn;
+beforeEach(() => {
+  jest.spyOn(console, 'warn').mockImplementation((...args) => {
+    if (args[0] !== 'Request failed:') realWarn(...args);
+  });
+});

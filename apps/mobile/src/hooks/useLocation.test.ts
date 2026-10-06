@@ -141,7 +141,7 @@ describe('useLocation', () => {
       expect(location.getCurrentPositionAsync).toHaveBeenCalled(),
     );
 
-    unmount();
+    await unmount();
     await act(async () => arrive(POSITION));
 
     expect(result.current.location).toBeNull();
