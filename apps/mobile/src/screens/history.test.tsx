@@ -388,7 +388,7 @@ describe('notification bell', () => {
     expect(screen.getByText('2')).toBeOnTheScreen();
   });
 
-  it("opens the citizen's reports when pressed", async () => {
+  it('opens the Alerts tab when pressed', async () => {
     await renderApp();
 
     await fireEvent.press(
@@ -396,7 +396,7 @@ describe('notification bell', () => {
     );
 
     expect(
-      await screen.findByText('You have not reported anything yet'),
+      await screen.findByText('This section is coming soon.'),
     ).toBeOnTheScreen();
   });
 });
