@@ -90,12 +90,12 @@ describe('citizen submit flow', () => {
   });
 
   describe('home', () => {
-    it('has the wireframe tab bar: Home, Tasks, Alerts, Profile', async () => {
+    it('has the wireframe tab bar: Home, Reports, Alerts, Profile', async () => {
       await renderApp();
 
       for (const [index, name] of [
         'Home',
-        'Tasks',
+        'Reports',
         'Alerts',
         'Profile',
       ].entries()) {

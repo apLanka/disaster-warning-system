@@ -84,7 +84,7 @@ function note(overrides: Partial<NotificationDto> = {}): NotificationDto {
 
 async function openMyReports(queue?: ReportQueue) {
   await renderApp(queue);
-  await fireEvent.press(await screen.findByLabelText(/^Tasks, tab/));
+  await fireEvent.press(await screen.findByLabelText(/^Reports, tab/));
 }
 
 describe('report history', () => {
@@ -263,7 +263,7 @@ describe('report history', () => {
 
     it('shows nothing extra when there is nothing new', async () => {
       await renderApp();
-      await screen.findByLabelText(/^Tasks, tab/);
+      await screen.findByLabelText(/^Reports, tab/);
 
       expect(
         screen.queryByRole('button', { name: 'View result' }),
@@ -348,7 +348,7 @@ describe('report history', () => {
     it('does not crash Home when the notification check fails or returns nonsense', async () => {
       unread.mockRejectedValueOnce(new NetworkError());
       await renderApp();
-      expect(await screen.findByLabelText(/^Tasks, tab/)).toBeOnTheScreen();
+      expect(await screen.findByLabelText(/^Reports, tab/)).toBeOnTheScreen();
 
       unread.mockResolvedValue(undefined as never);
       await fireEvent.press(

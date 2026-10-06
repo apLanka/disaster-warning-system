@@ -21,7 +21,7 @@ import { formatRelativeTime } from '../lib/time';
 import type { TabScreenProps } from '../navigation/types';
 import { colors, spacing, typography } from '../theme';
 
-export function MyReportsScreen({ navigation }: TabScreenProps<'Tasks'>) {
+export function MyReportsScreen({ navigation }: TabScreenProps<'Reports'>) {
   const { data, error, loading, reload } = useResource(
     (signal) => listMyReports(signal),
     [],

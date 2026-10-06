@@ -32,7 +32,7 @@ function BellButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       hitSlop={8}
-      onPress={() => navigation.navigate('Tasks')}
+      onPress={() => navigation.navigate('Reports')}
       style={styles.bell}
     >
       <Bell size={22} color={colors.white} />
@@ -76,11 +76,11 @@ export function MainTabs() {
         })}
       />
       <Tab.Screen
-        name="Tasks"
+        name="Reports"
         component={MyReportsScreen}
         options={{
           title: 'My Reports',
-          tabBarLabel: 'Tasks',
+          tabBarLabel: 'Reports',
           tabBarIcon: ({ color, size }) => (
             <ClipboardList size={size} color={color} />
           ),

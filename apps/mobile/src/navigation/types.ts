@@ -7,11 +7,11 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type SubmittedStatus = 'PENDING_VERIFICATION' | 'PENDING_SYNC';
 
-/** The bottom tab bar from the wireframe: Home, Tasks, Alerts, Profile. */
+/** The bottom tab bar from the wireframe: Home, Reports, Alerts, Profile. */
 export type TabParamList = {
   Home: undefined;
   /** Where a citizen follows their own reports (change C5). */
-  Tasks: undefined;
+  Reports: undefined;
   Alerts: undefined;
   Profile: undefined;
 };
