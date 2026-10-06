@@ -36,7 +36,7 @@ export function ReportSubmittedScreen({
           title="Go to Home"
           variant="secondary"
           onPress={() =>
-            navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+            navigation.reset({ index: 0, routes: [{ name: 'Main' }] })
           }
         />
       }

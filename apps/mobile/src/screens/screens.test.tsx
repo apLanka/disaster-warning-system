@@ -90,6 +90,40 @@ describe('citizen submit flow', () => {
   });
 
   describe('home', () => {
+    it('has the wireframe tab bar: Home, Tasks, Alerts, Profile', async () => {
+      await renderApp();
+
+      for (const [index, name] of [
+        'Home',
+        'Tasks',
+        'Alerts',
+        'Profile',
+      ].entries()) {
+        expect(
+          await screen.findByLabelText(`${name}, tab, ${index + 1} of 4`),
+        ).toBeOnTheScreen();
+      }
+    });
+
+    it('shows the current status card', async () => {
+      await renderApp();
+
+      expect(await screen.findByText('Current Status: Safe')).toBeOnTheScreen();
+      expect(
+        screen.getByText('No active alerts in your area'),
+      ).toBeOnTheScreen();
+    });
+
+    it('opens a coming-soon page for tabs built by other use cases', async () => {
+      await renderApp();
+
+      await fireEvent.press(await screen.findByLabelText(/^Alerts, tab/));
+
+      expect(
+        await screen.findByText('This section is coming soon.'),
+      ).toBeOnTheScreen();
+    });
+
     it('offers to report a hazard', async () => {
       await renderApp();
 

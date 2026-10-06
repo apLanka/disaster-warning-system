@@ -78,7 +78,7 @@ export function ReviewReportScreen({
     reset();
     navigation.reset({
       index: 1,
-      routes: [{ name: 'Home' }, { name: 'ReportSubmitted', params }],
+      routes: [{ name: 'Main' }, { name: 'ReportSubmitted', params }],
     });
   }
 

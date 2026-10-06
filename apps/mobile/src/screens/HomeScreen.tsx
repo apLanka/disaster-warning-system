@@ -1,4 +1,4 @@
-import { AlertTriangle, FileText, ShieldCheck } from 'lucide-react-native';
+import { AlertTriangle, ShieldCheck } from 'lucide-react-native';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Banner } from '../components/Banner';
@@ -7,7 +7,7 @@ import { HealthStatus } from '../components/HealthStatus';
 import { Screen } from '../components/Screen';
 import { useReportQueue } from '../context/ReportQueueContext';
 import { useNotifications } from '../hooks/useNotifications';
-import type { ScreenProps } from '../navigation/types';
+import type { TabScreenProps } from '../navigation/types';
 import { colors, radius, spacing, typography } from '../theme';
 
 function waitingMessage(count: number): string {
@@ -16,19 +16,17 @@ function waitingMessage(count: number): string {
     : `${count} reports are waiting to be sent. They will go automatically when you are online.`;
 }
 
-export function HomeScreen({ navigation }: ScreenProps<'Home'>) {
+export function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
   const { queued, failed, dismissFailed } = useReportQueue();
   const { unread, dismiss } = useNotifications();
 
   return (
     <Screen>
       <View style={styles.card}>
-        <ShieldCheck size={24} color={colors.navy} />
+        <ShieldCheck size={24} color={colors.success} />
         <View style={styles.cardText}>
-          <Text style={styles.cardTitle}>Stay informed</Text>
-          <Text style={styles.muted}>
-            Official alerts for your area will appear here.
-          </Text>
+          <Text style={styles.cardTitle}>Current Status: Safe</Text>
+          <Text style={styles.muted}>No active alerts in your area</Text>
         </View>
       </View>
 
@@ -36,13 +34,6 @@ export function HomeScreen({ navigation }: ScreenProps<'Home'>) {
         title="Report a Hazard"
         icon={<AlertTriangle size={20} color={colors.white} />}
         onPress={() => navigation.navigate('ReportHazard')}
-      />
-
-      <Button
-        title="My Reports"
-        variant="secondary"
-        icon={<FileText size={20} color={colors.white} />}
-        onPress={() => navigation.navigate('MyReports')}
       />
 
       {unread.map((note) => (
@@ -104,6 +95,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.success,
     borderRadius: radius.card,
     padding: spacing.lg,
   },

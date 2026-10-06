@@ -84,9 +84,7 @@ function note(overrides: Partial<NotificationDto> = {}): NotificationDto {
 
 async function openMyReports(queue?: ReportQueue) {
   await renderApp(queue);
-  await fireEvent.press(
-    await screen.findByRole('button', { name: 'My Reports' }),
-  );
+  await fireEvent.press(await screen.findByLabelText(/^Tasks, tab/));
 }
 
 describe('report history', () => {
@@ -265,7 +263,7 @@ describe('report history', () => {
 
     it('shows nothing extra when there is nothing new', async () => {
       await renderApp();
-      await screen.findByRole('button', { name: 'My Reports' });
+      await screen.findByLabelText(/^Tasks, tab/);
 
       expect(
         screen.queryByRole('button', { name: 'View result' }),
@@ -350,9 +348,7 @@ describe('report history', () => {
     it('does not crash Home when the notification check fails or returns nonsense', async () => {
       unread.mockRejectedValueOnce(new NetworkError());
       await renderApp();
-      expect(
-        await screen.findByRole('button', { name: 'My Reports' }),
-      ).toBeOnTheScreen();
+      expect(await screen.findByLabelText(/^Tasks, tab/)).toBeOnTheScreen();
 
       unread.mockResolvedValue(undefined as never);
       await fireEvent.press(
@@ -364,5 +360,43 @@ describe('report history', () => {
         ).toBeOnTheScreen(),
       );
     });
+  });
+});
+
+describe('notification bell', () => {
+  beforeEach(() => {
+    list.mockReset().mockResolvedValue([]);
+    unread.mockReset().mockResolvedValue([]);
+  });
+
+  it('says there is nothing new when there are no unread results', async () => {
+    await renderApp();
+
+    expect(
+      await screen.findByRole('button', { name: 'Notifications, none new' }),
+    ).toBeOnTheScreen();
+  });
+
+  it('shows how many unread results there are', async () => {
+    unread.mockResolvedValue([note(), note({ id: 'n2' })]);
+
+    await renderApp();
+
+    expect(
+      await screen.findByRole('button', { name: 'Notifications, 2 new' }),
+    ).toBeOnTheScreen();
+    expect(screen.getByText('2')).toBeOnTheScreen();
+  });
+
+  it("opens the citizen's reports when pressed", async () => {
+    await renderApp();
+
+    await fireEvent.press(
+      await screen.findByRole('button', { name: /^Notifications/ }),
+    );
+
+    expect(
+      await screen.findByText('You have not reported anything yet'),
+    ).toBeOnTheScreen();
   });
 });

@@ -159,6 +159,8 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 - [x] **T9.10** Run the full flow on the iOS simulator (online and offline by toggling network) against the local API. Fix any style drift from the wireframes. → Verify: the flow completes, and a record appears in Atlas with the photo in Cloudinary.
 - [x] **T9.11** Run `bun run lint` and `bun run check-types`. Commit in steps: `feat(mobile): add theme and shared components`, `feat(mobile): add report form and review`, `feat(mobile): add offline queue`.
 
+**Navigation (follows hi-fi wireframe 1):** a bottom tab bar on the main screens with Home, Tasks, Alerts and Profile. My Reports (C5) lives under Tasks, since a citizen's reports are theirs to follow. Alerts and Profile are "coming soon" placeholders owned by other use cases. The Home header has a bell with the unread-result count. Not built from the wireframe: the hamburger menu (it has no destination yet) and the Recent Alerts rows (alerts belong to the warning use case).
+
 **T9 as built: differences and findings** (worth including in the report)
 
 - The offline state is detected by **trying**, not by a connectivity probe. The phone's "internet reachable" flag checks a public website, so it reads false on a local network even when the server is fine. A send that fails (or times out after 30 s) is saved as Pending Synchronization and retried.

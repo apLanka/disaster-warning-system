@@ -18,10 +18,10 @@ import { ReportCard } from '../components/ReportCard';
 import { useReportQueue } from '../context/ReportQueueContext';
 import { useResource } from '../hooks/useResource';
 import { formatRelativeTime } from '../lib/time';
-import type { ScreenProps } from '../navigation/types';
+import type { TabScreenProps } from '../navigation/types';
 import { colors, spacing, typography } from '../theme';
 
-export function MyReportsScreen({ navigation }: ScreenProps<'MyReports'>) {
+export function MyReportsScreen({ navigation }: TabScreenProps<'Tasks'>) {
   const { data, error, loading, reload } = useResource(
     (signal) => listMyReports(signal),
     [],

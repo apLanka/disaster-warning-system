@@ -1,13 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { HomeScreen } from '../screens/HomeScreen';
-import { MyReportsScreen } from '../screens/MyReportsScreen';
 import { ReportDetailScreen } from '../screens/ReportDetailScreen';
 import { ReportResultScreen } from '../screens/ReportResultScreen';
 import { ReportHazardScreen } from '../screens/ReportHazardScreen';
 import { ReportSubmittedScreen } from '../screens/ReportSubmittedScreen';
 import { ReviewReportScreen } from '../screens/ReviewReportScreen';
 import { colors, typography } from '../theme';
+import { MainTabs } from './MainTabs';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -16,7 +15,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Main"
       screenOptions={{
         headerStyle: { backgroundColor: colors.navy },
         headerTintColor: colors.white,
@@ -25,9 +24,9 @@ export function RootNavigator() {
       }}
     >
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ title: 'Disaster Alerts' }}
+        name="Main"
+        component={MainTabs}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ReportHazard"
@@ -38,11 +37,6 @@ export function RootNavigator() {
         name="ReviewReport"
         component={ReviewReportScreen}
         options={{ title: 'Review Report' }}
-      />
-      <Stack.Screen
-        name="MyReports"
-        component={MyReportsScreen}
-        options={{ title: 'My Reports' }}
       />
       <Stack.Screen
         name="ReportDetail"
