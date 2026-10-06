@@ -123,17 +123,27 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T8 DMC Portal (`apps/web`)
 
-- [ ] **T8.1** Add the SG section 8 `@theme` tokens to `src/index.css` and load Inter. Install icons (`bun add lucide-react`) and the map (`bun add leaflet react-leaflet` plus `-d @types/leaflet`). → Verify: a test element with `bg-navy` renders with the right computed style in the dev server.
-- [ ] **T8.2** Create the API client `src/api/hazardReports.ts` (list, get, stats, verify, reject) typed from `@repo/types`. Read `VITE_API_URL` and `VITE_OFFICER_KEY`. Map non-2xx to a typed `ApiError` with the status. Accept an `AbortSignal`. → Verify: unit tests with `fetch` mocked (success, 409, network failure).
-- [ ] **T8.3** Create shared components: `StatusChip` (SG 5.3), `Button` variants (SG 5.1), `Card`, `StatCard`, `Banner`, `ConfirmDialog` (SG 5.7, focus trap, Escape cancels), `EmptyState`, `Skeleton`. → Verify: one render test each (role, label, variant class).
-- [ ] **T8.4** Create `DashboardLayout` (navy sidebar, count badge, bell, officer chip with "On duty") and `PendingReportsPage`: stat cards, table, type filter, newest/oldest sort, age highlight for reports older than 30 minutes, pagination, Refresh, and loading, empty, and error states. → Verify: matches hi-fi wireframe 6.
-- [ ] **T8.5** Create `ReviewReportPage` layout: numbered cards for Report Details, Location (Leaflet map with marker and coordinates), Photo Evidence (main image, thumbnails, "View all photos"), Officer Notes, Decision. Shows a status chip and handles 404 and already-decided states. → Verify: matches hi-fi wireframe 7.
-- [ ] **T8.6** Add the Verify action: success `Button`, call `verify`, show a success banner, return to the list, and update counts. Disable buttons while submitting. → Verify: manual click against the local API changes the status.
-- [ ] **T8.7** Add the Reject action (C10): the reason select and details field are required before the Reject button is enabled (details required for `OTHER`). Clicking Reject opens `ConfirmDialog` stating the consequence. A 409 response shows "This report was already reviewed" with a link back. → Verify: tests in T8.9.
-- [ ] **T8.8** Add routes in `App.tsx`: `/reports/pending`, `/reports/verified`, `/reports/rejected` (same list component with a status prop, C12) and `/reports/:id`. Sidebar links match. → Verify: each route renders the right title.
-- [ ] **T8.9** Write RTL tests: list render, filter and sort change the query, age highlight, pagination, reject blocked without reason, `OTHER` needs details, confirm dialog cancel and confirm, verify success, 409 message, loading, empty, and error states. → Verify: `bun run test --coverage` at least 80% on new code.
-- [ ] **T8.10** Accessibility pass (SG section 7): names on icon buttons, focus ring, dialog focus trap, keyboard-only decision flow. Run `bun run lint` and `bun run check-types`. → Verify: zero warnings.
-- [ ] **T8.11** Commit in two or three steps, such as `feat(web): add theme tokens and shared components`, `feat(web): add pending reports page`, and `feat(web): add report review and decisions`.
+- [x] **T8.1** Add the SG section 8 `@theme` tokens to `src/index.css` and load Inter. Install icons (`bun add lucide-react`) and the map (`bun add leaflet react-leaflet` plus `-d @types/leaflet`). → Verify: a test element with `bg-navy` renders with the right computed style in the dev server.
+- [x] **T8.2** Create the API client `src/api/hazardReports.ts` (list, get, stats, verify, reject) typed from `@repo/types`. Read `VITE_API_URL` and `VITE_OFFICER_KEY`. Map non-2xx to a typed `ApiError` with the status. Accept an `AbortSignal`. → Verify: unit tests with `fetch` mocked (success, 409, network failure).
+- [x] **T8.3** Create shared components: `StatusChip` (SG 5.3), `Button` variants (SG 5.1), `Card`, `StatCard`, `Banner`, `ConfirmDialog` (SG 5.7, focus trap, Escape cancels), `EmptyState`, `Skeleton`. → Verify: one render test each (role, label, variant class).
+- [x] **T8.4** Create `DashboardLayout` (navy sidebar, count badge, bell, officer chip with "On duty") and `PendingReportsPage`: stat cards, table, type filter, newest/oldest sort, age highlight for reports older than 30 minutes, pagination, Refresh, and loading, empty, and error states. → Verify: matches hi-fi wireframe 6.
+- [x] **T8.5** Create `ReviewReportPage` layout: numbered cards for Report Details, Location (Leaflet map with marker and coordinates), Photo Evidence (main image, thumbnails, "View all photos"), Officer Notes, Decision. Shows a status chip and handles 404 and already-decided states. → Verify: matches hi-fi wireframe 7.
+- [x] **T8.6** Add the Verify action: success `Button`, call `verify`, show a success banner, return to the list, and update counts. Disable buttons while submitting. → Verify: manual click against the local API changes the status.
+- [x] **T8.7** Add the Reject action (C10): the reason select and details field are required before the Reject button is enabled (details required for `OTHER`). Clicking Reject opens `ConfirmDialog` stating the consequence. A 409 response shows "This report was already reviewed" with a link back. → Verify: tests in T8.9.
+- [x] **T8.8** Add routes in `App.tsx`: `/reports/pending`, `/reports/verified`, `/reports/rejected` (same list component with a status prop, C12) and `/reports/:id`. Sidebar links match. → Verify: each route renders the right title.
+- [x] **T8.9** Write RTL tests: list render, filter and sort change the query, age highlight, pagination, reject blocked without reason, `OTHER` needs details, confirm dialog cancel and confirm, verify success, 409 message, loading, empty, and error states. → Verify: `bun run test --coverage` at least 80% on new code.
+- [x] **T8.10** Accessibility pass (SG section 7): names on icon buttons, focus ring, dialog focus trap, keyboard-only decision flow. Run `bun run lint` and `bun run check-types`. → Verify: zero warnings.
+- [x] **T8.11** Commit in two or three steps, such as `feat(web): add theme tokens and shared components`, `feat(web): add pending reports page`, and `feat(web): add report review and decisions`.
+
+**T8 as built: deliberate differences from the wireframes** (each is justified and belongs in the report's design notes)
+
+- The fourth stat card is **Rejected**, not "Active Alerts". Active alerts belong to the warning use case, and the API counts rejected reports.
+- The table shows **coordinates**, not a district name. Reports store a map position and the system has no reverse geocoding.
+- **Verified Reports** and **Rejected Reports** are separate pages with their own decision column (C12). Pending is the default home page.
+- Only pages that exist are in the sidebar. Entries live in `components/layout/navItems.ts`, so each teammate adds their own.
+- There is no Logout button (login is out of scope).
+- The officer key is `VITE_OFFICER_KEY`, which ends up in the built JavaScript. It is a stand-in for login, not a secret.
+- Counts and relative times refresh on navigation, on Refresh, and every minute for times. There is no live push.
 
 ## T9 Citizen App: Submit Flow (`apps/mobile`)
 

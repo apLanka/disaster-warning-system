@@ -1,1 +1,41 @@
 @import 'tailwindcss';
+
+/* Design tokens from docs/style-guide.md. Never hard-code a colour in a component. */
+@theme {
+  --color-navy: #17324d;
+  --color-navy-hover: #244663;
+  --color-orange: #e67e22;
+  --color-orange-tint: #fff1e5;
+  --color-success: #2e8b57;
+  --color-success-tint: #eaf6ef;
+  --color-danger: #c1392b;
+  --color-danger-tint: #fbedec;
+  --color-warning-tint: #fff3cd;
+  --color-warning-text: #8a5a00;
+  --color-page: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-border: #d9dee5;
+  --color-ink: #263238;
+  --color-muted: #667085;
+  --color-neutral-tint: #eef2f6;
+
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-page text-ink font-sans;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
