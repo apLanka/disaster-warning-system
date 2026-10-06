@@ -32,7 +32,7 @@ function BellButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       hitSlop={8}
-      onPress={() => navigation.navigate('Reports')}
+      onPress={() => navigation.navigate('Alerts')}
       style={styles.bell}
     >
       <Bell size={22} color={colors.white} />
