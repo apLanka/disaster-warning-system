@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Banner } from '../components/Banner';
 import { Button } from '../components/Button';
-import { HealthStatus } from '../components/HealthStatus';
 import { Screen } from '../components/Screen';
 import { useReportQueue } from '../context/ReportQueueContext';
 import { useNotifications } from '../hooks/useNotifications';
@@ -79,10 +78,6 @@ export function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
         <Text style={styles.sectionTitle}>Recent Alerts</Text>
         <Text style={styles.muted}>No recent alerts.</Text>
       </View>
-
-      <View style={styles.status}>
-        <HealthStatus />
-      </View>
     </Screen>
   );
 }
@@ -109,5 +104,4 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textTransform: 'uppercase',
   },
-  status: { alignItems: 'center' },
 });

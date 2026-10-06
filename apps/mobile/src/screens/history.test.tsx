@@ -27,7 +27,6 @@ jest.mock('expo-location', () => ({
     .fn()
     .mockResolvedValue({ coords: { latitude: 7.29, longitude: 80.63 } }),
 }));
-jest.mock('../components/HealthStatus', () => ({ HealthStatus: () => null }));
 
 const list = jest.mocked(listMyReports);
 const get = jest.mocked(getMyReport);

@@ -25,7 +25,6 @@ jest.mock('../lib/photos', () => ({
   takePhoto: jest.fn(),
   choosePhotos: jest.fn(),
 }));
-jest.mock('../components/HealthStatus', () => ({ HealthStatus: () => null }));
 
 const location = jest.mocked(ExpoLocation);
 const submit = jest.mocked(submitHazardReport);
