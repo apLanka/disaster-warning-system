@@ -6,7 +6,10 @@ import { Alert, Linking } from 'react-native';
 import type { HazardReportDto } from '@repo/types';
 
 import { ApiError, NetworkError } from '../api/client';
-import { submitHazardReport } from '../api/hazardReports';
+import {
+  listUnreadNotifications,
+  submitHazardReport,
+} from '../api/hazardReports';
 import * as photos from '../lib/photos';
 import { ReportQueue } from '../offline/reportQueue';
 import { memoryStore, neverDelivers, renderApp } from '../test/utils';
@@ -81,6 +84,7 @@ describe('citizen submit flow', () => {
     gpsWorks();
     connection(true);
     submit.mockReset();
+    jest.mocked(listUnreadNotifications).mockResolvedValue([]);
     picker.takePhoto.mockReset();
     picker.choosePhotos.mockReset();
   });

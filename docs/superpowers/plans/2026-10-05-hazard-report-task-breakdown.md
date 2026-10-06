@@ -170,12 +170,12 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T10 Citizen App: Results and Status (`apps/mobile`)
 
-- [ ] **T10.1** Add `listMine`, `getReport`, `listNotifications`, `markNotificationRead` to the API client. → Verify: unit tests.
-- [ ] **T10.2** Build `MyReportsScreen` (C5): cards with type, short description, status chip, relative time; pull to refresh; skeleton, empty, and error states; queued reports from the offline queue appear on top as Pending Synchronization. Add a "My Reports" tab or entry from Home. → Verify: screen test for each state.
-- [ ] **T10.3** Build `ReportDetailScreen`: full details, photos (render `secureUrl` with a Cloudinary thumbnail transform), location, status chip, decision time. → Verify: screen test.
-- [ ] **T10.4** Build `ReportVerifiedScreen` (hi-fi 5) and `ReportRejectedScreen` (C6): reason label and details, and a "Submit a new report" button that opens the form. → Verify: screen tests.
-- [ ] **T10.5** Add `useNotifications` that fetches on screen focus and app foreground, marks as read when opened, and routes a notification to the verified or rejected screen. Show an unread badge on the bell. → Verify: hook tests for mapping and marking read.
-- [ ] **T10.6** Write remaining tests for status rendering, notification-to-screen mapping, and the offline-plus-server list merge. → Verify: coverage at least 80% on new code.
+- [x] **T10.1** Add `listMine`, `getReport`, `listNotifications`, `markNotificationRead` to the API client. → Verify: unit tests.
+- [x] **T10.2** Build `MyReportsScreen` (C5): cards with type, short description, status chip, relative time; pull to refresh; skeleton, empty, and error states; queued reports from the offline queue appear on top as Pending Synchronization. Add a "My Reports" tab or entry from Home. → Verify: screen test for each state.
+- [x] **T10.3** Build `ReportDetailScreen`: full details, photos (render `secureUrl` with a Cloudinary thumbnail transform), location, status chip, decision time. → Verify: screen test.
+- [x] **T10.4** Build `ReportVerifiedScreen` (hi-fi 5) and `ReportRejectedScreen` (C6): reason label and details, and a "Submit a new report" button that opens the form. → Verify: screen tests.
+- [x] **T10.5** Add `useNotifications` that fetches on screen focus and app foreground, marks as read when opened, and routes a notification to the verified or rejected screen. Show an unread badge on the bell. → Verify: hook tests for mapping and marking read.
+- [x] **T10.6** Write remaining tests for status rendering, notification-to-screen mapping, and the offline-plus-server list merge. → Verify: coverage at least 80% on new code.
 - [ ] **T10.7** End-to-end manual check on the simulator and the web portal: submit, officer verifies, mobile shows Verified; submit again, officer rejects with a reason, mobile shows Rejected with the reason. → Verify: both outcomes observed.
 - [ ] **T10.8** Run `bun run lint` and `bun run check-types`. Commit `feat(mobile): add my reports, result screens, and notifications`.
 

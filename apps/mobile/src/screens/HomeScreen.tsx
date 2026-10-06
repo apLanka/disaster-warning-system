@@ -1,4 +1,4 @@
-import { AlertTriangle, ShieldCheck } from 'lucide-react-native';
+import { AlertTriangle, FileText, ShieldCheck } from 'lucide-react-native';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Banner } from '../components/Banner';
@@ -6,6 +6,7 @@ import { Button } from '../components/Button';
 import { HealthStatus } from '../components/HealthStatus';
 import { Screen } from '../components/Screen';
 import { useReportQueue } from '../context/ReportQueueContext';
+import { useNotifications } from '../hooks/useNotifications';
 import type { ScreenProps } from '../navigation/types';
 import { colors, radius, spacing, typography } from '../theme';
 
@@ -17,6 +18,7 @@ function waitingMessage(count: number): string {
 
 export function HomeScreen({ navigation }: ScreenProps<'Home'>) {
   const { queued, failed, dismissFailed } = useReportQueue();
+  const { unread, dismiss } = useNotifications();
 
   return (
     <Screen>
@@ -35,6 +37,32 @@ export function HomeScreen({ navigation }: ScreenProps<'Home'>) {
         icon={<AlertTriangle size={20} color={colors.white} />}
         onPress={() => navigation.navigate('ReportHazard')}
       />
+
+      <Button
+        title="My Reports"
+        variant="secondary"
+        icon={<FileText size={20} color={colors.white} />}
+        onPress={() => navigation.navigate('MyReports')}
+      />
+
+      {unread.map((note) => (
+        <Banner
+          key={note.id}
+          tone={note.kind === 'REPORT_VERIFIED' ? 'success' : 'danger'}
+          action={
+            <Button
+              title="View result"
+              variant="ghost"
+              onPress={() => {
+                void dismiss(note.id);
+                navigation.navigate('ReportResult', { id: note.reportId });
+              }}
+            />
+          }
+        >
+          {note.message}
+        </Banner>
+      ))}
 
       {queued.length > 0 && (
         <Banner tone="warning">{waitingMessage(queued.length)}</Banner>

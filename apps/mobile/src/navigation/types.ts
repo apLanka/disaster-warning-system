@@ -7,6 +7,10 @@ export type RootStackParamList = {
   ReportHazard: undefined;
   ReviewReport: undefined;
   ReportSubmitted: { status: SubmittedStatus; reference?: string };
+  MyReports: undefined;
+  ReportDetail: { id: string };
+  /** The outcome of a decided report: verified, or rejected with the reason. */
+  ReportResult: { id: string };
 };
 
 export type ScreenProps<Name extends keyof RootStackParamList> =

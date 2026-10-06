@@ -1,6 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { HomeScreen } from '../screens/HomeScreen';
+import { MyReportsScreen } from '../screens/MyReportsScreen';
+import { ReportDetailScreen } from '../screens/ReportDetailScreen';
+import { ReportResultScreen } from '../screens/ReportResultScreen';
 import { ReportHazardScreen } from '../screens/ReportHazardScreen';
 import { ReportSubmittedScreen } from '../screens/ReportSubmittedScreen';
 import { ReviewReportScreen } from '../screens/ReviewReportScreen';
@@ -35,6 +38,21 @@ export function RootNavigator() {
         name="ReviewReport"
         component={ReviewReportScreen}
         options={{ title: 'Review Report' }}
+      />
+      <Stack.Screen
+        name="MyReports"
+        component={MyReportsScreen}
+        options={{ title: 'My Reports' }}
+      />
+      <Stack.Screen
+        name="ReportDetail"
+        component={ReportDetailScreen}
+        options={{ title: 'Report' }}
+      />
+      <Stack.Screen
+        name="ReportResult"
+        component={ReportResultScreen}
+        options={{ title: 'Report Result' }}
       />
       <Stack.Screen
         name="ReportSubmitted"

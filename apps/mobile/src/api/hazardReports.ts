@@ -2,6 +2,7 @@ import { File } from 'expo-file-system';
 
 import type {
   CreateHazardReportFields,
+  NotificationDto,
   GeoLocation,
   HazardPhoto,
   HazardReportDto,
@@ -74,4 +75,44 @@ export async function submitHazardReport(
     },
   );
   return { report: data, created: status === 201 };
+}
+
+export async function listMyReports(
+  signal?: AbortSignal,
+): Promise<HazardReportDto[]> {
+  const { data } = await request<HazardReportDto[]>(
+    '/api/hazard-reports/mine',
+    { signal },
+  );
+  return data;
+}
+
+export async function getMyReport(
+  id: string,
+  signal?: AbortSignal,
+): Promise<HazardReportDto> {
+  const { data } = await request<HazardReportDto>(
+    `/api/hazard-reports/${encodeURIComponent(id)}`,
+    { signal },
+  );
+  return data;
+}
+
+export async function listUnreadNotifications(
+  signal?: AbortSignal,
+): Promise<NotificationDto[]> {
+  const { data } = await request<NotificationDto[]>(
+    '/api/notifications?unread=true',
+    { signal },
+  );
+  return data;
+}
+
+export async function markNotificationRead(id: string): Promise<void> {
+  await request<NotificationDto>(
+    `/api/notifications/${encodeURIComponent(id)}/read`,
+    {
+      method: 'PATCH',
+    },
+  );
 }
