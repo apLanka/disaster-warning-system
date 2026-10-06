@@ -1,22 +1,22 @@
+import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { HealthStatus } from './src/components/HealthStatus';
+import { ReportDraftProvider } from './src/context/ReportDraftContext';
+import { ReportQueueProvider } from './src/context/ReportQueueContext';
+import { RootNavigator } from './src/navigation/RootNavigator';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <HealthStatus />
-    </View>
+    <SafeAreaProvider>
+      <ReportDraftProvider>
+        <ReportQueueProvider>
+          <NavigationContainer>
+            <StatusBar style="light" />
+            <RootNavigator />
+          </NavigationContainer>
+        </ReportQueueProvider>
+      </ReportDraftProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

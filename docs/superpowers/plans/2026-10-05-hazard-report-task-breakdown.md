@@ -147,37 +147,57 @@ Critical path: T0, T1, T2, T3, T4, T5, T6, T7, T10, T11. T8 (web) can run in par
 
 ## T9 Citizen App: Submit Flow (`apps/mobile`)
 
-- [ ] **T9.1** Install: `bunx expo install @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context expo-location expo-image-picker @react-native-async-storage/async-storage @react-native-community/netinfo expo-crypto lucide-react-native react-native-svg`. Add `EXPO_PUBLIC_API_URL` to `app.json` extra or `.env`. → Verify: app still starts.
-- [ ] **T9.2** Create `src/theme.ts` (SG section 8) and shared components: `AppBar`, `PrimaryButton`, `SecondaryButton`, `FormField`, `StatusChip`, `Banner`, `ResultCard`. → Verify: render test per component.
-- [ ] **T9.3** Build `HomeScreen` (hi-fi 1: status card, orange "Report a Hazard" button, recent alerts using `Alert` from `@repo/types`) and `ReportHazardScreen` (hi-fi 2): emergency banner with **117 / 119 / 110** (C8), required asterisks, "Review report" button (C9). Add navigation (`App.tsx` stack). → Verify: visual check on the simulator.
-- [ ] **T9.4** Add form logic in `useHazardReportForm`: validation (type required, description 10-1000, location required), inline errors, focus to the first invalid field, and photo pick with preview, remove, and size and type limits (C9). State persists when navigating back from Review. → Verify: hook tests.
-- [ ] **T9.5** Add `useLocation`: request permission, fetch the position, expose `status` (`loading | ready | denied | unavailable`) and `retry()`. Failure UI shows an explanation, "Try again", and "Open settings" (C7). → Verify: hook tests with `expo-location` mocked for each status.
-- [ ] **T9.6** Build `ReviewReportScreen` (hi-fi 3): read-only summary with photo and address text, "Edit" returning to the form with data kept, "Submit report" that disables and shows "Submitting...". → Verify: screen test.
-- [ ] **T9.7** Create the API client `src/api/hazardReports.ts` (`submit` with `FormData`, `listMine`) and `src/storage/reporterId.ts` (generate and persist a UUID, send as `x-reporter-id`). A `clientRequestId` UUID is generated per draft. → Verify: unit tests with `fetch` and AsyncStorage mocked.
-- [ ] **T9.8** Build the offline queue `src/offline/reportQueue.ts`: if NetInfo is offline or the request fails with a network error, persist the report and photo URIs as `PENDING_SYNC`, show the queued result, and replay in order on reconnect using the same `clientRequestId`. Remove from the queue on 2xx or 200 (replay), keep and back off on 5xx, drop with a visible error on 4xx. Add the sticky offline banner (C7). Build `ReportSubmittedScreen` (hi-fi 4) with the Pending Verification or Pending Synchronization chip. → Verify: queue unit tests (enqueue, replay success, replay 4xx, replay 5xx, order).
-- [ ] **T9.9** Write screen and hook tests for: validation errors, GPS denied and retry, offline submit queued, replay after reconnect, submit success, API error banner with retry. → Verify: `bun run test --coverage` at least 80% on new code.
-- [ ] **T9.10** Run the full flow on the iOS simulator (online and offline by toggling network) against the local API. Fix any style drift from the wireframes. → Verify: the flow completes, and a record appears in Atlas with the photo in Cloudinary.
-- [ ] **T9.11** Run `bun run lint` and `bun run check-types`. Commit in steps: `feat(mobile): add theme and shared components`, `feat(mobile): add report form and review`, `feat(mobile): add offline queue`.
+- [x] **T9.1** Install: `bunx expo install @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context expo-location expo-image-picker @react-native-async-storage/async-storage @react-native-community/netinfo expo-crypto lucide-react-native react-native-svg`. Add `EXPO_PUBLIC_API_URL` to `app.json` extra or `.env`. → Verify: app still starts.
+- [x] **T9.2** Create `src/theme.ts` (SG section 8) and shared components: `AppBar`, `PrimaryButton`, `SecondaryButton`, `FormField`, `StatusChip`, `Banner`, `ResultCard`. → Verify: render test per component.
+- [x] **T9.3** Build `HomeScreen` (hi-fi 1: status card, orange "Report a Hazard" button, recent alerts using `Alert` from `@repo/types`) and `ReportHazardScreen` (hi-fi 2): emergency banner with **117 / 119 / 110** (C8), required asterisks, "Review report" button (C9). Add navigation (`App.tsx` stack). → Verify: visual check on the simulator.
+- [x] **T9.4** Add form logic in `useHazardReportForm`: validation (type required, description 10-1000, location required), inline errors, focus to the first invalid field, and photo pick with preview, remove, and size and type limits (C9). State persists when navigating back from Review. → Verify: hook tests.
+- [x] **T9.5** Add `useLocation`: request permission, fetch the position, expose `status` (`loading | ready | denied | unavailable`) and `retry()`. Failure UI shows an explanation, "Try again", and "Open settings" (C7). → Verify: hook tests with `expo-location` mocked for each status.
+- [x] **T9.6** Build `ReviewReportScreen` (hi-fi 3): read-only summary with photo and address text, "Edit" returning to the form with data kept, "Submit report" that disables and shows "Submitting...". → Verify: screen test.
+- [x] **T9.7** Create the API client `src/api/hazardReports.ts` (`submit` with `FormData`, `listMine`) and `src/storage/reporterId.ts` (generate and persist a UUID, send as `x-reporter-id`). A `clientRequestId` UUID is generated per draft. → Verify: unit tests with `fetch` and AsyncStorage mocked.
+- [x] **T9.8** Build the offline queue `src/offline/reportQueue.ts`: if NetInfo is offline or the request fails with a network error, persist the report and photo URIs as `PENDING_SYNC`, show the queued result, and replay in order on reconnect using the same `clientRequestId`. Remove from the queue on 2xx or 200 (replay), keep and back off on 5xx, drop with a visible error on 4xx. Add the sticky offline banner (C7). Build `ReportSubmittedScreen` (hi-fi 4) with the Pending Verification or Pending Synchronization chip. → Verify: queue unit tests (enqueue, replay success, replay 4xx, replay 5xx, order).
+- [x] **T9.9** Write screen and hook tests for: validation errors, GPS denied and retry, offline submit queued, replay after reconnect, submit success, API error banner with retry. → Verify: `bun run test --coverage` at least 80% on new code.
+- [x] **T9.10** Run the full flow on the iOS simulator (online and offline by toggling network) against the local API. Fix any style drift from the wireframes. → Verify: the flow completes, and a record appears in Atlas with the photo in Cloudinary.
+- [x] **T9.11** Run `bun run lint` and `bun run check-types`. Commit in steps: `feat(mobile): add theme and shared components`, `feat(mobile): add report form and review`, `feat(mobile): add offline queue`.
+
+**Navigation (follows hi-fi wireframe 1):** a bottom tab bar on the main screens with Home, Reports, Alerts and Profile. My Reports (C5) is the Reports tab. The wireframe called it Tasks; it was renamed because the tab lists the citizen's own hazard reports. Alerts and Profile are "coming soon" placeholders owned by other use cases. The Home header has a bell with the unread-result count. Not built from the wireframe: the hamburger menu (it has no destination yet) and the Recent Alerts rows (alerts belong to the warning use case).
+
+**T9 as built: differences and findings** (worth including in the report)
+
+- The offline state is detected by **trying**, not by a connectivity probe. The phone's "internet reachable" flag checks a public website, so it reads false on a local network even when the server is fine. A send that fails (or times out after 30 s) is saved as Pending Synchronization and retried.
+- The retry queue wakes itself: a timer fires when the earliest report's backoff ends. Before this, a report in backoff waited for the citizen to reopen the app. Backoff doubles from 30 s up to 15 min, and a refused report (4xx) moves to a "could not be sent" list instead of retrying forever.
+- Photos upload through Expo's `fetch`, which rejects React Native's `{ uri }` file parts, so each photo is read from disk when the request is built.
+- Photo library access is not requested: the system picker only hands over the photos the citizen chooses.
+- The form keeps the same `clientRequestId` for a draft, so a retry or a replay after a lost response can never create a duplicate report.
+- Verified on the iPhone 17 Pro simulator against the real API, database, and Cloudinary: denied-then-granted location, validation errors, photo preview and remove, edit-back keeping data, and a queued report delivered with its 3000x2002 photo.
 
 ## T10 Citizen App: Results and Status (`apps/mobile`)
 
-- [ ] **T10.1** Add `listMine`, `getReport`, `listNotifications`, `markNotificationRead` to the API client. → Verify: unit tests.
-- [ ] **T10.2** Build `MyReportsScreen` (C5): cards with type, short description, status chip, relative time; pull to refresh; skeleton, empty, and error states; queued reports from the offline queue appear on top as Pending Synchronization. Add a "My Reports" tab or entry from Home. → Verify: screen test for each state.
-- [ ] **T10.3** Build `ReportDetailScreen`: full details, photos (render `secureUrl` with a Cloudinary thumbnail transform), location, status chip, decision time. → Verify: screen test.
-- [ ] **T10.4** Build `ReportVerifiedScreen` (hi-fi 5) and `ReportRejectedScreen` (C6): reason label and details, and a "Submit a new report" button that opens the form. → Verify: screen tests.
-- [ ] **T10.5** Add `useNotifications` that fetches on screen focus and app foreground, marks as read when opened, and routes a notification to the verified or rejected screen. Show an unread badge on the bell. → Verify: hook tests for mapping and marking read.
-- [ ] **T10.6** Write remaining tests for status rendering, notification-to-screen mapping, and the offline-plus-server list merge. → Verify: coverage at least 80% on new code.
+- [x] **T10.1** Add `listMine`, `getReport`, `listNotifications`, `markNotificationRead` to the API client. → Verify: unit tests.
+- [x] **T10.2** Build `MyReportsScreen` (C5): cards with type, short description, status chip, relative time; pull to refresh; skeleton, empty, and error states; queued reports from the offline queue appear on top as Pending Synchronization. Add a "My Reports" tab or entry from Home. → Verify: screen test for each state.
+- [x] **T10.3** Build `ReportDetailScreen`: full details, photos (render `secureUrl` with a Cloudinary thumbnail transform), location, status chip, decision time. → Verify: screen test.
+- [x] **T10.4** Build `ReportVerifiedScreen` (hi-fi 5) and `ReportRejectedScreen` (C6): reason label and details, and a "Submit a new report" button that opens the form. → Verify: screen tests.
+- [x] **T10.5** Add `useNotifications` that fetches on screen focus and app foreground, marks as read when opened, and routes a notification to the verified or rejected screen. Show an unread badge on the bell. → Verify: hook tests for mapping and marking read.
+- [x] **T10.6** Write remaining tests for status rendering, notification-to-screen mapping, and the offline-plus-server list merge. → Verify: coverage at least 80% on new code.
 - [ ] **T10.7** End-to-end manual check on the simulator and the web portal: submit, officer verifies, mobile shows Verified; submit again, officer rejects with a reason, mobile shows Rejected with the reason. → Verify: both outcomes observed.
 - [ ] **T10.8** Run `bun run lint` and `bun run check-types`. Commit `feat(mobile): add my reports, result screens, and notifications`.
 
 ## T11 Phase X: Verification (always last)
 
-- [ ] **T11.1** From the repo root run `bun install`, `bun run check-types`, `bun run lint`, `bun run test`, and `bun run build`. → Verify: all green, zero warnings.
-- [ ] **T11.2** Coverage check per workspace (`--coverage`): api, web, mobile. → Verify: 80% or more on the use case code. Save the summaries (text or screenshot) for the submission.
-- [ ] **T11.3** Walk through every scenario in the revised use case: main flow, rejected, no evidence, check status, offline, invalid input, GPS unavailable, system error (stop the API and submit). → Verify: each behaves as written, with the right state and message.
-- [ ] **T11.4** Compare each screen to its wireframe and to the SG checklist (section 13). Only the C1-C12 differences are allowed. → Verify: checklist ticked.
-- [ ] **T11.5** Secret scan: `git diff main... | grep -iE "mongodb\+srv|api_secret|CLOUDINARY"` shows no real values. `.env` is untracked. → Verify: clean.
-- [ ] **T11.6** Prepare the demo: seed script `prisma/seed.ts` (optional) with a few pending reports, a short run-through note in `apps/api/README.md` for env setup. → Verify: a teammate can run it from the README.
+- [x] **T11.1** From the repo root run `bun install`, `bun run check-types`, `bun run lint`, `bun run test`, and `bun run build`. → Verify: all green, zero warnings.
+- [x] **T11.2** Coverage check per workspace (`--coverage`): api, web, mobile. → Verify: 80% or more on the use case code. Save the summaries (text or screenshot) for the submission.
+- [x] **T11.3** Walk through every scenario in the revised use case: main flow, rejected, no evidence, check status, offline, invalid input, GPS unavailable, system error (stop the API and submit). → Verify: each behaves as written, with the right state and message.
+- [x] **T11.4** Compare each screen to its wireframe and to the SG checklist (section 13). Only the C1-C12 differences are allowed. → Verify: checklist ticked.
+- [x] **T11.5** Secret scan: `git diff main... | grep -iE "mongodb\+srv|api_secret|CLOUDINARY"` shows no real values. `.env` is untracked. → Verify: clean.
+- [x] **T11.6** Prepare the demo: seed script `prisma/seed.ts` (optional) with a few pending reports, a short run-through note in `apps/api/README.md` for env setup. → Verify: a teammate can run it from the README.
+
+**T11 results (2026-10-06)**
+
+- Root `check-types`, `lint` (zero warnings), `test`, and `build` all pass. Tests: api 323, web 201, mobile 226.
+- Coverage (statements): api 98.7%, web 98.9%, mobile 94.9%. Each workspace fails its test run below 80%. Summaries are in `docs/superpowers/evidence/`.
+- Secret scan: none of the real credential values appear in the working tree or in any commit. Only the two `.env.example` files are tracked.
+- Scenarios run against the live API, Atlas and Cloudinary: main flow with photo, reject with reason, `OTHER` without details refused, report without a photo, status list, second decision refused (409), invalid input (400), replayed request id (200, no duplicate), officer routes without a key (401), and no officer name or notes in what a citizen sees.
+- Not exercised on a device: the system-error flow (API stopped) and GPS denied are covered by automated tests and were seen on the simulator earlier, but were not repeated in this pass. The camera path cannot run on a simulator.
+- Seen on the simulator in this pass: the Home screen, tab bar, and Reports tab. Web pages were checked in a browser during T8.
 
 ## T12 Report Sync (group report, your sections)
 
