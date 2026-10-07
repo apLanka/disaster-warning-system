@@ -6,6 +6,7 @@ import { HazardReportsModule } from './hazard-reports/hazard-reports.module.js';
 import { HealthModule } from './health/health.module.js';
 import { NotificationsModule } from './notifications/notifications.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
+import { RescueModule } from './rescue/rescue.module.js';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
     PrismaModule,
     HazardReportsModule,
     AnalysisModule,
+    RescueModule,
     NotificationsModule,
     HealthModule,
   ],

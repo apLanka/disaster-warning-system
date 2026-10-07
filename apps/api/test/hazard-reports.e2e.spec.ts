@@ -401,6 +401,9 @@ describe.skipIf(!canRunIntegration)(
       expect(documented.sort()).toEqual(
         [
           'GET /api/health',
+          'GET /api/disaster-events',
+          'GET /api/disaster-events/{id}',
+          'GET /api/disaster-events/{id}/report',
           'POST /api/hazard-reports',
           'GET /api/hazard-reports',
           'GET /api/hazard-reports/mine',
@@ -410,6 +413,12 @@ describe.skipIf(!canRunIntegration)(
           'PATCH /api/hazard-reports/{id}/reject',
           'GET /api/notifications',
           'PATCH /api/notifications/{id}/read',
+          'GET /api/rescue/events/active',
+          'GET /api/rescue/events/{eventId}/districts',
+          'GET /api/rescue/teams',
+          'POST /api/rescue/assignments',
+          'GET /api/rescue/missions/{id}',
+          'PATCH /api/rescue/missions/{id}/status',
         ].sort(),
       );
     });
