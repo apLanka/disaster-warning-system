@@ -4,6 +4,7 @@ import { DashboardLayout } from './components/layout/DashboardLayout';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ReportsListPage } from './pages/ReportsListPage';
 import { ReviewReportPage } from './pages/ReviewReportPage';
+import { ReviewWarningPage } from './pages/ReviewWarningPage';
 import { WarningFormPage } from './pages/WarningFormPage';
 import { PENDING_PATH } from './lib/routes';
 
@@ -26,6 +27,7 @@ function App() {
         />
         <Route path="reports/:id" element={<ReviewReportPage />} />
         <Route path="warnings/new" element={<WarningFormPage />} />
+        <Route path="warnings/review" element={<ReviewWarningPage />} />
         <Route path="warnings/:id/edit" element={<WarningFormPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
