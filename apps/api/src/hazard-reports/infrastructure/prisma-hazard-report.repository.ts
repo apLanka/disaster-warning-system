@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
-import type { HazardReport as HazardReportRow } from '@prisma/client';
+import type { HazardReport as HazardReportRow, Prisma } from '@prisma/client';
 
 import type { Paginated, ReportStats } from '@repo/types';
 
 import { PrismaService } from '../../prisma/prisma.service.js';
+import { isUniqueViolation, nextReference } from '../../prisma/references.js';
 import type { HazardReportEntity } from '../domain/hazard-report.entity.js';
 import type {
   CreateResult,
@@ -17,15 +17,6 @@ import type {
 
 const OBJECT_ID = /^[0-9a-f]{24}$/i;
 const DEFAULT_MINE_LIMIT = 100;
-const REFERENCE_ATTEMPTS = 2;
-
-function isUniqueViolation(error: unknown, field: string): boolean {
-  return (
-    error instanceof Prisma.PrismaClientKnownRequestError &&
-    error.code === 'P2002' &&
-    `${JSON.stringify(error.meta ?? {})} ${error.message}`.includes(field)
-  );
-}
 
 function toEntity(row: HazardReportRow): HazardReportEntity {
   return {
@@ -60,7 +51,7 @@ export class PrismaHazardReportRepository implements HazardReportRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(input: NewHazardReport): Promise<CreateResult> {
-    const reference = await this.nextReference();
+    const reference = await nextReference(this.prisma, 'HR');
 
     try {
       const row = await this.prisma.hazardReport.create({
@@ -170,25 +161,5 @@ export class PrismaHazardReportRepository implements HazardReportRepository {
     if (!row) return { outcome: 'NOT_FOUND' };
     if (count === 0) return { outcome: 'ALREADY_DECIDED' };
     return { outcome: 'DECIDED', report: toEntity(row) };
-  }
-
-  /** Hands out HR-<year>-<0001...> from one atomic counter per year. */
-  private async nextReference(): Promise<string> {
-    const key = `HR-${new Date().getUTCFullYear()}`;
-
-    for (let attempt = 1; ; attempt++) {
-      try {
-        const counter = await this.prisma.counter.upsert({
-          where: { id: key },
-          create: { id: key, seq: 1 },
-          update: { seq: { increment: 1 } },
-        });
-        return `${key}-${String(counter.seq).padStart(4, '0')}`;
-      } catch (error) {
-        // Two first-ever requests can race to create the counter row.
-        const lostCreateRace = isUniqueViolation(error, 'id');
-        if (!lostCreateRace || attempt >= REFERENCE_ATTEMPTS) throw error;
-      }
-    }
   }
 }

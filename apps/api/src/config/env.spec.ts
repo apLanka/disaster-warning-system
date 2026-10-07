@@ -70,4 +70,23 @@ describe('validateEnv', () => {
       /PORT must be an integer between 1 and 65535/,
     );
   });
+  describe('SIMULATE_CHANNEL_FAILURE', () => {
+    it('defaults to no simulated failures', () => {
+      expect(validateEnv(valid).SIMULATE_CHANNEL_FAILURE).toEqual([]);
+    });
+
+    it('reads a comma list in any case and spacing', () => {
+      const env = validateEnv({
+        ...valid,
+        SIMULATE_CHANNEL_FAILURE: ' sms, Audible ',
+      });
+      expect(env.SIMULATE_CHANNEL_FAILURE).toEqual(['SMS', 'AUDIBLE']);
+    });
+
+    it('rejects an unknown channel', () => {
+      expect(() =>
+        validateEnv({ ...valid, SIMULATE_CHANNEL_FAILURE: 'SMS,FAX' }),
+      ).toThrow('SIMULATE_CHANNEL_FAILURE has unknown channel FAX');
+    });
+  });
 });
