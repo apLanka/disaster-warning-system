@@ -8,6 +8,11 @@ import { getReport, getStats, listReports } from '../api/hazardReports';
 import App from '../App';
 import { decidedReport, page, report, stats } from './fixtures';
 
+vi.mock('../api/hazardWarnings', () => ({
+  getWarningStats: vi
+    .fn()
+    .mockResolvedValue({ active: 0, drafts: 0, issuedToday: 0 }),
+}));
 vi.mock('../api/hazardReports', () => ({
   getReport: vi.fn(),
   getStats: vi.fn(),

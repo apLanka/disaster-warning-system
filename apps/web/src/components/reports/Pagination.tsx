@@ -5,6 +5,8 @@ interface PaginationProps {
   limit: number;
   total: number;
   onChange: (page: number) => void;
+  /** Plural word for the items, e.g. "warnings". */
+  noun?: string;
 }
 
 const WINDOW = 2;
@@ -15,7 +17,13 @@ function pageNumbers(page: number, lastPage: number): number[] {
   return Array.from({ length: to - from + 1 }, (_, index) => from + index);
 }
 
-export function Pagination({ page, limit, total, onChange }: PaginationProps) {
+export function Pagination({
+  page,
+  limit,
+  total,
+  onChange,
+  noun = 'reports',
+}: PaginationProps) {
   if (total === 0) return null;
 
   const lastPage = Math.max(1, Math.ceil(total / limit));
@@ -27,7 +35,7 @@ export function Pagination({ page, limit, total, onChange }: PaginationProps) {
   return (
     <div className="text-muted flex items-center justify-between gap-4 text-sm">
       <p>
-        Showing {first}–{last} of {total} reports
+        Showing {first}–{last} of {total} {noun}
       </p>
       <nav aria-label="Pagination" className="flex items-center gap-1">
         <button
