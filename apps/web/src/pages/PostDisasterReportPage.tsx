@@ -18,7 +18,6 @@ import { describeAnalysisError, generateReport } from '../api/analysis';
 import { AlertTimeline } from '../components/analysis/AlertTimeline';
 import { BarChart } from '../components/analysis/BarChart';
 import { DataStatus } from '../components/analysis/DataStatus';
-import { DemoDataNotice } from '../components/analysis/DemoDataNotice';
 import { KpiCard } from '../components/analysis/KpiCard';
 import { ReportTabs } from '../components/analysis/ReportTabs';
 import { ResourceTable } from '../components/analysis/ResourceTable';
@@ -158,7 +157,6 @@ export function PostDisasterReportPage() {
         </div>
       </div>
 
-      {data.event.isDemoData && <DemoDataNotice />}
       <DataStatus status={data.dataStatus} />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

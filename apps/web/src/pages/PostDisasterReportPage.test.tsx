@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { generateReport } from '../api/analysis';
 import { ApiError, NetworkError } from '../api/client';
-import { event, report } from '../test/analysisFixtures';
+import { report } from '../test/analysisFixtures';
 import { renderPage } from '../test/render';
 import { PostDisasterReportPage } from './PostDisasterReportPage';
 
@@ -100,9 +100,6 @@ describe('PostDisasterReportPage', () => {
       screen.getByText(/DE-2026-0001 · Flood · 10 Mar 2026 - 12 Mar 2026/),
     ).toBeInTheDocument();
     expect(screen.getByText('All affected districts')).toBeInTheDocument();
-    expect(
-      screen.getByText(/Sample data for demonstration/),
-    ).toBeInTheDocument();
     expect(
       screen.getByText(/Report RPT-DE-2026-0001-ALL-1/),
     ).toBeInTheDocument();
@@ -296,15 +293,6 @@ describe('PostDisasterReportPage', () => {
         screen.getByText('No resource distribution recorded for this scope'),
       ).toBeInTheDocument();
     });
-  });
-
-  it('does not show the sample-data notice for real events', async () => {
-    vi.mocked(generateReport).mockResolvedValue(
-      report({ event: event({ isDemoData: false }) }),
-    );
-    renderReport();
-    await screen.findByRole('heading', { name: 'Kelani River Flood' });
-    expect(screen.queryByText(/Sample data/)).not.toBeInTheDocument();
   });
 
   it('shows a loading state while the report is built', () => {

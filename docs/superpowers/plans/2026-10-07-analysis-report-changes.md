@@ -4,7 +4,7 @@ Use case owner: IT23697546. What was built, where it differs from the design in 
 
 ## The data is generated
 
-There is no real disaster data in the system, so the use case runs on a deterministic sample dataset (seven events, a fixed seed). Everything that handles the data is real: repositories, the consistency check, the aggregators, the API, the screens and the tests. Sample events are marked `isDemoData` and the portal says so on the events list, the scope page and the report. Do not present the figures as real operations.
+There is no real disaster data in the system, so the use case runs on a deterministic sample dataset (seven events, a fixed seed). Everything that handles the data is real: repositories, the consistency check, the aggregators, the API, the screens and the tests. Sample events are marked `isDemoData` in the database, but the portal does not show a notice (removed on request). Do not present the figures as real operations.
 
 ## Changes to the scenario and diagrams
 

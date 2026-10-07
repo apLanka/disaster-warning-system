@@ -10,7 +10,6 @@ import {
 } from '@repo/types';
 
 import { describeAnalysisError, getEvent } from '../api/analysis';
-import { DemoDataNotice } from '../components/analysis/DemoDataNotice';
 import { Banner } from '../components/ui/Banner';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -89,8 +88,6 @@ export function AnalysisScopePage() {
 
       {event && (
         <form onSubmit={generate} className="space-y-4" noValidate>
-          {event.isDemoData && <DemoDataNotice />}
-
           <Card title="Selected event">
             <dl className="grid gap-4 text-sm sm:grid-cols-2">
               <div>
