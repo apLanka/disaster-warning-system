@@ -1,9 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { AnalysisEventsPage } from './pages/AnalysisEventsPage';
+import { AnalysisScopePage } from './pages/AnalysisScopePage';
 import { DashboardLayout } from './components/layout/DashboardLayout';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ReportsListPage } from './pages/ReportsListPage';
 import { ReviewReportPage } from './pages/ReviewReportPage';
+import { PostDisasterReportPage } from './pages/PostDisasterReportPage';
 import { PENDING_PATH } from './lib/routes';
 
 function App() {
@@ -22,6 +25,12 @@ function App() {
         <Route
           path="reports/rejected"
           element={<ReportsListPage status="REJECTED" />}
+        />
+        <Route path="analysis" element={<AnalysisEventsPage />} />
+        <Route path="analysis/:eventId" element={<AnalysisScopePage />} />
+        <Route
+          path="analysis/:eventId/report"
+          element={<PostDisasterReportPage />}
         />
         <Route path="reports/:id" element={<ReviewReportPage />} />
         <Route path="*" element={<NotFoundPage />} />

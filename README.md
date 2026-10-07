@@ -95,6 +95,10 @@ Restart Expo after changing it. The phone and computer must be on the same netwo
 3. **Phone:** open Home or the Reports tab. The result shows as a notice on Home and in the report's status.
 4. **Offline:** stop the API and submit again. The phone shows "Report Saved / Pending Synchronization". Start the API and it sends by itself (retries start at 30 s and back off to 15 min).
 
+### Post-disaster analysis (portal only)
+
+After `bun run prisma:push` and `cd apps/api && bun run seed:analysis`, open **Analysis & Reports** in the portal. Pick a completed event, choose all districts or one, and read the report (Overview, Shelter Occupancy, Resource Distribution). The data is generated sample data and the portal says so. Event 6 (Batticaloa Flood) fails on purpose to show the retry path. See `apps/api/README.md` for the seven events.
+
 ## Commands
 
 Run from the root; turbo fans out across the workspace.
