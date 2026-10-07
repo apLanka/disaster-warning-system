@@ -38,6 +38,21 @@ describe('request', () => {
     expect(init.headers).not.toHaveProperty('content-type');
   });
 
+  it('sends a JSON body with its content type', async () => {
+    const fetchMock = respond(200, { ok: true });
+    globalThis.fetch = fetchMock;
+
+    await request('/api/citizens/me', {
+      method: 'PUT',
+      json: { district: 'KANDY' },
+    });
+
+    const [, init] = fetchMock.mock.calls[0];
+    expect(init.method).toBe('PUT');
+    expect(init.headers['content-type']).toBe('application/json');
+    expect(init.body).toBe('{"district":"KANDY"}');
+  });
+
   it('turns an error status into an ApiError carrying the server message', async () => {
     globalThis.fetch = respond(400, {
       statusCode: 400,

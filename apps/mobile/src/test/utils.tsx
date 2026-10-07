@@ -2,6 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { render } from '@testing-library/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { AlertsProvider, type AlertsSource } from '../context/AlertsContext';
+import { stubAlertsSource } from './fixtures';
 import { ReportDraftProvider } from '../context/ReportDraftContext';
 import { ReportQueueProvider } from '../context/ReportQueueContext';
 import { RootNavigator } from '../navigation/RootNavigator';
@@ -29,15 +31,20 @@ const metrics = {
 };
 
 /** The whole app: real navigation, draft, and queue contexts over an in-memory outbox. */
-export async function renderApp(queue?: ReportQueue) {
+export async function renderApp(
+  queue?: ReportQueue,
+  alerts: AlertsSource = stubAlertsSource(),
+) {
   const outbox = queue ?? new ReportQueue(memoryStore(), neverDelivers);
   const view = await render(
     <SafeAreaProvider initialMetrics={metrics}>
       <ReportDraftProvider>
         <ReportQueueProvider queue={outbox}>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
+          <AlertsProvider source={alerts}>
+            <NavigationContainer>
+              <RootNavigator />
+            </NavigationContainer>
+          </AlertsProvider>
         </ReportQueueProvider>
       </ReportDraftProvider>
     </SafeAreaProvider>,

@@ -1,3 +1,5 @@
+import type { WarningLevel } from '@repo/types';
+
 // Design tokens from docs/style-guide.md. Never hard-code a colour in a component.
 export const colors = {
   navy: '#17324d',
@@ -40,3 +42,14 @@ export const typography = {
   helper: { fontSize: 12, fontWeight: '400' },
   button: { fontSize: 16, fontWeight: '600', letterSpacing: 0.5 },
 } as const;
+
+/** Warning level badges: the portal's level buttons, from the same tokens. */
+export const levelColors: Record<
+  WarningLevel,
+  { background: string; text: string }
+> = {
+  CRITICAL: { background: colors.danger, text: colors.white },
+  HIGH: { background: colors.orange, text: colors.white },
+  MEDIUM: { background: colors.warningTint, text: colors.warningText },
+  LOW: { background: colors.success, text: colors.white },
+};

@@ -7,13 +7,13 @@ import { useNotifications } from '../hooks/useNotifications';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MyReportsScreen } from '../screens/MyReportsScreen';
 import { PlaceholderScreen } from '../screens/PlaceholderScreen';
+import { ProfileScreen } from '../screens/ProfileScreen';
 import { colors, TOUCH_TARGET, typography } from '../theme';
 import type { TabParamList } from './types';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const AlertsScreen = () => <PlaceholderScreen title="Alerts" />;
-const ProfileScreen = () => <PlaceholderScreen title="Profile" />;
 
 /** Bell with the number of results the citizen has not looked at yet. */
 function BellButton({
