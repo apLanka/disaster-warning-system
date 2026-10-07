@@ -91,13 +91,6 @@ export interface ListEventsQuery {
   limit?: number;
 }
 
-export interface PagedEvents {
-  items: DisasterEventDto[];
-  total: number;
-  page: number;
-  limit: number;
-}
-
 export type AnalysisScope =
   { kind: 'ALL' } | { kind: 'DISTRICT'; districtCode: DistrictCode };
 
