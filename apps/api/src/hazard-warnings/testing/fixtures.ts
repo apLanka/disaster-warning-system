@@ -8,6 +8,10 @@ import type {
   DisseminationChannelState,
   HazardWarningEntity,
 } from '../domain/hazard-warning.entity.js';
+import type { AlertDeliveryRepository } from '../../citizens/alert-delivery.repository.js';
+import type { CitizenDirectory } from '../../citizens/citizen-directory.js';
+import type { HazardWarningRepository } from '../hazard-warning.repository.js';
+import type { NotificationLogRepository } from '../notification-log.repository.js';
 
 export const WARNING_ID = '6700aa77bcf86cd799439011';
 export const OTHER_WARNING_ID = '6700aa77bcf86cd799439022';
@@ -95,5 +99,62 @@ export function delivery(
     deviceId: DEVICE_ID,
     deliveredAt: NOW,
     ...overrides,
+  };
+}
+
+export function fakeWarningRepository() {
+  return {
+    create: vi.fn<HazardWarningRepository['create']>(),
+    findById: vi.fn<HazardWarningRepository['findById']>(),
+    findByIds: vi.fn<HazardWarningRepository['findByIds']>(),
+    findByClientRequestId:
+      vi.fn<HazardWarningRepository['findByClientRequestId']>(),
+    updateDraft: vi.fn<HazardWarningRepository['updateDraft']>(),
+    deleteDraft: vi.fn<HazardWarningRepository['deleteDraft']>(),
+    startDissemination: vi.fn<HazardWarningRepository['startDissemination']>(),
+    recordDissemination:
+      vi.fn<HazardWarningRepository['recordDissemination']>(),
+    cancel: vi.fn<HazardWarningRepository['cancel']>(),
+    findActiveOverlapping:
+      vi.fn<HazardWarningRepository['findActiveOverlapping']>(),
+    list: vi.fn<HazardWarningRepository['list']>(),
+    stats: vi.fn<HazardWarningRepository['stats']>(),
+  };
+}
+
+export function fakeLogRepository() {
+  return {
+    record: vi
+      .fn<NotificationLogRepository['record']>()
+      .mockResolvedValue(undefined),
+    listForWarning: vi
+      .fn<NotificationLogRepository['listForWarning']>()
+      .mockResolvedValue([]),
+  };
+}
+
+export function fakeDirectory() {
+  return {
+    register: vi.fn<CitizenDirectory['register']>(),
+    findByDeviceId: vi.fn<CitizenDirectory['findByDeviceId']>(),
+    findInDistricts: vi
+      .fn<CitizenDirectory['findInDistricts']>()
+      .mockResolvedValue([]),
+    countInDistricts: vi.fn<CitizenDirectory['countInDistricts']>(),
+  };
+}
+
+export function fakeDeliveries() {
+  return {
+    recordDelivered: vi
+      .fn<AlertDeliveryRepository['recordDelivered']>()
+      .mockImplementation(async (_id, deviceIds) => new Set(deviceIds).size),
+    listForDevice: vi
+      .fn<AlertDeliveryRepository['listForDevice']>()
+      .mockResolvedValue([]),
+    acknowledge: vi.fn<AlertDeliveryRepository['acknowledge']>(),
+    countAcknowledged: vi
+      .fn<AlertDeliveryRepository['countAcknowledged']>()
+      .mockResolvedValue(0),
   };
 }
