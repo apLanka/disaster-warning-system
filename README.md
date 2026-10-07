@@ -97,7 +97,7 @@ Restart Expo after changing it. The phone and computer must be on the same netwo
 
 ### Post-disaster analysis (portal only)
 
-After `bun run prisma:push` and `cd apps/api && bun run seed:analysis`, open **Analysis & Reports** in the portal. Pick a completed event, choose all districts or one, and read the report (Overview, Shelter Occupancy, Resource Distribution). The data is generated sample data and the portal says so. Event 6 (Batticaloa Flood) fails on purpose to show the retry path. See `apps/api/README.md` for the seven events.
+After `bun run prisma:push` and `cd apps/api && bun run seed:analysis`, open **Analysis & Reports** in the portal. Pick a completed event, choose all districts or one, and read the report (Overview, Shelter Occupancy, Resource Distribution). The data is generated sample data. Event 6 (Batticaloa Flood) fails on purpose to show the retry path. See `apps/api/README.md` for the seven events.
 
 ## Commands
 

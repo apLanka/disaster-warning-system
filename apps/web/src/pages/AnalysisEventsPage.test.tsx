@@ -52,9 +52,6 @@ describe('AnalysisEventsPage', () => {
     expect(screen.getAllByText('10 Mar 2026 - 12 Mar 2026')).toHaveLength(2);
     expect(screen.getAllByText('Completed')).toHaveLength(2);
     expect(screen.getByText('12 events')).toBeInTheDocument();
-    expect(
-      screen.getByText(/Sample data for demonstration/),
-    ).toBeInTheDocument();
     expect(screen.getByText(/Showing 1–10 of 12 events/)).toBeInTheDocument();
   });
 
@@ -64,15 +61,6 @@ describe('AnalysisEventsPage', () => {
       name: 'Analyse Ratnapura Landslide',
     });
     expect(link).toHaveAttribute('href', '/analysis/b');
-  });
-
-  it('shows no sample-data notice for real events', async () => {
-    vi.mocked(listEvents).mockResolvedValue(
-      eventsPage([event({ isDemoData: false })]),
-    );
-    renderEvents();
-    await screen.findByText('Kelani River Flood');
-    expect(screen.queryByText(/Sample data/)).not.toBeInTheDocument();
   });
 
   it('asks for the first page of ten with no filters by default', async () => {

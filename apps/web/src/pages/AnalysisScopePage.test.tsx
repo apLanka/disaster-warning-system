@@ -48,9 +48,6 @@ describe('AnalysisScopePage', () => {
     expect(
       screen.getByText('Resource distribution by district'),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Sample data for demonstration/),
-    ).toBeInTheDocument();
     expect(getEvent).toHaveBeenCalledWith('abc', expect.any(AbortSignal));
   });
 
@@ -134,13 +131,6 @@ describe('AnalysisScopePage', () => {
     await user.click(screen.getByRole('link', { name: 'Back' }));
 
     expect(await screen.findByText('Now at /analysis')).toBeInTheDocument();
-  });
-
-  it('does not show the notice for real events', async () => {
-    vi.mocked(getEvent).mockResolvedValue(event({ isDemoData: false }));
-    renderScope();
-    await screen.findByText('Kelani River Flood');
-    expect(screen.queryByText(/Sample data/)).not.toBeInTheDocument();
   });
 
   it('shows a loading state', () => {

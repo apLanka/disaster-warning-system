@@ -13,7 +13,6 @@ import {
 } from '@repo/types';
 
 import { describeAnalysisError, listEvents } from '../api/analysis';
-import { DemoDataNotice } from '../components/analysis/DemoDataNotice';
 import { EventsTable } from '../components/analysis/EventsTable';
 import { Pagination } from '../components/reports/Pagination';
 import { Banner } from '../components/ui/Banner';
@@ -106,8 +105,6 @@ export function AnalysisEventsPage() {
           Refresh
         </Button>
       </div>
-
-      {data?.items.some((item) => item.isDemoData) && <DemoDataNotice />}
 
       <Card className="space-y-4 !p-0">
         <form
