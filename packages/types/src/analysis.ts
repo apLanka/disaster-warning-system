@@ -82,8 +82,8 @@ export interface DisasterEventDto {
   updatedAt: string;
 }
 
+/** Only completed events are ever listed, so there is no status filter. */
 export interface ListEventsQuery {
-  status?: EventStatus;
   search?: string;
   hazardType?: HazardType;
   district?: DistrictCode;
