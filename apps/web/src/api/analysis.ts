@@ -5,7 +5,7 @@ import type {
   PostDisasterReportDto,
 } from '@repo/types';
 
-import { request } from './client';
+import { ApiError, describeError, request } from './client';
 
 const BASE = '/api/disaster-events';
 
@@ -43,4 +43,15 @@ export function generateReport(
     `${BASE}/${encodeURIComponent(id)}/report${toQueryString({ district })}`,
     { signal },
   );
+}
+
+/** Plain-language text for a failed analysis request. */
+export function describeAnalysisError(error: unknown): string {
+  if (error instanceof ApiError) {
+    if (error.status === 404) return 'This disaster event could not be found.';
+    if (error.status === 409) return 'Only completed events can be analysed.';
+    if (error.status === 503)
+      return 'Report generation failed. Please try again.';
+  }
+  return describeError(error);
 }

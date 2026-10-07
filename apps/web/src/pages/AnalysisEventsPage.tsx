@@ -12,8 +12,7 @@ import {
   type HazardType,
 } from '@repo/types';
 
-import { listEvents } from '../api/analysis';
-import { describeError } from '../api/client';
+import { describeAnalysisError, listEvents } from '../api/analysis';
 import { DemoDataNotice } from '../components/analysis/DemoDataNotice';
 import { EventsTable } from '../components/analysis/EventsTable';
 import { Pagination } from '../components/reports/Pagination';
@@ -184,7 +183,7 @@ export function AnalysisEventsPage() {
                 </Button>
               }
             >
-              {describeError(error)}
+              {describeAnalysisError(error)}
             </Banner>
           </div>
         )}

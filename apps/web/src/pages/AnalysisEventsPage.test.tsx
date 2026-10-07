@@ -8,7 +8,10 @@ import { event, eventsPage } from '../test/analysisFixtures';
 import { renderPage } from '../test/render';
 import { AnalysisEventsPage } from './AnalysisEventsPage';
 
-vi.mock('../api/analysis', () => ({ listEvents: vi.fn() }));
+vi.mock('../api/analysis', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../api/analysis')>()),
+  listEvents: vi.fn(),
+}));
 
 const lastQuery = () => vi.mocked(listEvents).mock.calls.at(-1)![0];
 

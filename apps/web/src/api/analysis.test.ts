@@ -1,6 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { generateReport, getEvent, listEvents } from './analysis';
+import { ApiError, NetworkError } from './client';
+import {
+  describeAnalysisError,
+  generateReport,
+  getEvent,
+  listEvents,
+} from './analysis';
 
 function stubFetch(body: unknown = {}) {
   const fetchMock = vi
@@ -69,5 +75,28 @@ describe('analysis API', () => {
     const init = fetchMock.mock.calls[0]![1];
     expect(init.headers['x-officer-key']).toBeTruthy();
     expect(init.signal).toBe(controller.signal);
+  });
+});
+
+describe('describeAnalysisError', () => {
+  it.each([
+    [404, 'This disaster event could not be found.'],
+    [409, 'Only completed events can be analysed.'],
+    [503, 'Report generation failed. Please try again.'],
+  ])('describes a %i', (status, text) => {
+    expect(describeAnalysisError(new ApiError(status, 'x'))).toBe(text);
+  });
+
+  it('falls back to the general descriptions', () => {
+    expect(describeAnalysisError(new NetworkError())).toContain(
+      'Cannot reach the server',
+    );
+    expect(describeAnalysisError(new ApiError(500, 'x'))).toContain(
+      'server hit a problem',
+    );
+    expect(describeAnalysisError(new ApiError(400, 'Bad district'))).toBe(
+      'Bad district',
+    );
+    expect(describeAnalysisError('weird')).toContain('Something went wrong');
   });
 });
