@@ -54,6 +54,15 @@ describe('DashboardLayout', () => {
     ).not.toHaveAttribute('aria-current');
   });
 
+  it('links to Analysis & Reports and keeps it current on its sub-pages', () => {
+    renderLayout('/analysis/abc/report');
+
+    const nav = screen.getByRole('navigation', { name: 'Main' });
+    expect(
+      within(nav).getByRole('link', { name: /Analysis & Reports/ }),
+    ).toHaveAttribute('aria-current', 'page');
+  });
+
   it('shows how many reports are waiting, in words for screen readers', async () => {
     renderLayout();
 

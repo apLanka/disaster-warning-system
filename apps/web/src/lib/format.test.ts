@@ -2,6 +2,11 @@ import { describe, expect, it } from 'vitest';
 
 import {
   formatCoordinates,
+  formatDate,
+  formatDayTime,
+  formatNumber,
+  formatPercent,
+  formatPeriod,
   formatIncidentTime,
   formatRelativeTime,
   isStale,
@@ -88,5 +93,33 @@ describe('formatCoordinates', () => {
     expect(
       formatCoordinates({ latitude: 7.123456, longitude: 80.987654 }),
     ).toBe('7.1235° N, 80.9877° E');
+  });
+});
+
+describe('analysis formatting', () => {
+  it('formats a date in Sri Lanka time', () => {
+    // 2026-03-09 20:00Z is already the next day, 10 March, in Colombo.
+    expect(formatDate('2026-03-09T20:00:00.000Z')).toBe('10 Mar 2026');
+  });
+
+  it('formats a period, with "ongoing" when it has no end', () => {
+    expect(
+      formatPeriod('2026-03-10T04:00:00.000Z', '2026-03-12T16:00:00.000Z'),
+    ).toBe('10 Mar 2026 - 12 Mar 2026');
+    expect(formatPeriod('2026-03-10T04:00:00.000Z', null)).toBe(
+      '10 Mar 2026 - ongoing',
+    );
+  });
+
+  it('formats a day and time for an axis or timeline', () => {
+    expect(formatDayTime('2026-03-10T04:00:00.000Z')).toBe('10 Mar, 09:30');
+  });
+
+  it('formats numbers and percentages', () => {
+    expect(formatNumber(1234567)).toBe('1,234,567');
+    expect(formatNumber(0)).toBe('0');
+    expect(formatPercent(0.8421)).toBe('84.2%');
+    expect(formatPercent(0)).toBe('0.0%');
+    expect(formatPercent(1)).toBe('100.0%');
   });
 });

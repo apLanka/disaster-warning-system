@@ -1,4 +1,10 @@
-import { CircleCheck, CircleX, FileText, type LucideIcon } from 'lucide-react';
+import {
+  ChartColumn,
+  CircleCheck,
+  CircleX,
+  FileText,
+  type LucideIcon,
+} from 'lucide-react';
 
 export interface NavItem {
   to: string;
@@ -21,4 +27,5 @@ export const NAV_ITEMS: NavItem[] = [
   },
   { to: '/reports/verified', label: 'Verified Reports', icon: CircleCheck },
   { to: '/reports/rejected', label: 'Rejected Reports', icon: CircleX },
+  { to: '/analysis', label: 'Analysis & Reports', icon: ChartColumn },
 ];

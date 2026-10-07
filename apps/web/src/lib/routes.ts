@@ -12,3 +12,11 @@ const LIST_PATHS: Record<HazardReportDto['status'], string> = {
 export function listPathFor(status: HazardReportDto['status']): string {
   return LIST_PATHS[status];
 }
+
+export const ANALYSIS_PATH = '/analysis';
+
+export const analysisScopePath = (eventId: string) =>
+  `${ANALYSIS_PATH}/${encodeURIComponent(eventId)}`;
+
+export const analysisReportPath = (eventId: string, district?: string) =>
+  `${analysisScopePath(eventId)}/report${district ? `?district=${encodeURIComponent(district)}` : ''}`;
