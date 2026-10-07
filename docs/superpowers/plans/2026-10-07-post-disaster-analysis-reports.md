@@ -253,66 +253,68 @@ Critical path: B1-B5, B9, B10. B2 (the dataset) comes early so every later test 
 - [x] **B0.1** Branch `feat/post-disaster-analysis-reports` from `main`. Local only.
 
 ### B1 Shared Contract (`packages/types`)
-- [ ] **B1.1** `districts.ts`: `DISTRICTS` (25, code and name) and `districtName(code)` (see the merge note).
-- [ ] **B1.2** `analysis.ts`: statuses, levels, labels (with display text), sync statuses, resource types and labels, `DisasterEventDto`, `ListEventsQuery`, `AnalysisScope`, `DataIssueKind`, `PostDisasterReportDto` and its parts.
-- [ ] **B1.3** Type tests in `contract.test-d.ts`; build. Commit `feat(types): add the post-disaster analysis contract`.
+- [x] **B1.1** `districts.ts`: `DISTRICTS` (25, code and name) and `districtName(code)` (see the merge note).
+- [x] **B1.2** `analysis.ts`: statuses, levels, labels (with display text), sync statuses, resource types and labels, `DisasterEventDto`, `ListEventsQuery`, `AnalysisScope`, `DataIssueKind`, `PostDisasterReportDto` and its parts.
+- [x] **B1.3** Type tests in `contract.test-d.ts`; build. Commit `feat(types): add the post-disaster analysis contract`.
 
 ### B2 Fake Dataset
-- [ ] **B2.1** A small seeded random generator (`mulberry32`), tested: same seed same numbers, different seeds differ, values within range.
-- [ ] **B2.2** `buildFakeDataset()` (`apps/api/src/analysis/fake-data/`): the seven events above with their alerts, shelters, step-wise occupancy readings (every few hours, rising and falling), and resources; including the pending records, the missing sections, the inconsistent records, and the active event.
-- [ ] **B2.3** Tests of the builder: deterministic; seven events, six completed and one active; every event has the shape its row in the table promises (for example event 1 has all four alert labels, no pending records; event 6 has a negative occupancy and an orphan reading); all districts valid; reached never exceeds targeted. Commit `feat(api): add the fake dataset for post-disaster analysis`.
+- [x] **B2.1** A small seeded random generator (`mulberry32`), tested: same seed same numbers, different seeds differ, values within range.
+- [x] **B2.2** `buildFakeDataset()` (`apps/api/src/analysis/fake-data/`): the seven events above with their alerts, shelters, step-wise occupancy readings (every few hours, rising and falling), and resources; including the pending records, the missing sections, the inconsistent records, and the active event.
+- [x] **B2.3** Tests of the builder: deterministic; seven events, six completed and one active; every event has the shape its row in the table promises (for example event 1 has all four alert labels, no pending records; event 6 has a negative occupancy and an orphan reading); all districts valid; reached never exceeds targeted. Commit `feat(api): add the fake dataset for post-disaster analysis`.
 
 ### B3 Schema and Repositories (`apps/api`)
-- [ ] **B3.1** Prisma models above; `prisma validate` and `generate`. (`db push` is a separate step you run, once the database is reachable.)
-- [ ] **B3.2** `AnalysisDataRepository` interface (the five methods from the class diagram, plus `findEventById`) and `PrismaAnalysisDataRepository`: `findCompletedEvents` with status, hazard type, district, name search, paging. Unit tests with mocked Prisma.
-- [ ] **B3.3** The other four methods: warnings by event, `countCitizensReached`, shelters with occupancy records, resource distributions (joined to resource and organisation names). Unit tests.
-- [ ] **B3.4** `InMemoryAnalysisDataRepository`, loaded from `buildFakeDataset()`, for tests. One integration test on `dws_test` (skips without it). Commit.
+- [x] **B3.1** Prisma models above; `prisma validate` and `generate`. (`db push` is a separate step you run, once the database is reachable.)
+- [x] **B3.2** `AnalysisDataRepository` interface (the five methods from the class diagram, plus `findEventById`) and `PrismaAnalysisDataRepository`: `findCompletedEvents` with status, hazard type, district, name search, paging. Unit tests with mocked Prisma.
+- [x] **B3.3** The other four methods: warnings by event, `countCitizensReached`, shelters with occupancy records, resource distributions (joined to resource and organisation names). Unit tests.
+- [x] **B3.4** `InMemoryAnalysisDataRepository`, loaded from `buildFakeDataset()`, for tests. One integration test on `dws_test` (skips without it). Commit.
 
 ### B4 Aggregators (pure, the core of the unit tests)
-- [ ] **B4.1** `assertConsistent(inputs)` per P6: negative or non-whole occupancy, negative or zero quantity, reading for an unknown shelter, reached above targeted. Throws `InconsistentRecordsError` with a message naming the problem.
-- [ ] **B4.2** `summariseAlerts(alerts, scope)`: alerts in scope (for a district scope, only alerts that cover it, with only that district's numbers), targeted, reached, reach rate (zero targeted gives a rate of zero, not NaN).
-- [ ] **B4.3** `buildOccupancySeries(readings)`: per shelter and the total step series (the sum of each shelter's latest reading at every change). Cases: one shelter, two interleaved, out-of-order input, equal timestamps, a decrease.
-- [ ] **B4.4** `peakOccupancy(series, shelters)` and shelter summaries (peak, latest, capacity, status).
-- [ ] **B4.5** `summariseResources(records)`: totals by district, distinct districts receiving, the same type summed within a district only when the unit matches.
-- [ ] **B4.6** `assessCompleteness(inputs)` per P3: complete; pending shelter records; pending resource records; no alerts; no shelter data; no resource data; combinations. Each issue has a message and a count. Commit per aggregator, or one `feat(api): add the post-disaster aggregators`.
+- [x] **B4.1** `assertConsistent(inputs)` per P6: negative or non-whole occupancy, negative or zero quantity, reading for an unknown shelter, reached above targeted. Throws `InconsistentRecordsError` with a message naming the problem.
+- [x] **B4.2** `summariseAlerts(alerts, scope)`: alerts in scope (for a district scope, only alerts that cover it, with only that district's numbers), targeted, reached, reach rate (zero targeted gives a rate of zero, not NaN).
+- [x] **B4.3** `buildOccupancySeries(readings)`: per shelter and the total step series (the sum of each shelter's latest reading at every change). Cases: one shelter, two interleaved, out-of-order input, equal timestamps, a decrease.
+- [x] **B4.4** `peakOccupancy(series, shelters)` and shelter summaries (peak, latest, capacity, status).
+- [x] **B4.5** `summariseResources(records)`: totals by district, distinct districts receiving, the same type summed within a district only when the unit matches.
+- [x] **B4.6** `assessCompleteness(inputs)` per P3: complete; pending shelter records; pending resource records; no alerts; no shelter data; no resource data; combinations. Each issue has a message and a count. Commit per aggregator, or one `feat(api): add the post-disaster aggregators`.
 
 ### B5 Report Service and Endpoint
-- [ ] **B5.1** `DisasterAnalysisService.generateDisasterReport(eventId, scope)`: load the event (404; 409 if not COMPLETED), validate the district (400), gather data filtered to the scope, `assertConsistent`, run the aggregators, assemble the DTO. Any error becomes one `ReportGenerationError` (503, "Report generation failed. Please try again.") and is logged.
-- [ ] **B5.2** `PostDisasterReportController.requestReport`, `GET /disaster-events/:id/report`. Tests run the service over the **fake dataset in memory for every event**: event 1 complete for all districts and each single district; events 2-4 incomplete with the right reasons and counts; event 5 empty but valid; event 6 fails with 503 and no body; the active event gives 409; unknown 404; bad district 400.
-- [ ] **B5.3** Commit `feat(api): generate the post-disaster report`.
+- [x] **B5.1** `DisasterAnalysisService.generateDisasterReport(eventId, scope)`: load the event (404; 409 if not COMPLETED), validate the district (400), gather data filtered to the scope, `assertConsistent`, run the aggregators, assemble the DTO. Any error becomes one `ReportGenerationError` (503, "Report generation failed. Please try again.") and is logged.
+- [x] **B5.2** `PostDisasterReportController.requestReport`, `GET /disaster-events/:id/report`. Tests run the service over the **fake dataset in memory for every event**: event 1 complete for all districts and each single district; events 2-4 incomplete with the right reasons and counts; event 5 empty but valid; event 6 fails with 503 and no body; the active event gives 409; unknown 404; bad district 400.
+- [x] **B5.3** Commit `feat(api): generate the post-disaster report`.
 
 ### B6 Events API
-- [ ] **B6.1** DTOs, `DisasterAnalysisService.listCompletedEvents` and `getEvent`, and `PostDisasterReportController.getAvailableEvents` plus `GET /disaster-events/:id`, behind `OfficerGuard`. Tests: each filter, search, paging, unknown id, the active event is excluded from `status=COMPLETED`.
-- [ ] **B6.2** Wire the analysis module into `AppModule`. Commit.
+- [x] **B6.1** DTOs, `DisasterAnalysisService.listCompletedEvents` and `getEvent`, and `PostDisasterReportController.getAvailableEvents` plus `GET /disaster-events/:id`, behind `OfficerGuard`. Tests: each filter, search, paging, unknown id, the active event is excluded from `status=COMPLETED`.
+- [x] **B6.2** Wire the analysis module into `AppModule`. Commit.
 
 ### B7 Seed Script and API Gate
-- [ ] **B7.1** `seed:analysis` script: refuses databases without `dev` or `test` in the name, removes earlier demo data, inserts the dataset. The guard and the clean-then-insert plan are pure functions with tests (the database call itself is thin).
-- [ ] **B7.2** A flow test over the real modules with in-memory repositories (as the existing flow tests): list, filter, scope, generate, all seven events.
-- [ ] **B7.3** Coverage at least 80% on the new folders (add to `vitest.config.ts`); lint, types, and the production `tsc` clean. Commit.
+- [x] **B7.1** `seed:analysis` script: refuses databases without `dev` or `test` in the name, removes earlier demo data, inserts the dataset. The guard and the clean-then-insert plan are pure functions with tests (the database call itself is thin).
+- [x] **B7.2** A flow test over the real modules with in-memory repositories (as the existing flow tests): list, filter, scope, generate, all seven events.
+- [x] **B7.3** Coverage at least 80% on the new folders (add to `vitest.config.ts`); lint, types, and the production `tsc` clean. Commit.
 
 ### B8 Web: Events List (screen 1)
-- [ ] **B8.1** `api/analysis.ts` + tests; routes `/analysis`, `/analysis/:eventId`, `/analysis/:eventId/report`; nav item **Analysis & Reports**.
-- [ ] **B8.2** `AnalysisEventsPage`: search, hazard type and district filters (URL search params), table (Event, Hazard Type, Affected Districts, Period, Status chip, Updated, **Analyse**), pagination, loading, error with Retry, and the "Sample data for demonstration" notice. Empty state "No completed disaster events are available for analysis" (the alternate flow).
-- [ ] **B8.3** Tests and axe. Commit.
+- [x] **B8.1** `api/analysis.ts` + tests; routes `/analysis`, `/analysis/:eventId`, `/analysis/:eventId/report`; nav item **Analysis & Reports**.
+- [x] **B8.2** `AnalysisEventsPage`: search, hazard type and district filters (URL search params), table (Event, Hazard Type, Affected Districts, Period, Status chip, Updated, **Analyse**), pagination, loading, error with Retry, and the "Sample data for demonstration" notice. Empty state "No completed disaster events are available for analysis" (the alternate flow).
+- [x] **B8.3** Tests and axe. Commit.
 
 ### B9 Web: Scope and Report Shell (screens 2 and 3)
-- [ ] **B9.1** `AnalysisScopePage`: the selected event read-only, radio **All affected districts** or **Specific district** (select limited to the event's districts, required when chosen), **Back**, **Generate Report**, and the "Report includes" list.
-- [ ] **B9.2** `PostDisasterReportPage` shell: header (event, period, scope), **Data status chip** (Complete, or Incomplete with its reasons), four KPI cards (Alerts Issued, Citizens Reached with its reach rate, Peak Shelter Occupancy and when, Districts Receiving Resources), loading, and the **generation failed** state with Retry (never a partial report).
-- [ ] **B9.3** Tests: scope validation, district-only, success, incomplete reasons, failure, retry. Axe. Commit.
+- [x] **B9.1** `AnalysisScopePage`: the selected event read-only, radio **All affected districts** or **Specific district** (select limited to the event's districts, required when chosen), **Back**, **Generate Report**, and the "Report includes" list.
+- [x] **B9.2** `PostDisasterReportPage` shell: header (event, period, scope), **Data status chip** (Complete, or Incomplete with its reasons), four KPI cards (Alerts Issued, Citizens Reached with its reach rate, Peak Shelter Occupancy and when, Districts Receiving Resources), loading, and the **generation failed** state with Retry (never a partial report).
+- [x] **B9.3** Tests: scope validation, district-only, success, incomplete reasons, failure, retry. Axe. Commit.
 
 ### B10 Web: Charts and Tabs (screens 3-5)
-- [ ] **B10.1** `AlertTimeline` (dots on a line, each with its label, time, and level; also a list for screen readers).
-- [ ] **B10.2** `StepChart` (occupancy over time) and `BarChart` (quantity by district) in SVG with axes, labels, and a table equivalent; the scaling helpers are pure and tested separately.
-- [ ] **B10.3** Tabs **Overview / Shelter Occupancy / Resource Distribution** (proper `tablist`, arrow keys, state in the URL): shelter table (Shelter, District, Capacity, Peak, Latest, Status chip) and resource table (District, Resource Type, Quantity, Source Organisation), pending rows marked.
-- [ ] **B10.4** Tests per component, tab keyboard behaviour, empty-section messages ("No shelter data recorded for this scope"), axe. Commits per component.
+- [x] **B10.1** `AlertTimeline` (dots on a line, each with its label, time, and level; also a list for screen readers).
+- [x] **B10.2** `StepChart` (occupancy over time) and `BarChart` (quantity by district) in SVG with axes, labels, and a table equivalent; the scaling helpers are pure and tested separately.
+- [x] **B10.3** Tabs **Overview / Shelter Occupancy / Resource Distribution** (proper `tablist`, arrow keys, state in the URL): shelter table (Shelter, District, Capacity, Peak, Latest, Status chip) and resource table (District, Resource Type, Quantity, Source Organisation), pending rows marked.
+- [x] **B10.4** Tests per component, tab keyboard behaviour, empty-section messages ("No shelter data recorded for this scope"), axe. Commits per component.
 
 ### B11 Verification
+_Not done: needs a reachable database. Also not written: the `dws_test` integration test mentioned in B3.4 and B7.2's separate flow test (the controller spec already runs every event through the real controller, service and guard in memory)._
+
 - [ ] **B11.1** After you run `prisma:push` and `seed:analysis` (needs the database reachable): walk the wireframes in the portal against the seven events (the table above is the script).
 - [ ] **B11.2** Record results and screenshots in `docs/superpowers/evidence/`; refresh coverage files.
 
 ### B12 Update the Group Report and README
-- [ ] **B12.1** `2026-10-07-analysis-report-changes.md`: revised scenario (event lifecycle, definitions of reach and incomplete), sequence diagram with alt fragments (P5), class diagram, wireframes as built; and an honest note that the data is generated.
-- [ ] **B12.2** README: the endpoints, the seed command and its safety rule, and the seven demo events.
+- [x] **B12.1** `2026-10-07-analysis-report-changes.md`: revised scenario (event lifecycle, definitions of reach and incomplete), sequence diagram with alt fragments (P5), class diagram, wireframes as built; and an honest note that the data is generated.
+- [x] **B12.2** README: the endpoints, the seed command and its safety rule, and the seven demo events.
 
 ## Traceability: Use Case Flow to Work Item
 
