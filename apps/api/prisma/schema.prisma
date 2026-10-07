@@ -99,3 +99,131 @@ model Counter {
 
   @@map("counters")
 }
+
+// Post-disaster analysis. The sample data comes from `bun run seed:analysis`.
+enum EventStatus {
+  ACTIVE
+  COMPLETED
+}
+
+enum AlertLevel {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum AlertLabel {
+  INITIAL_ALERT
+  ESCALATION
+  DISTRICT_UPDATE
+  FINAL_NOTICE
+}
+
+enum SyncStatus {
+  SYNCED
+  PENDING
+}
+
+enum ShelterStatus {
+  OPEN
+  CLOSED
+}
+
+enum ResourceType {
+  WATER
+  FOOD
+  MEDICINE
+  SHELTER_SUPPLIES
+  OTHER
+}
+
+type DistrictReach {
+  districtCode String
+  targeted     Int
+  reached      Int
+}
+
+model DisasterEvent {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  eventId       String      @unique
+  name          String
+  hazardType    HazardType
+  districtCodes String[]
+  startedAt     DateTime
+  endedAt       DateTime?
+  status        EventStatus
+  isDemoData    Boolean     @default(false)
+  updatedAt     DateTime    @updatedAt
+
+  @@index([status, startedAt])
+  @@map("disaster_events")
+}
+
+model EventWarning {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  eventId   String          @db.ObjectId
+  issuedAt  DateTime
+  level     AlertLevel
+  label     AlertLabel
+  title     String
+  districts DistrictReach[]
+
+  @@index([eventId, issuedAt])
+  @@map("event_warnings")
+}
+
+model Shelter {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  eventId      String        @db.ObjectId
+  name         String
+  districtCode String
+  capacity     Int
+  status       ShelterStatus
+
+  @@index([eventId])
+  @@map("shelters")
+}
+
+model ShelterOccupancyRecord {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  shelterId      String     @db.ObjectId
+  eventId        String     @db.ObjectId
+  occupancyCount Int
+  recordedAt     DateTime
+  syncStatus     SyncStatus
+
+  @@index([eventId, recordedAt])
+  @@map("shelter_occupancy_records")
+}
+
+model Resource {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  resourceName String
+  resourceType ResourceType
+
+  @@map("resources")
+}
+
+model Organisation {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  organisationName String
+  organisationType String
+
+  @@map("organisations")
+}
+
+model ResourceDistribution {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  eventId        String     @db.ObjectId
+  districtCode   String
+  resourceId     String     @db.ObjectId
+  organisationId String     @db.ObjectId
+  quantity       Int
+  unit           String
+  distributedAt  DateTime
+  syncStatus     SyncStatus
+
+  @@index([eventId, districtCode])
+  @@map("resource_distributions")
+}
