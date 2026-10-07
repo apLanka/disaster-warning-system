@@ -307,7 +307,7 @@ Critical path: B1-B5, B9, B10. B2 (the dataset) comes early so every later test 
 - [x] **B10.4** Tests per component, tab keyboard behaviour, empty-section messages ("No shelter data recorded for this scope"), axe. Commits per component.
 
 ### B11 Verification
-_Not done: needs a reachable database. Also not written: the `dws_test` integration test mentioned in B3.4 and B7.2's separate flow test (the controller spec already runs every event through the real controller, service and guard in memory)._
+_Not done: the walkthrough in the portal (needs `seed:analysis` on `dws_dev`). The `dws_test` integration test is written and passes. B7.2's separate flow test is the controller spec, which runs every event through the real controller, service and guard in memory._
 
 - [ ] **B11.1** After you run `prisma:push` and `seed:analysis` (needs the database reachable): walk the wireframes in the portal against the seven events (the table above is the script).
 - [ ] **B11.2** Record results and screenshots in `docs/superpowers/evidence/`; refresh coverage files.

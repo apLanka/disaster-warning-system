@@ -39,10 +39,11 @@ There is no real disaster data in the system, so the use case runs on a determin
 | API unit tests (`bun run test`, unit project) | 398 pass; the analysis folder is at 96% line coverage (threshold 80%) |
 | Web tests | 320 pass; 99% lines overall |
 | Accessibility (axe) | The events list (also empty), the scope page (also with its error), the report in all three sections, an empty report and a failed report have no violations. Colour contrast is not checked by axe in jsdom. |
+| Database integration (`dws_test`) | 8 pass: listing, filters, joins, and the report for events 1, 2 and 6 over real Prisma |
 | Report for each of the seven events | Run in `post-disaster-report.controller.spec.ts` over the real controller, service and guard with the dataset in memory. |
 
 ## Not verified
 
-- **Nothing has run against a real database.** `prisma:push` and `seed:analysis` have not been run (Atlas has not been reachable from the development network), and there is no database integration test for `PrismaAnalysisDataRepository`; it is covered with a mocked Prisma client only.
-- **The screens have not been checked by eye in a browser**, and not against the hi-fi wireframes side by side. The Resource Distribution wireframe was not in the pages read; it is assumed to match the low-fi one.
+- **The seed script has not been run against `dws_dev`**, and the portal has not been walked through event by event. (The repository and the full report are exercised against the real `dws_test` database by `prisma-analysis-data.repository.integration.spec.ts`: 8 tests pass.)
+- **The screens have not been checked by eye in a browser**, nor against the hi-fi wireframes side by side. The Resource Distribution wireframe was not in the pages read; it is assumed to match the low-fi one.
 - The charts are hand-drawn SVG; edge cases (no data, one reading, all zeros) are tested, but their look is unchecked.
