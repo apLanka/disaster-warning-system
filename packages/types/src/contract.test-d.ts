@@ -1,6 +1,11 @@
 import { REPORT_STATUS_LABELS } from './index.js';
 import type {
   Alert,
+  AnalysisScope,
+  DistrictCode,
+  EventStatus,
+  PostDisasterReportDto,
+  ResourceType,
   CreateHazardReportFields,
   HazardReportDto,
   HazardType,
@@ -53,7 +58,27 @@ const missingLabel: Record<HazardType, string> = { FLOOD: 'Flood' };
 // @ts-expect-error notification kind is a closed union
 const badKind: NotificationDto['kind'] = 'REPORT_PENDING';
 
+const allDistricts: AnalysisScope = { kind: 'ALL' };
+const oneDistrict: AnalysisScope = { kind: 'DISTRICT', districtCode: 'CMB' };
+// @ts-expect-error a district scope needs a district
+const noDistrict: AnalysisScope = { kind: 'DISTRICT' };
+// @ts-expect-error district codes are a closed union
+const badDistrict: DistrictCode = 'XXX';
+// @ts-expect-error only ACTIVE and COMPLETED events exist
+const badEventStatus: EventStatus = 'CANCELLED';
+// @ts-expect-error every resource type needs a label
+const missingResourceLabel: Record<ResourceType, string> = { WATER: 'Water' };
+const completeness: PostDisasterReportDto['dataCompletenessStatus'] =
+  'INCOMPLETE';
+
 export {
+  allDistricts,
+  oneDistrict,
+  noDistrict,
+  badDistrict,
+  badEventStatus,
+  missingResourceLabel,
+  completeness,
   ok,
   degraded,
   alert,
