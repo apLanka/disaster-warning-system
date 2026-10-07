@@ -4,8 +4,14 @@ import axe from 'axe-core';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { generateReport, getEvent, listEvents } from '../api/analysis';
 import { getReport, getStats, listReports } from '../api/hazardReports';
 import App from '../App';
+import {
+  event,
+  eventsPage,
+  report as analysisReport,
+} from './analysisFixtures';
 import { decidedReport, page, report, stats } from './fixtures';
 
 vi.mock('../api/hazardReports', () => ({
@@ -14,6 +20,12 @@ vi.mock('../api/hazardReports', () => ({
   listReports: vi.fn(),
   verifyReport: vi.fn(),
   rejectReport: vi.fn(),
+}));
+vi.mock('../api/analysis', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../api/analysis')>()),
+  listEvents: vi.fn(),
+  getEvent: vi.fn(),
+  generateReport: vi.fn(),
 }));
 vi.mock('../api/health', () => ({
   fetchHealth: vi
@@ -161,5 +173,92 @@ describe('accessibility (axe)', () => {
     await screen.findByText('Page not found');
 
     expect(await violations(container)).toEqual([]);
+  });
+  describe('post-disaster analysis', () => {
+    beforeEach(() => {
+      vi.mocked(listEvents).mockResolvedValue(
+        eventsPage([event()], { total: 1 }),
+      );
+      vi.mocked(getEvent).mockResolvedValue(event());
+      vi.mocked(generateReport).mockResolvedValue(
+        analysisReport({
+          dataCompletenessStatus: 'INCOMPLETE',
+          dataStatus: {
+            complete: false,
+            issues: [
+              {
+                kind: 'PENDING_SHELTER_RECORDS',
+                message: '1 shelter record pending synchronisation.',
+                count: 1,
+              },
+            ],
+          },
+        }),
+      );
+    });
+
+    it('events list has no violations', async () => {
+      const { container } = renderAt('/analysis');
+      await screen.findByText('Kelani River Flood');
+
+      expect(await violations(container)).toEqual([]);
+    });
+
+    it('empty events list has no violations', async () => {
+      vi.mocked(listEvents).mockResolvedValue(eventsPage([]));
+      const { container } = renderAt('/analysis');
+      await screen.findByText(/No completed disaster events/);
+
+      expect(await violations(container)).toEqual([]);
+    });
+
+    it('scope page has no violations, including its validation error', async () => {
+      const { container } = renderAt('/analysis/abc');
+      await screen.findByText('Selected event');
+      expect(await violations(container)).toEqual([]);
+
+      await userEvent.click(
+        screen.getByRole('radio', { name: 'Specific district' }),
+      );
+      await userEvent.click(
+        screen.getByRole('button', { name: 'Generate Report' }),
+      );
+      await screen.findByRole('alert');
+      expect(await violations(container)).toEqual([]);
+    });
+
+    it.each(['', '?tab=shelters', '?tab=resources'])(
+      'report %s has no violations',
+      async (search) => {
+        const { container } = renderAt(`/analysis/abc/report${search}`);
+        await screen.findByRole('heading', { name: 'Kelani River Flood' });
+
+        expect(await violations(container)).toEqual([]);
+      },
+    );
+
+    it('an empty report has no violations', async () => {
+      vi.mocked(generateReport).mockResolvedValue(
+        analysisReport({
+          alertTimeline: [],
+          shelters: [],
+          occupancyTotalSeries: [],
+          resources: [],
+          resourceTotalsByDistrict: [],
+        }),
+      );
+      const { container } = renderAt('/analysis/abc/report?tab=shelters');
+      await screen.findByText('No shelter data recorded for this scope');
+
+      expect(await violations(container)).toEqual([]);
+    });
+
+    it('a failed report has no violations', async () => {
+      vi.mocked(generateReport).mockRejectedValue(new Error('down'));
+      const { container } = renderAt('/analysis/abc/report');
+      await screen.findByRole('alert');
+
+      expect(await violations(container)).toEqual([]);
+    });
   });
 });
