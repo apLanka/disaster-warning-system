@@ -129,6 +129,7 @@ function WarningEditor({
   issueRequestId,
 }: WarningEditorProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { refresh } = useWarningStats();
   const [form, setForm] = useState(initial);
   const [errors, setErrors] = useState<WarningFormErrors>({});
@@ -167,6 +168,12 @@ function WarningEditor({
       clientRequestId: issueId,
       draftId,
     };
+    // Store the entries on this history entry too, so the browser's own Back
+    // button returns to a filled form, not an empty one.
+    navigate(location.pathname + location.search, {
+      replace: true,
+      state: { form, clientRequestId: issueId },
+    });
     navigate(REVIEW_WARNING_PATH, { state });
   }
 

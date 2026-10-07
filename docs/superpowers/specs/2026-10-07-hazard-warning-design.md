@@ -37,7 +37,7 @@ ID key: UC use case diagram, CL class diagram, SQ sequence diagram, SC scenario,
 | CL2 | HazardWarning has markAsCancelled() and DutyOfficer has cancellingWarning(), but no flow cancels a warning. The wireframe has "Save as Draft" but there is no draft state. | Methods without flows are dead design; the draft button does nothing. | Add DRAFT and CANCELLED statuses, cancel reason and time, and the flows that use them. |
 | CL3 | HazardWarning has a single affectedDistrict, but the wireframe selects several districts. No valid period, no safety instructions, no link to a source report. | The class cannot hold what the screen collects. | districts: District[], validFrom, validUntil, safetyInstructions: String[], sourceReportId, reference, clientRequestId (stops a double click issuing twice). |
 | CL4 | The sequence diagram has a Warning Controller, but the class diagram has no controller, service, repository or channel classes for this use case. Other use cases have them. | The diagrams disagree, and there is no class to hold the rules. | Add HazardWarningController, HazardWarningService, HazardWarningRepository, WarningDisseminator, NotificationChannel (interface) with InAppPushChannel, SmsChannel, AudibleAlertChannel, and CitizenDirectory. |
-| CL5 | AlertDelivery has only deliveryId and deliveryStatus, with no link to the citizen's acknowledgement. AffectedCitizen has no district to match against. | Recipients cannot be found by district, and nobody can tell who acknowledged. | AffectedCitizen gets deviceId and district. AlertDelivery gets warningId, citizenId, deliveredAt, acknowledgedAt. |
+| CL5 | AlertDelivery has only deliveryId and deliveryStatus, with no link to the citizen's acknowledgement. AffectedCitizen has no district to match against. | Recipients cannot be found by district, and nobody can tell who acknowledged. | AffectedCitizen gets deviceId and district. AlertDelivery gets warningId, deviceId (the citizen's registered device, unique per citizen), deliveredAt, acknowledgedAt. |
 | SQ1 | The UI calls Hazard Information and Location Management directly, and validates the warning level on the controller before the warning exists. | Rules sit in the screen and are skipped by any other caller. | UI calls the controller; HazardWarningService validates (UI also checks for instant feedback). |
 | SQ2 | The officer's confirmation never reaches a service; createWarning goes from UI straight to the controller, which saves and disseminates itself. | No layer owns the rules or the transaction. | Controller to Service to Repository; the service calls WarningDisseminator after the warning is stored. |
 | SQ3 | Only "at least one succeeds" and "all fail" are drawn. No alt for partial success, no retry, no "no citizens", no database failure, no invalid input, no duplicate. | The scenario lists these, but the diagram does not show what happens. | Add alt fragments for each, and a separate Retry and a Cancel sequence. |
@@ -102,7 +102,7 @@ SKIPPED means the channel had no recipients (for example no citizen in the area 
 
 ### AlertDelivery (`alert_deliveries`)
 
-`warningId`, `citizenId`, `deviceId`, `deliveredAt`, `acknowledgedAt?`. Unique `[warningId, deviceId]`, so a retry never delivers twice.
+`warningId`, `deviceId` (identifies the citizen: unique in `citizens`), `deliveredAt`, `acknowledgedAt?`. Unique `[warningId, deviceId]`, so a retry never delivers twice.
 
 ### Lifecycle
 

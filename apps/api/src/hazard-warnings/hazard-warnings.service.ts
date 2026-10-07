@@ -12,6 +12,7 @@ import {
   type ChannelKind,
   type CreateWarningInput,
   type WarningFields,
+  type WarningStatus,
 } from '@repo/types';
 
 import { CITIZEN_DIRECTORY } from '../citizens/citizen-directory.js';
@@ -31,6 +32,8 @@ import {
   issueProblems,
   mergeChannels,
   overallStatus,
+  hasExpired,
+  isStuck,
   RETRYABLE_STATUSES,
   retryableChannels,
 } from './domain/warning-rules.js';
@@ -184,19 +187,21 @@ export class HazardWarningsService {
   /** Sends again on the channels that failed, leaving the ones that worked alone. */
   async retry(id: string, now = new Date()): Promise<HazardWarningEntity> {
     const current = await this.require(id);
+    if (hasExpired(current, now)) {
+      throw new ConflictException(
+        'This warning has expired, so it cannot be sent again',
+      );
+    }
     const kinds = retryableChannels(current.channels);
-    const retryable = (RETRYABLE_STATUSES as readonly string[]).includes(
-      current.status,
-    );
-    if (!retryable || kinds.length === 0) {
+    const stuck = isStuck(current, now);
+    const from: WarningStatus[] = stuck
+      ? [...RETRYABLE_STATUSES, 'DISSEMINATING']
+      : [...RETRYABLE_STATUSES];
+    if (!from.includes(current.status) || kinds.length === 0) {
       throw new ConflictException('There is nothing to retry for this warning');
     }
 
-    const started = await this.warnings.startDissemination(
-      id,
-      RETRYABLE_STATUSES,
-      {},
-    );
+    const started = await this.warnings.startDissemination(id, from, {});
     const warning = this.expectUpdated(
       started,
       'There is nothing to retry for this warning',
@@ -210,6 +215,13 @@ export class HazardWarningsService {
     reason: string,
     now = new Date(),
   ): Promise<HazardWarningEntity> {
+    const current = await this.require(id);
+    if (hasExpired(current, now)) {
+      // Sirens and texts for a hazard that already ended would only confuse people.
+      throw new ConflictException(
+        'This warning has already expired; there is nothing to cancel',
+      );
+    }
     const result = await this.warnings.cancel(id, {
       cancelledBy: officer,
       reason,

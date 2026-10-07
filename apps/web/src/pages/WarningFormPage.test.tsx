@@ -1,6 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getStats } from '../api/hazardReports';
@@ -39,13 +39,19 @@ vi.mock('../components/warnings/DistrictMap', () => ({
 /** Shows where the form navigated and what it carried. */
 function Landing() {
   const location = useLocation();
+  const navigate = useNavigate();
   return (
-    <pre data-testid="landing">
-      {JSON.stringify({
-        path: location.pathname + location.search,
-        state: location.state,
-      })}
-    </pre>
+    <>
+      <button type="button" onClick={() => navigate(-1)}>
+        Browser back
+      </button>
+      <pre data-testid="landing">
+        {JSON.stringify({
+          path: location.pathname + location.search,
+          state: location.state,
+        })}
+      </pre>
+    </>
   );
 }
 
@@ -140,6 +146,20 @@ describe('WarningFormPage', () => {
       districts: ['COLOMBO'],
     });
     expect(state.clientRequestId).toMatch(/^[0-9a-f-]{36}$/);
+  });
+
+  it('keeps the entries when the officer uses the browser Back button on review', async () => {
+    renderForm();
+    await screen.findByRole('heading', { name: 'Issue Hazard Warning' });
+    await fillRequired();
+    await userEvent.click(
+      screen.getByRole('button', { name: 'Review Warning' }),
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Browser back' }));
+
+    expect(await screen.findByLabelText(/Description/)).toHaveValue(
+      'Heavy rainfall expected in low-lying areas',
+    );
   });
 
   it('adds a district from the map', async () => {

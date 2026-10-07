@@ -8,8 +8,10 @@ import {
   createWarning,
   describeWarningError,
   issueDraft,
+  updateDraft,
   previewWarning,
 } from '../api/hazardWarnings';
+import { isConflict } from '../api/client';
 import { LevelChip } from '../components/warnings/LevelChip';
 import { Banner } from '../components/ui/Banner';
 import { Button } from '../components/ui/Button';
@@ -82,13 +84,19 @@ function ReviewWarning({ state }: { state: WarningReviewState }) {
     });
   }
 
+  /** The draft is saved with exactly what was reviewed, so the server issues that and nothing older. */
+  async function issueEditedDraft(id: string, force: boolean) {
+    await updateDraft(id, fields);
+    return issueDraft(id, { force });
+  }
+
   async function issue() {
     setSending(true);
     setFailure(null);
     const force = duplicates.length > 0 && issueAnyway;
     try {
       const issued = draftId
-        ? await issueDraft(draftId, { force })
+        ? await issueEditedDraft(draftId, force)
         : await createWarning({
             ...fields,
             clientRequestId,
@@ -104,6 +112,9 @@ function ReviewWarning({ state }: { state: WarningReviewState }) {
       // Nothing is lost: the summary stays and the officer can confirm again.
       setConfirming(false);
       setFailure(error);
+      // Someone may have issued an overlapping warning meanwhile: check again so the
+      // duplicate banner and "Issue anyway" appear instead of a dead end.
+      if (isConflict(error)) preview.reload();
     } finally {
       setSending(false);
     }

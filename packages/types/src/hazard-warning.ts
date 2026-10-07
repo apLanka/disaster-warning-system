@@ -65,6 +65,12 @@ export const WARNING_LIMITS = {
   pageSizeMax: 50,
 } as const;
 
+/**
+ * A warning still DISSEMINATING this long after its last update was
+ * interrupted mid-send; the officer may retry it.
+ */
+export const DISSEMINATION_STUCK_AFTER_MS = 2 * 60 * 1000;
+
 export type WarningView = 'active' | 'drafts' | 'past';
 
 /** What the officer fills in. A draft needs only type, level and districts. */

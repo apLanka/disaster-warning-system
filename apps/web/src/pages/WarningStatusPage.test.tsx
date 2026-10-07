@@ -202,6 +202,7 @@ describe('WarningStatusPage', () => {
     vi.mocked(getWarning).mockResolvedValue({
       ...warningDetail(),
       status: 'DISSEMINATING',
+      updatedAt: NOW.toISOString(),
     });
     renderStatus();
     await act(async () => {
@@ -214,6 +215,59 @@ describe('WarningStatusPage', () => {
     });
     expect(vi.mocked(getWarning).mock.calls.length).toBeGreaterThan(calls);
     vi.useRealTimers();
+  });
+
+  it('offers neither Retry nor Cancel once the warning has expired', async () => {
+    vi.mocked(getWarning).mockResolvedValue({ ...partial, active: false });
+    renderStatus();
+
+    expect(await screen.findByText(/This warning expired/)).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /^Retry/ }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Cancel Warning' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('offers Retry for a send that was interrupted', async () => {
+    vi.mocked(getWarning).mockResolvedValue({
+      ...warningDetail(),
+      status: 'DISSEMINATING',
+      updatedAt: new Date(NOW.getTime() - 5 * 60_000).toISOString(),
+      channels: [
+        {
+          channel: 'PUSH',
+          state: 'PENDING',
+          recipients: 0,
+          delivered: 0,
+          attempts: 0,
+        },
+        {
+          channel: 'SMS',
+          state: 'PENDING',
+          recipients: 0,
+          delivered: 0,
+          attempts: 0,
+        },
+        {
+          channel: 'AUDIBLE',
+          state: 'PENDING',
+          recipients: 0,
+          delivered: 0,
+          attempts: 0,
+        },
+      ],
+    });
+    renderStatus();
+
+    expect(
+      await screen.findByText(/may have been interrupted/),
+    ).toBeInTheDocument();
+    await userEvent.click(
+      screen.getByRole('button', { name: 'Retry sending' }),
+    );
+    expect(retryWarning).toHaveBeenCalledWith(ID);
   });
 
   it('points a draft to its editor and says when a warning expired', async () => {

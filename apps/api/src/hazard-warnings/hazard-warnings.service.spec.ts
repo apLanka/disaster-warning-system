@@ -411,9 +411,82 @@ describe('HazardWarningsService', () => {
         ConflictException,
       );
     });
+    it('refuses to re-send a warning that has expired', async () => {
+      warnings.findById.mockResolvedValue({
+        ...partial,
+        validUntil: hoursFromNow(-1),
+      });
+      await expect(service.retry(WARNING_ID, NOW)).rejects.toThrow(
+        new ConflictException(
+          'This warning has expired, so it cannot be sent again',
+        ),
+      );
+      expect(warnings.startDissemination).not.toHaveBeenCalled();
+    });
+
+    it('recovers a warning stuck in DISSEMINATING after the send was interrupted', async () => {
+      const stuck = issuedWarning({
+        status: 'DISSEMINATING',
+        channels: [
+          channel('PUSH', { state: 'PENDING', attempts: 0 }),
+          channel('SMS', { state: 'PENDING', attempts: 0 }),
+          channel('AUDIBLE', { state: 'PENDING', attempts: 0 }),
+        ],
+        updatedAt: new Date(NOW.getTime() - 3 * 60_000),
+      });
+      warnings.findById.mockResolvedValue(stuck);
+      warnings.startDissemination.mockResolvedValue({
+        outcome: 'UPDATED',
+        warning: stuck,
+      });
+
+      await service.retry(WARNING_ID, NOW);
+
+      expect(warnings.startDissemination).toHaveBeenCalledWith(
+        WARNING_ID,
+        ['PARTIALLY_DISSEMINATED', 'PENDING_DISSEMINATION', 'DISSEMINATING'],
+        {},
+      );
+      expect(disseminator.send).toHaveBeenCalledWith(
+        expect.any(Object),
+        ['PUSH', 'SMS', 'AUDIBLE'],
+        NOW,
+      );
+    });
+
+    it('does not interrupt a send that is still running', async () => {
+      warnings.findById.mockResolvedValue(
+        issuedWarning({
+          status: 'DISSEMINATING',
+          channels: [channel('PUSH', { state: 'PENDING' })],
+          updatedAt: new Date(NOW.getTime() - 30_000),
+        }),
+      );
+      await expect(service.retry(WARNING_ID, NOW)).rejects.toThrow(
+        ConflictException,
+      );
+    });
   });
 
   describe('cancel', () => {
+    beforeEach(() => {
+      warnings.findById.mockResolvedValue(issuedWarning());
+    });
+
+    it('refuses to cancel a warning that has already expired', async () => {
+      warnings.findById.mockResolvedValue(
+        issuedWarning({ validUntil: hoursFromNow(-1) }),
+      );
+      await expect(
+        service.cancel(WARNING_ID, OFFICER, 'Water receded', NOW),
+      ).rejects.toThrow(
+        new ConflictException(
+          'This warning has already expired; there is nothing to cancel',
+        ),
+      );
+      expect(warnings.cancel).not.toHaveBeenCalled();
+    });
+
     it('cancels and announces the All Clear', async () => {
       const cancelled = issuedWarning({ status: 'CANCELLED' });
       warnings.cancel.mockResolvedValue({

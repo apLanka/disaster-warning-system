@@ -298,6 +298,9 @@ describe('hazard warning HTTP API', () => {
     expect(retried.status).toBe(200);
     expect(retried.body.status).toBe('DISSEMINATED');
 
+    t.warnings.findById.mockResolvedValueOnce(
+      issuedWarning({ validUntil: new Date(future()) }),
+    );
     t.warnings.cancel.mockResolvedValue({
       outcome: 'UPDATED',
       warning: issuedWarning({ status: 'CANCELLED' }),

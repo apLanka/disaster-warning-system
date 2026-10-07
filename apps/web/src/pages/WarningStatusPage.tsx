@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
 import {
+  DISSEMINATION_STUCK_AFTER_MS,
   districtName,
   HAZARD_TYPE_LABELS,
   WARNING_LIMITS,
@@ -34,6 +35,16 @@ import { formatIncidentTime } from '../lib/format';
 import { editWarningPath, WARNINGS_PATH } from '../lib/routes';
 
 export const POLL_MS = 3000;
+
+function isStuck(
+  warning: Pick<HazardWarningDetailDto, 'status' | 'updatedAt'>,
+): boolean {
+  return (
+    warning.status === 'DISSEMINATING' &&
+    Date.now() - new Date(warning.updatedAt).getTime() >=
+      DISSEMINATION_STUCK_AFTER_MS
+  );
+}
 const ISSUED = [
   'DISSEMINATING',
   'DISSEMINATED',
@@ -70,12 +81,14 @@ export function WarningStatusPage() {
   } = useResource((signal) => getWarning(id, signal), [id]);
   usePageTitle(warning ? `Warning ${warning.reference}` : 'Warning');
 
-  // While the server is still sending, check again every few seconds.
+  // While the server is still sending, check again every few seconds. A send
+  // that has gone quiet for too long was interrupted: stop and offer Retry.
+  const sending = warning?.status === 'DISSEMINATING' && !isStuck(warning);
   useEffect(() => {
-    if (warning?.status !== 'DISSEMINATING') return;
+    if (!sending) return;
     const timer = setInterval(reload, POLL_MS);
     return () => clearInterval(timer);
-  }, [warning?.status, reload]);
+  }, [sending, reload]);
 
   if (loading && !warning) {
     return (
@@ -136,6 +149,9 @@ function WarningStatus({
 
   const issued = ISSUED.includes(warning.status);
   const expired = issued && !warning.active;
+  const stuck = isStuck(warning);
+  // Re-sending or cancelling an expired warning would sound sirens for a hazard that is over.
+  const actionable = issued && warning.active;
   const finished = warning.channels.filter(
     (channel) => channel.state !== 'PENDING',
   ).length;
@@ -203,6 +219,19 @@ function WarningStatus({
       {failure !== null && (
         <Banner tone="danger">{describeWarningError(failure)}</Banner>
       )}
+      {stuck && actionable && (
+        <Banner
+          tone="warning"
+          action={
+            <Button variant="ghost" loading={retrying} onClick={retry}>
+              Retry sending
+            </Button>
+          }
+        >
+          This warning has been sending for over two minutes and may have been
+          interrupted. Retry sends it on every channel that has not finished.
+        </Banner>
+      )}
       {warning.status === 'PARTIALLY_DISSEMINATED' && (
         <Banner tone="warning">
           Some channels could not deliver this warning. Retry them below, or use
@@ -268,7 +297,7 @@ function WarningStatus({
                 status={channel}
                 retrying={retrying}
                 onRetry={
-                  issued && warning.status !== 'DISSEMINATING'
+                  actionable && warning.status !== 'DISSEMINATING'
                     ? retry
                     : undefined
                 }
@@ -319,7 +348,7 @@ function WarningStatus({
               </Row>
             )}
           </dl>
-          {issued && (
+          {actionable && (
             <Button
               variant="danger"
               className="mt-4 w-full"

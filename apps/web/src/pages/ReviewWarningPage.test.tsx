@@ -8,8 +8,9 @@ import {
   createWarning,
   issueDraft,
   previewWarning,
+  updateDraft,
 } from '../api/hazardWarnings';
-import { NetworkError } from '../api/client';
+import { ApiError, NetworkError } from '../api/client';
 import { preview, stats, warning } from '../test/fixtures';
 import { renderPage } from '../test/render';
 import { emptyForm, type WarningReviewState } from '../lib/warningForm';
@@ -25,6 +26,7 @@ vi.mock('../api/hazardWarnings', async () => {
     previewWarning: vi.fn(),
     createWarning: vi.fn(),
     issueDraft: vi.fn(),
+    updateDraft: vi.fn(),
   };
 });
 
@@ -73,6 +75,9 @@ describe('ReviewWarningPage', () => {
     vi.mocked(issueDraft)
       .mockReset()
       .mockResolvedValue(warning({ id: 'w9' }));
+    vi.mocked(updateDraft)
+      .mockReset()
+      .mockResolvedValue(warning({ id: 'w9', status: 'DRAFT' }));
   });
 
   it('redirects to the form when opened directly', async () => {
@@ -169,7 +174,7 @@ describe('ReviewWarningPage', () => {
     expect(landing().state.notice).toBe('Warning HW-2026-0007 issued.');
   });
 
-  it('issues a draft by its id', async () => {
+  it('saves the reviewed edits onto the draft, then issues it', async () => {
     renderReview({ ...state, draftId: 'w9' });
     await userEvent.click(
       await screen.findByRole('button', { name: 'Confirm Warning' }),
@@ -183,6 +188,53 @@ describe('ReviewWarningPage', () => {
     await waitFor(() =>
       expect(issueDraft).toHaveBeenCalledWith('w9', { force: false }),
     );
+    // What the officer reviewed is what gets issued.
+    expect(updateDraft).toHaveBeenCalledWith(
+      'w9',
+      expect.objectContaining({
+        level: 'HIGH',
+        districts: ['COLOMBO'],
+        description: 'Heavy rainfall expected in low-lying areas',
+      }),
+    );
+    expect(vi.mocked(updateDraft).mock.invocationCallOrder[0]).toBeLessThan(
+      vi.mocked(issueDraft).mock.invocationCallOrder[0]!,
+    );
+  });
+
+  it('shows the duplicate choice when another officer issued an overlapping warning meanwhile', async () => {
+    vi.mocked(previewWarning)
+      .mockResolvedValueOnce(preview())
+      .mockResolvedValue(
+        preview({
+          duplicates: [warning({ id: 'w1', reference: 'HW-2026-0001' })],
+        }),
+      );
+    vi.mocked(createWarning).mockRejectedValueOnce(
+      new ApiError(
+        409,
+        'An active HIGH Flood warning (HW-2026-0001) already covers Colombo.',
+      ),
+    );
+    renderReview();
+    await userEvent.click(
+      await screen.findByRole('button', { name: 'Confirm Warning' }),
+    );
+    await userEvent.click(
+      within(await screen.findByRole('dialog')).getByRole('button', {
+        name: 'Issue warning',
+      }),
+    );
+
+    expect(
+      await screen.findByText(/already covers Colombo/),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByRole('checkbox', { name: /Issue anyway/ }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Confirm Warning' }),
+    ).toBeDisabled();
   });
 
   it('keeps everything on screen when the connection drops', async () => {

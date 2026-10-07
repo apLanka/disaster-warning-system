@@ -1,5 +1,6 @@
 import {
   CHANNEL_KINDS,
+  DISSEMINATION_STUCK_AFTER_MS,
   districtName,
   HAZARD_TYPE_LABELS,
   ISSUED_STATUSES,
@@ -143,4 +144,23 @@ export function allClearMessage(warning: HazardWarningEntity): string {
   const hazard = HAZARD_TYPE_LABELS[warning.hazardType];
   const reason = warning.cancellation?.reason ?? '';
   return `ALL CLEAR: the ${hazard} warning ${warning.reference} for ${describeDistricts(warning.districts)} has been lifted. ${reason}`.trim();
+}
+
+/** Issued, not cancelled, but its valid period is over. */
+export function hasExpired(
+  warning: Pick<HazardWarningEntity, 'status' | 'validUntil'>,
+  now: Date,
+): boolean {
+  return isIssued(warning.status) && !isActive(warning, now);
+}
+
+/** Still DISSEMINATING long after the send should have finished. */
+export function isStuck(
+  warning: Pick<HazardWarningEntity, 'status' | 'updatedAt'>,
+  now: Date,
+): boolean {
+  return (
+    warning.status === 'DISSEMINATING' &&
+    now.getTime() - warning.updatedAt.getTime() >= DISSEMINATION_STUCK_AFTER_MS
+  );
 }
