@@ -6,6 +6,8 @@ import { ReportsListPage } from './pages/ReportsListPage';
 import { ReviewReportPage } from './pages/ReviewReportPage';
 import { ReviewWarningPage } from './pages/ReviewWarningPage';
 import { WarningFormPage } from './pages/WarningFormPage';
+import { WarningsListPage } from './pages/WarningsListPage';
+import { WarningStatusPage } from './pages/WarningStatusPage';
 import { PENDING_PATH } from './lib/routes';
 
 function App() {
@@ -26,9 +28,11 @@ function App() {
           element={<ReportsListPage status="REJECTED" />}
         />
         <Route path="reports/:id" element={<ReviewReportPage />} />
+        <Route path="warnings" element={<WarningsListPage />} />
         <Route path="warnings/new" element={<WarningFormPage />} />
         <Route path="warnings/review" element={<ReviewWarningPage />} />
         <Route path="warnings/:id/edit" element={<WarningFormPage />} />
+        <Route path="warnings/:id" element={<WarningStatusPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

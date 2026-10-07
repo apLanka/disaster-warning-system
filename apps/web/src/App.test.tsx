@@ -10,6 +10,13 @@ vi.mock('./api/hazardWarnings', () => ({
   getWarningStats: vi
     .fn()
     .mockResolvedValue({ active: 0, drafts: 0, issuedToday: 0 }),
+  listWarnings: vi
+    .fn()
+    .mockResolvedValue({ items: [], total: 0, page: 1, limit: 20 }),
+  describeWarningError: () => 'error',
+}));
+vi.mock('./components/warnings/DistrictMap', () => ({
+  DistrictMap: () => <div>district map</div>,
 }));
 vi.mock('./api/hazardReports', () => ({
   getReport: vi.fn(),
@@ -92,5 +99,16 @@ describe('App routing', () => {
     expect(
       screen.getByRole('link', { name: 'Go to pending reports' }),
     ).toHaveAttribute('href', '/reports/pending');
+  });
+
+  it.each([
+    ['/warnings/new', 'Issue Hazard Warning'],
+    ['/warnings', 'Hazard Warnings'],
+  ])('serves %s', async (path, heading) => {
+    renderAt(path);
+
+    expect(
+      await screen.findByRole('heading', { name: heading }),
+    ).toBeInTheDocument();
   });
 });
