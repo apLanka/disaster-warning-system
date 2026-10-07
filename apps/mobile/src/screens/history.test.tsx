@@ -395,7 +395,7 @@ describe('notification bell', () => {
     );
 
     expect(
-      await screen.findByText('This section is coming soon.'),
+      await screen.findByText('Set your district to receive warnings'),
     ).toBeOnTheScreen();
   });
 });

@@ -3,17 +3,17 @@ import { Bell, ClipboardList, Home, User } from 'lucide-react-native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { useAlerts } from '../context/AlertsContext';
 import { useNotifications } from '../hooks/useNotifications';
+import { unacknowledged } from '../lib/alerts';
+import { AlertsScreen } from '../screens/AlertsScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MyReportsScreen } from '../screens/MyReportsScreen';
-import { PlaceholderScreen } from '../screens/PlaceholderScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { colors, TOUCH_TARGET, typography } from '../theme';
 import type { TabParamList } from './types';
 
 const Tab = createBottomTabNavigator<TabParamList>();
-
-const AlertsScreen = () => <PlaceholderScreen title="Alerts" />;
 
 /** Bell with the number of results the citizen has not looked at yet. */
 function BellButton({
@@ -22,10 +22,11 @@ function BellButton({
   navigation: BottomTabNavigationProp<TabParamList, 'Home'>;
 }) {
   const { unread } = useNotifications();
+  const { alerts } = useAlerts();
+  // Unread report results plus active warnings not yet acknowledged.
+  const total = unread.length + unacknowledged(alerts).length;
   const label =
-    unread.length === 0
-      ? 'Notifications, none new'
-      : `Notifications, ${unread.length} new`;
+    total === 0 ? 'Notifications, none new' : `Notifications, ${total} new`;
 
   return (
     <Pressable
@@ -36,11 +37,9 @@ function BellButton({
       style={styles.bell}
     >
       <Bell size={22} color={colors.white} />
-      {unread.length > 0 && (
+      {total > 0 && (
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>
-            {unread.length > 9 ? '9+' : unread.length}
-          </Text>
+          <Text style={styles.badgeText}>{total > 9 ? '9+' : total}</Text>
         </View>
       )}
     </Pressable>

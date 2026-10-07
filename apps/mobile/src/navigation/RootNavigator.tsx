@@ -1,10 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { HazardAlertScreen } from '../screens/HazardAlertScreen';
 import { ReportDetailScreen } from '../screens/ReportDetailScreen';
 import { ReportResultScreen } from '../screens/ReportResultScreen';
 import { ReportHazardScreen } from '../screens/ReportHazardScreen';
 import { ReportSubmittedScreen } from '../screens/ReportSubmittedScreen';
 import { ReviewReportScreen } from '../screens/ReviewReportScreen';
+import { SafetyInfoScreen } from '../screens/SafetyInfoScreen';
 import { colors, typography } from '../theme';
 import { MainTabs } from './MainTabs';
 import type { RootStackParamList } from './types';
@@ -47,6 +49,16 @@ export function RootNavigator() {
         name="ReportResult"
         component={ReportResultScreen}
         options={{ title: 'Report Result' }}
+      />
+      <Stack.Screen
+        name="HazardAlert"
+        component={HazardAlertScreen}
+        options={{ title: 'Hazard Alert' }}
+      />
+      <Stack.Screen
+        name="SafetyInfo"
+        component={SafetyInfoScreen}
+        options={{ title: 'Safety Info' }}
       />
       <Stack.Screen
         name="ReportSubmitted"

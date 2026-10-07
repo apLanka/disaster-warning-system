@@ -1,13 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { act, render, screen, waitFor } from '@testing-library/react-native';
-import { Text } from 'react-native';
+import { AppState, Text } from 'react-native';
 
 import type { CitizenProfileDto } from '@repo/types';
 
 import { NetworkError } from '../api/client';
-import { ALERTS_CACHE_KEY } from '../lib/alerts';
+import { ALERTS_CACHE_KEY, PROFILE_CACHE_KEY } from '../lib/alerts';
 import { alert, stubAlertsSource } from '../test/fixtures';
-import { AlertsProvider, useAlerts, type AlertsSource } from './AlertsContext';
+import {
+  AlertsProvider,
+  apiAlertsSource,
+  useAlerts,
+  type AlertsSource,
+} from './AlertsContext';
+import * as alertsApi from '../api/alerts';
 
 function Probe() {
   const { alerts, profile, stale } = useAlerts();
@@ -113,6 +119,53 @@ describe('AlertsProvider', () => {
     });
     expect(listAlerts.mock.calls.length).toBeGreaterThanOrEqual(2);
     jest.useRealTimers();
+  });
+
+  it('ignores a corrupted saved copy and a malformed answer', async () => {
+    await AsyncStorage.setItem(ALERTS_CACHE_KEY, '{not json');
+    await AsyncStorage.setItem(
+      PROFILE_CACHE_KEY,
+      JSON.stringify({ district: 'GALLE', updatedAt: '' }),
+    );
+    await renderWith(
+      stubAlertsSource({ listAlerts: async () => ({ oops: true }) as never }),
+    );
+    await waitFor(() =>
+      expect(shown()).toEqual({ ids: [], district: null, stale: false }),
+    );
+  });
+
+  it('checks again when the app comes back to the front', async () => {
+    const listeners: ((state: string) => void)[] = [];
+    jest
+      .spyOn(AppState, 'addEventListener')
+      .mockImplementation((_event, listener) => {
+        listeners.push(listener as (state: string) => void);
+        return { remove: jest.fn() } as never;
+      });
+    const listAlerts = jest.fn().mockResolvedValue([]);
+    await renderWith(stubAlertsSource({ listAlerts }));
+    await waitFor(() => expect(listAlerts).toHaveBeenCalledTimes(1));
+
+    await act(async () => {
+      listeners.forEach((listener) => listener('background'));
+      listeners.forEach((listener) => listener('active'));
+    });
+    await waitFor(() => expect(listAlerts).toHaveBeenCalledTimes(2));
+  });
+
+  it('reads from the API by default', async () => {
+    const getProfile = jest
+      .spyOn(alertsApi, 'getMyProfile')
+      .mockResolvedValue(null);
+    const listMyAlerts = jest
+      .spyOn(alertsApi, 'listMyAlerts')
+      .mockResolvedValue([]);
+
+    await expect(apiAlertsSource.getProfile()).resolves.toBeNull();
+    await expect(apiAlertsSource.listAlerts()).resolves.toEqual([]);
+    expect(getProfile).toHaveBeenCalled();
+    expect(listMyAlerts).toHaveBeenCalled();
   });
 
   it('fails loudly outside the provider', async () => {
