@@ -28,7 +28,7 @@ import {
   type ReportStats,
 } from '@repo/types';
 
-import type { Caller } from '../common/auth/caller.js';
+import { officerNameOf, type Caller } from '../common/auth/caller.js';
 import { CurrentCaller } from '../common/auth/current-caller.decorator.js';
 import { OfficerGuard } from '../common/auth/officer.guard.js';
 import { OfficerOrReporterGuard } from '../common/auth/officer-or-reporter.guard.js';
@@ -140,7 +140,7 @@ export class HazardReportsController {
     @Body() dto: VerifyReportDto,
     @CurrentCaller() caller: Caller,
   ): Promise<HazardReportDto> {
-    const report = await this.service.verify(id, officerName(caller), dto);
+    const report = await this.service.verify(id, officerNameOf(caller), dto);
     return toHazardReportDto(report);
   }
 
@@ -156,14 +156,7 @@ export class HazardReportsController {
     @Body() dto: RejectReportDto,
     @CurrentCaller() caller: Caller,
   ): Promise<HazardReportDto> {
-    const report = await this.service.reject(id, officerName(caller), dto);
+    const report = await this.service.reject(id, officerNameOf(caller), dto);
     return toHazardReportDto(report);
   }
-}
-
-/** OfficerGuard guarantees an officer; this narrows the type for the compiler. */
-function officerName(caller: Caller): string {
-  if (caller.kind !== 'officer')
-    throw new Error('Officer route reached by a non-officer');
-  return caller.name;
 }

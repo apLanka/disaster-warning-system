@@ -85,6 +85,24 @@ describe('PrismaCitizenDirectory', () => {
     );
   });
 
+  it('passes on a failure that is not a registration race', async () => {
+    prisma.citizen.upsert.mockRejectedValue(new Error('network'));
+    await expect(directory.register(DEVICE_ID, 'KANDY')).rejects.toThrow(
+      'network',
+    );
+    expect(prisma.citizen.update).not.toHaveBeenCalled();
+  });
+
+  it('finds a citizen by device, or null', async () => {
+    prisma.citizen.findUnique
+      .mockResolvedValueOnce(citizenRow())
+      .mockResolvedValueOnce(null);
+    await expect(directory.findByDeviceId(DEVICE_ID)).resolves.toMatchObject({
+      district: 'COLOMBO',
+    });
+    await expect(directory.findByDeviceId(DEVICE_ID)).resolves.toBeNull();
+  });
+
   it('finds recipients in the districts', async () => {
     prisma.citizen.findMany.mockResolvedValue([
       citizenRow({ phone: '+94771234567' }),
@@ -152,6 +170,29 @@ describe('PrismaAlertDeliveryRepository', () => {
         },
       ],
     });
+  });
+
+  it('treats devices a parallel send already delivered to as delivered', async () => {
+    prisma.alertDelivery.findMany.mockResolvedValue([]);
+    prisma.alertDelivery.createMany.mockRejectedValue(
+      new Prisma.PrismaClientKnownRequestError('dup', {
+        code: 'P2002',
+        clientVersion: '6.19.3',
+        meta: { target: 'warningId_deviceId' },
+      }),
+    );
+    await expect(
+      deliveries.recordDelivered(WARNING_ID, [DEVICE_ID]),
+    ).resolves.toBe(1);
+  });
+
+  it('passes on any other write failure, and does nothing for no devices', async () => {
+    prisma.alertDelivery.findMany.mockResolvedValue([]);
+    prisma.alertDelivery.createMany.mockRejectedValue(new Error('db down'));
+    await expect(
+      deliveries.recordDelivered(WARNING_ID, [DEVICE_ID]),
+    ).rejects.toThrow('db down');
+    await expect(deliveries.recordDelivered(WARNING_ID, [])).resolves.toBe(0);
   });
 
   it('writes nothing when every device already has it', async () => {
