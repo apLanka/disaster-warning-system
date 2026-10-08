@@ -22,8 +22,9 @@ export class NetworkError extends Error {
 }
 
 interface RequestOptions {
-  method?: 'GET' | 'PATCH';
+  method?: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
   body?: unknown;
+  headers?: Record<string, string>;
   signal?: AbortSignal;
 }
 
@@ -37,11 +38,12 @@ function isErrorBody(value: unknown): value is ApiErrorBody {
 
 export async function request<T>(
   path: string,
-  { method = 'GET', body, signal }: RequestOptions = {},
+  { method = 'GET', body, headers: customHeaders, signal }: RequestOptions = {},
 ): Promise<T> {
   const headers: Record<string, string> = {
     'x-officer-key': config.officerKey,
     'x-officer-name': config.officerName,
+    ...customHeaders,
   };
   if (body !== undefined) headers['content-type'] = 'application/json';
 
