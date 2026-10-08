@@ -52,6 +52,8 @@ export default defineConfig({
         'src/hazard-reports/**': MINIMUM,
         'src/notifications/**': MINIMUM,
         'src/analysis/**': MINIMUM,
+        'src/hazard-warnings/**': MINIMUM,
+        'src/citizens/**': MINIMUM,
       },
     },
   },

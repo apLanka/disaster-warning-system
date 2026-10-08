@@ -7,18 +7,9 @@ import type {
   VerifyReportInput,
 } from '@repo/types';
 
-import { request } from './client';
+import { request, toQueryString } from './client';
 
 const BASE = '/api/hazard-reports';
-
-function toQueryString(query: ListReportsQuery): string {
-  const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(query)) {
-    if (value !== undefined) params.set(key, String(value));
-  }
-  const text = params.toString();
-  return text === '' ? '' : `?${text}`;
-}
 
 export function listReports(
   query: ListReportsQuery,

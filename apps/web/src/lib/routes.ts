@@ -13,6 +13,18 @@ export function listPathFor(status: HazardReportDto['status']): string {
   return LIST_PATHS[status];
 }
 
+export const WARNINGS_PATH = '/warnings';
+export const NEW_WARNING_PATH = '/warnings/new';
+export const REVIEW_WARNING_PATH = '/warnings/review';
+
+export function warningPath(id: string): string {
+  return `${WARNINGS_PATH}/${encodeURIComponent(id)}`;
+}
+
+export function editWarningPath(id: string): string {
+  return `${warningPath(id)}/edit`;
+}
+
 export const ANALYSIS_PATH = '/analysis';
 
 export const analysisScopePath = (eventId: string) =>

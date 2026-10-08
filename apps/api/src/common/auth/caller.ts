@@ -25,3 +25,11 @@ export function readOfficerName(header: string | string[] | undefined): string {
     ? DEFAULT_OFFICER_NAME
     : name.slice(0, MAX_OFFICER_NAME_LENGTH);
 }
+
+/** OfficerGuard guarantees an officer; this narrows the type for the compiler. */
+export function officerNameOf(caller: Caller): string {
+  if (caller.kind !== 'officer') {
+    throw new Error('Officer route reached by a non-officer');
+  }
+  return caller.name;
+}

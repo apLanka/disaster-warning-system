@@ -7,6 +7,10 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { ReportsListPage } from './pages/ReportsListPage';
 import { ReviewReportPage } from './pages/ReviewReportPage';
 import { PostDisasterReportPage } from './pages/PostDisasterReportPage';
+import { ReviewWarningPage } from './pages/ReviewWarningPage';
+import { WarningFormPage } from './pages/WarningFormPage';
+import { WarningsListPage } from './pages/WarningsListPage';
+import { WarningStatusPage } from './pages/WarningStatusPage';
 import { PENDING_PATH } from './lib/routes';
 
 function App() {
@@ -33,6 +37,11 @@ function App() {
           element={<PostDisasterReportPage />}
         />
         <Route path="reports/:id" element={<ReviewReportPage />} />
+        <Route path="warnings" element={<WarningsListPage />} />
+        <Route path="warnings/new" element={<WarningFormPage />} />
+        <Route path="warnings/review" element={<ReviewWarningPage />} />
+        <Route path="warnings/:id/edit" element={<WarningFormPage />} />
+        <Route path="warnings/:id" element={<WarningStatusPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

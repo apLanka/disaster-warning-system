@@ -1,13 +1,18 @@
 import { AlertTriangle, ShieldCheck } from 'lucide-react-native';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { WARNING_LEVEL_LABELS } from '@repo/types';
+
+import { AlertCard } from '../components/AlertCard';
 import { Banner } from '../components/Banner';
 import { Button } from '../components/Button';
 import { Screen } from '../components/Screen';
+import { useAlerts } from '../context/AlertsContext';
 import { useReportQueue } from '../context/ReportQueueContext';
 import { useNotifications } from '../hooks/useNotifications';
+import { activeAlerts, highestLevel } from '../lib/alerts';
 import type { TabScreenProps } from '../navigation/types';
-import { colors, radius, spacing, typography } from '../theme';
+import { colors, levelColors, radius, spacing, typography } from '../theme';
 
 function waitingMessage(count: number): string {
   return count === 1
@@ -18,14 +23,35 @@ function waitingMessage(count: number): string {
 export function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
   const { queued, failed, dismissFailed } = useReportQueue();
   const { unread, dismiss } = useNotifications();
+  const { alerts } = useAlerts();
+  const level = highestLevel(alerts);
+  const active = activeAlerts(alerts);
+  const recent = alerts.slice(0, 2);
 
   return (
     <Screen>
-      <View style={styles.card}>
-        <ShieldCheck size={24} color={colors.success} />
+      <View
+        style={[
+          styles.card,
+          level && { borderLeftColor: levelColors[level].background },
+        ]}
+      >
+        {level ? (
+          <AlertTriangle size={24} color={colors.danger} />
+        ) : (
+          <ShieldCheck size={24} color={colors.success} />
+        )}
         <View style={styles.cardText}>
-          <Text style={styles.cardTitle}>Current Status: Safe</Text>
-          <Text style={styles.muted}>No active alerts in your area</Text>
+          <Text style={styles.cardTitle}>
+            {level
+              ? `Current Status: ${WARNING_LEVEL_LABELS[level]} warning`
+              : 'Current Status: Safe'}
+          </Text>
+          <Text style={styles.muted}>
+            {active.length === 0
+              ? 'No active alerts in your area'
+              : `${active.length} active warning${active.length === 1 ? '' : 's'} in your area`}
+          </Text>
         </View>
       </View>
 
@@ -74,9 +100,21 @@ export function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
         </Banner>
       ))}
 
-      <View style={styles.section}>
+      <View style={styles.section} accessibilityLabel="Recent Alerts">
         <Text style={styles.sectionTitle}>Recent Alerts</Text>
-        <Text style={styles.muted}>No recent alerts.</Text>
+        {recent.length === 0 ? (
+          <Text style={styles.muted}>No recent alerts.</Text>
+        ) : (
+          recent.map((alert) => (
+            <AlertCard
+              key={alert.id}
+              alert={alert}
+              onPress={() =>
+                navigation.navigate('HazardAlert', { id: alert.id })
+              }
+            />
+          ))
+        )}
       </View>
     </Screen>
   );

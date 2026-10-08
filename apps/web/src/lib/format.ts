@@ -68,6 +68,18 @@ export function formatCoordinates({
   return `${lat}, ${lng}`;
 }
 
+const clock = new Intl.DateTimeFormat('en-GB', {
+  timeZone: TIME_ZONE,
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+});
+
+/** "14:31" in Sri Lanka time, for activity feeds. */
+export function formatClock(iso: string): string {
+  return clock.format(new Date(iso));
+}
+
 const dateOnly = new Intl.DateTimeFormat('en-GB', {
   timeZone: TIME_ZONE,
   day: 'numeric',

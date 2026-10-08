@@ -113,13 +113,13 @@ describe('citizen submit flow', () => {
       ).toBeOnTheScreen();
     });
 
-    it('opens a coming-soon page for tabs built by other use cases', async () => {
+    it('opens the Alerts tab', async () => {
       await renderApp();
 
       await fireEvent.press(await screen.findByLabelText(/^Alerts, tab/));
 
       expect(
-        await screen.findByText('This section is coming soon.'),
+        await screen.findByText('Set your district to receive warnings'),
       ).toBeOnTheScreen();
     });
 

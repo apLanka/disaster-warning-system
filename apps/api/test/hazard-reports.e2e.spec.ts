@@ -397,8 +397,12 @@ describe.skipIf(!canRunIntegration)(
             )
             .map((method) => `${method.toUpperCase()} ${path}`),
       );
+      // Other use cases document their own routes in their own e2e suites.
+      const ours = documented.filter((entry) =>
+        /^\w+ \/api\/(health|hazard-reports|notifications)(\/|$)/.test(entry),
+      );
 
-      expect(documented.sort()).toEqual(
+      expect(ours.sort()).toEqual(
         [
           'GET /api/health',
           'POST /api/hazard-reports',
