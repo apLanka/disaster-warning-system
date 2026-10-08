@@ -60,6 +60,8 @@ export interface RescueTeamItem {
   contactNumber?: string;
   leaderName?: string;
   allowsCrossDistrict: boolean;
+  activeMissionId?: string;
+  activeAssignmentId?: string;
 }
 
 export interface RescueAssignment {

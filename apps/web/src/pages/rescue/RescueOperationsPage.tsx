@@ -129,7 +129,7 @@ export function RescueOperationsPage() {
                     <td className="px-6 py-4 text-right">
                       {t.currentStatus === 'ASSIGNED' ? (
                         <Link
-                          to="/district/missions/RA-001"
+                          to={`/district/missions/${encodeURIComponent(t.activeMissionId || t.activeAssignmentId || t.id)}`}
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-orange hover:underline"
                         >
                           <Eye className="size-3.5" /> View Mission

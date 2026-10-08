@@ -245,9 +245,14 @@ export class RescueService {
     includeExternal = false,
   ): Promise<RescueTeamItem[]> {
     try {
-      const teams = await this.prisma.rescueTeam.findMany({
-        orderBy: { teamCode: 'asc' },
-      });
+      const [teams, assignments] = await Promise.all([
+        this.prisma.rescueTeam.findMany({
+          orderBy: { teamCode: 'asc' },
+        }),
+        this.prisma.rescueAssignment.findMany({
+          orderBy: { updatedAt: 'desc' },
+        }),
+      ]);
 
       if (teams.length > 0) {
         const filtered = teams.filter((t) => {
@@ -272,6 +277,13 @@ export class RescueService {
             eligibility = RESCUE_ELIGIBILITY.CROSS_DISTRICT_ALLOWED;
           }
 
+          const matchedAssignment = assignments.find(
+            (a) =>
+              a.rescueTeamId === t.id ||
+              a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
+              a.rescueTeamId === t.teamCode,
+          );
+
           return {
             id: t.id,
             teamCode: t.teamCode,
@@ -284,6 +296,8 @@ export class RescueService {
             allowsCrossDistrict: t.allowsCrossDistrict,
             contactNumber: t.contactNumber ?? undefined,
             leaderName: t.leaderName ?? undefined,
+            activeMissionId: matchedAssignment?.missionId,
+            activeAssignmentId: matchedAssignment?.id,
           };
         });
       }
@@ -301,6 +315,11 @@ export class RescueService {
       return includeExternal && t.allowsCrossDistrict;
     });
 
+    const memAssignments = Array.from(this.inMemoryAssignments.values()).sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    );
+
     return filtered.map((t) => {
       const isLocal =
         !districtCode ||
@@ -314,9 +333,18 @@ export class RescueService {
         eligibility = RESCUE_ELIGIBILITY.CROSS_DISTRICT_ALLOWED;
       }
 
+      const matchedAssignment = memAssignments.find(
+        (a) =>
+          a.rescueTeamId === t.id ||
+          a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
+          a.rescueTeamId === t.teamCode,
+      );
+
       return {
         ...t,
         eligibility,
+        activeMissionId: matchedAssignment?.missionId,
+        activeAssignmentId: matchedAssignment?.id,
       };
     });
   }
@@ -723,12 +751,17 @@ export class RescueService {
       typeof val === 'string' && /^[0-9a-fA-F]{24}$/.test(val);
 
     try {
-      const filters: any[] = [{ missionId: id }];
+      const filters: any[] = [
+        { missionId: id },
+        { rescueTeamId: id },
+        { rescueTeamName: id },
+      ];
       if (isValidObjectId(id)) {
         filters.unshift({ id });
       }
       const mission = await this.prisma.rescueAssignment.findFirst({
         where: { OR: filters },
+        orderBy: { updatedAt: 'desc' },
       });
 
       if (mission) {
@@ -757,6 +790,22 @@ export class RescueService {
 
     const cached = this.inMemoryAssignments.get(id);
     if (cached) return cached;
+
+    const matchedMem = Array.from(this.inMemoryAssignments.values())
+      .filter(
+        (m) =>
+          m.id === id ||
+          m.missionId === id ||
+          m.rescueTeamId === id ||
+          m.rescueTeamName.toLowerCase() === id.toLowerCase() ||
+          m.rescueTeamName.toLowerCase().includes(id.toLowerCase()),
+      )
+      .sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      )[0];
+
+    if (matchedMem) return matchedMem;
 
     return {
       id: 'mock-mission-1',
