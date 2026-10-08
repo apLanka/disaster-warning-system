@@ -102,6 +102,10 @@ Restart Expo after changing it. The phone and computer must be on the same netwo
 9. **Partial delivery:** stop the API, set `SIMULATE_CHANNEL_FAILURE=SMS` in `apps/api/.env`, start it, issue a warning: status is Partially Disseminated. Remove the setting, restart, press Retry on the SMS card.
 10. **From a report:** open a Verified report in the portal and press "Issue Warning from this report".
 
+### Post-disaster analysis (portal only)
+
+After `bun run prisma:push` and `cd apps/api && bun run seed:analysis`, open **Analysis & Reports** in the portal. Pick a completed event, choose all districts or one, and read the report (Overview, Shelter Occupancy, Resource Distribution). The data is generated sample data. Event 6 (Batticaloa Flood) fails on purpose to show the retry path. See `apps/api/README.md` for the seven events.
+
 ## Commands
 
 Run from the root; turbo fans out across the workspace.

@@ -3,7 +3,7 @@ import { Transform } from 'class-transformer';
 import { IsIn, IsOptional, Matches } from 'class-validator';
 
 import {
-  DISTRICTS,
+  DISTRICT_KEYS,
   normalizeSriLankanMobile,
   type District,
   type RegisterCitizenInput,
@@ -16,8 +16,8 @@ function toMobile({ value }: { value: unknown }): unknown {
 }
 
 export class RegisterCitizenDto implements RegisterCitizenInput {
-  @ApiProperty({ enum: DISTRICTS })
-  @IsIn(DISTRICTS)
+  @ApiProperty({ enum: DISTRICT_KEYS })
+  @IsIn(DISTRICT_KEYS)
   district: District;
 
   @ApiPropertyOptional({

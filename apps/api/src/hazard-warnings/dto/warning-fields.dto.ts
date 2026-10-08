@@ -15,7 +15,7 @@ import {
 } from 'class-validator';
 
 import {
-  DISTRICTS,
+  DISTRICT_KEYS,
   HAZARD_TYPES,
   WARNING_LEVELS,
   WARNING_LIMITS,
@@ -47,8 +47,8 @@ export class WarningFieldsDto implements WarningFields {
   @IsIn(WARNING_LEVELS)
   level: WarningLevel;
 
-  @ApiProperty({ enum: DISTRICTS, isArray: true })
-  @IsIn(DISTRICTS, { each: true })
+  @ApiProperty({ enum: DISTRICT_KEYS, isArray: true })
+  @IsIn(DISTRICT_KEYS, { each: true })
   @ArrayUnique()
   @ArrayMaxSize(L.districtsMax)
   @ArrayMinSize(1, { message: 'select at least one affected district' })

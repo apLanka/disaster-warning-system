@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 
+import { AnalysisModule } from './analysis/analysis.module.js';
 import { CitizensModule } from './citizens/citizens.module.js';
 import { AppConfigModule } from './config/app-config.module.js';
 import { HazardReportsModule } from './hazard-reports/hazard-reports.module.js';
@@ -13,6 +14,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
     AppConfigModule,
     PrismaModule,
     HazardReportsModule,
+    AnalysisModule,
     NotificationsModule,
     CitizensModule,
     HazardWarningsModule,

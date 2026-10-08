@@ -1,5 +1,10 @@
 import { REPORT_STATUS_LABELS } from './index.js';
 import type {
+  AnalysisScope,
+  DistrictCode,
+  EventStatus,
+  PostDisasterReportDto,
+  ResourceType,
   CreateHazardReportFields,
   HazardReportDto,
   HazardType,
@@ -45,7 +50,27 @@ const missingLabel: Record<HazardType, string> = { FLOOD: 'Flood' };
 // @ts-expect-error notification kind is a closed union
 const badKind: NotificationDto['kind'] = 'REPORT_PENDING';
 
+const allDistricts: AnalysisScope = { kind: 'ALL' };
+const oneDistrict: AnalysisScope = { kind: 'DISTRICT', districtCode: 'CMB' };
+// @ts-expect-error a district scope needs a district
+const noDistrict: AnalysisScope = { kind: 'DISTRICT' };
+// @ts-expect-error district codes are a closed union
+const badDistrict: DistrictCode = 'XXX';
+// @ts-expect-error only ACTIVE and COMPLETED events exist
+const badEventStatus: EventStatus = 'CANCELLED';
+// @ts-expect-error every resource type needs a label
+const missingResourceLabel: Record<ResourceType, string> = { WATER: 'Water' };
+const completeness: PostDisasterReportDto['dataCompletenessStatus'] =
+  'INCOMPLETE';
+
 export {
+  allDistricts,
+  oneDistrict,
+  noDistrict,
+  badDistrict,
+  badEventStatus,
+  missingResourceLabel,
+  completeness,
   ok,
   degraded,
   bad,
@@ -63,7 +88,7 @@ export {
 
 import {
   CHANNEL_KINDS,
-  DISTRICTS,
+  DISTRICT_KEYS,
   ISSUED_STATUSES,
   nearestDistrict,
   normalizeSriLankanMobile,
@@ -82,7 +107,7 @@ const level: WarningLevel = 'HIGH';
 const badLevel: WarningLevel = 'SEVERE';
 const district: District = 'COLOMBO';
 // @ts-expect-error districts are the 25 codes only
-const badDistrict: District = 'Colombo';
+const badWarningDistrict: District = 'Colombo';
 
 const createInput: CreateWarningInput = {
   clientRequestId: '7b0e6c0e-0f5e-4a52-9a77-3d3a0c1f9a11',
@@ -126,20 +151,20 @@ const citizenAlert: CitizenAlertDto = {
 const labels: string = WARNING_LEVEL_LABELS.CRITICAL;
 const kinds: readonly string[] = CHANNEL_KINDS;
 const issued: readonly string[] = ISSUED_STATUSES;
-const allDistricts: number = DISTRICTS.length;
+const districtKeyCount: number = DISTRICT_KEYS.length;
 const nearest: District = nearestDistrict({ latitude: 6.93, longitude: 79.86 });
 const phone: string | null = normalizeSriLankanMobile('077 123 4567');
 
 export {
   badLevel,
-  badDistrict,
+  badWarningDistrict,
   badAction,
   warning,
   citizenAlert,
   labels,
   kinds,
   issued,
-  allDistricts,
+  districtKeyCount,
   nearest,
   phone,
 };

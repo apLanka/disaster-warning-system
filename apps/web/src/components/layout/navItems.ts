@@ -1,4 +1,5 @@
 import {
+  ChartColumn,
   CircleCheck,
   CircleX,
   FileText,
@@ -40,4 +41,5 @@ export const NAV_ITEMS: NavItem[] = [
     badge: 'activeWarnings',
     end: true,
   },
+  { to: '/analysis', label: 'Analysis & Reports', icon: ChartColumn },
 ];

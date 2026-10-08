@@ -24,3 +24,11 @@ export function warningPath(id: string): string {
 export function editWarningPath(id: string): string {
   return `${warningPath(id)}/edit`;
 }
+
+export const ANALYSIS_PATH = '/analysis';
+
+export const analysisScopePath = (eventId: string) =>
+  `${ANALYSIS_PATH}/${encodeURIComponent(eventId)}`;
+
+export const analysisReportPath = (eventId: string, district?: string) =>
+  `${analysisScopePath(eventId)}/report${district ? `?district=${encodeURIComponent(district)}` : ''}`;

@@ -5,7 +5,7 @@ interface PaginationProps {
   limit: number;
   total: number;
   onChange: (page: number) => void;
-  /** Plural word for the items, e.g. "warnings". */
+  /** What is being counted, in the plural: "reports" unless said otherwise. */
   noun?: string;
 }
 

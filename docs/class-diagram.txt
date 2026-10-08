@@ -1,0 +1,1200 @@
+<mxGraphModel dx="7613" dy="4947" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2900" pageHeight="2300" background="#ffffff" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="edge_r1" edge="1" parent="1" source="mult_s_r1" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.197;exitY=1.07;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.002;entryY=0.655169;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;" target="class_HazardReport_attrs" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_r2" edge="1" parent="1" source="class_HazardReport" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.000000;exitY=0.419355;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.000000;entryY=0.440000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;" target="class_Verification" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_r3" edge="1" parent="1" source="class_Verification_attrs" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;entryX=-0.006;entryY=0.891;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;exitX=1.006;exitY=0.533263;exitDx=0;exitDy=0;exitPerimeter=0;" target="class_DutyOfficer_attrs" value="">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="1020" y="157.31" as="sourcePoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_r4" edge="1" parent="1" source="class_HazardReport" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.243;exitY=0.994;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.500000;entryY=0.000000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=diamond;startFill=1;endArrow=none;" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="548.29" y="400" />
+        </Array>
+        <mxPoint x="591.7186399999999" y="310.00000000000006" as="sourcePoint" />
+        <mxPoint x="548.29" y="450" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_r5" edge="1" parent="1" source="class_HazardReport" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.957;exitY=1.004;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.500000;entryY=0.000000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;" target="class_Location" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="720" y="400" />
+          <mxPoint x="945" y="400" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_r6" edge="1" parent="1" source="class_Verification_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.013;exitY=0.578364;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.000000;entryY=0.500000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;jumpStyle=arc;" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1140" y="260" />
+          <mxPoint x="1139" y="569.5" />
+        </Array>
+        <mxPoint x="989" y="266.49359999999996" as="sourcePoint" />
+        <mxPoint x="1159" y="569.5" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_s1" edge="1" parent="1" source="class_DutyOfficer_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;entryX=0.000000;entryY=0.500000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=open;startFill=0;endArrow=open;endFill=0;exitX=1.005;exitY=0.169;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="1440" y="196" as="sourcePoint" />
+        <mxPoint x="1660" y="191" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_s3" edge="1" parent="1" source="class_HazardWarning_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.123;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.947;entryY=-0.078;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;jumpStyle=arc;" target="class_Location_title" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1700" y="420" />
+          <mxPoint x="1140" y="420" />
+          <mxPoint x="1092.51" y="420" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_s4" edge="1" parent="1" source="class_HazardWarning" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.000000;exitY=0.633333;exitDx=0;exitDy=0;exitPerimeter=1;entryX=-0.003;entryY=0.787;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=open;endFill=0;" target="class_DisseminationStatus_attrs" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2060" y="231" />
+          <mxPoint x="2060" y="360" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_s5" edge="1" parent="1" source="class_Location" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.363636;exitY=1.000000;exitDx=0;exitDy=0;exitPerimeter=1;startArrow=open;startFill=0;endArrow=open;endFill=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="class_AffectedCitizen_attrs" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="900" y="700" />
+          <mxPoint x="2000" y="700" />
+        </Array>
+        <mxPoint x="2050" y="690" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_s6" edge="1" parent="1" source="class_NotificationLog_attrs" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.668;entryDx=0;entryDy=0;startArrow=none;endArrow=open;endFill=0;entryPerimeter=0;" target="class_DisseminationStatus_attrs" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_n1" edge="1" parent="1" source="class_District" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.000000;exitY=0.500000;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.000000;entryY=0.642857;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;" target="class_DisasterEvent" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_n2" edge="1" parent="1" source="class_DisasterEvent_title" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.933;exitY=-0.026;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.002;entryY=0.513;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;jumpStyle=arc;" target="class_HazardWarning_methods" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="900" y="810" />
+          <mxPoint x="950" y="810" />
+          <mxPoint x="950" y="670" />
+          <mxPoint x="1620" y="670" />
+          <mxPoint x="1620" y="280" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_n3" edge="1" parent="1" source="class_HazardWarning" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.500000;exitY=1.000000;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.548;entryY=-0.002;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;" target="class_AlertDelivery_title" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_n4" edge="1" parent="1" source="class_DisasterEvent" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.666667;exitY=1.000000;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.666;entryY=0.026;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;" target="class_ShelterOccupancyRecord_title" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="820" y="1020" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_n5" edge="1" parent="1" source="class_District" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.500000;exitY=1.000000;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.500000;entryY=0.000000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;" target="class_Shelter" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_n6" edge="1" parent="1" source="class_Shelter" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.000000;exitY=0.500000;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.000000;entryY=0.500000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;" target="class_ShelterOccupancyRecord" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_n7" edge="1" parent="1" source="class_DisasterEvent" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.833333;exitY=1.000000;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.500000;entryY=0.000000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;jumpStyle=arc;" target="class_ResourceDistribution" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="870" y="1030" />
+          <mxPoint x="1160" y="1030" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_n8" edge="1" parent="1" source="class_District_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.963;exitY=0.979;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.000000;entryY=0.600000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;jumpStyle=arc;" target="class_ResourceDistribution" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="500" y="1020" />
+          <mxPoint x="570" y="1020" />
+          <mxPoint x="980" y="1020" />
+          <mxPoint x="980" y="1150" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_n9" edge="1" parent="1" source="class_Resource" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.000000;exitY=0.500000;exitDx=0;exitDy=0;exitPerimeter=1;entryX=1.000000;entryY=0.533333;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;jumpStyle=arc;" target="class_ResourceDistribution" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_n10" edge="1" parent="1" source="class_DisasterEvent" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.000000;exitY=0.285714;exitDx=0;exitDy=0;exitPerimeter=1;entryX=-0.001;entryY=0.401;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;" target="class_PostDisasterReport_methods" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="950" y="880" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_sh1" edge="1" parent="1" source="class_Organisation_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.489;exitY=0.997;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.13;entryY=0.934;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;" target="mult_s_sh1" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_sh2" edge="1" parent="1" source="class_Organisation_attrs" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=-0.003;exitY=0.609;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.579;entryY=-0.033;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;" target="class_Resource_title" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1740" y="840" />
+          <mxPoint x="1560" y="840" />
+          <mxPoint x="1560" y="960" />
+          <mxPoint x="1560" y="1030" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_sh3" edge="1" parent="1" source="class_RescueTeam_attrs" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;startArrow=none;endArrow=none;exitX=1;exitY=0.824;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.833;entryDx=0;entryDy=0;entryPerimeter=0;" target="class_RescueAssignment_attrs" value="">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="2051.1" y="1100" as="sourcePoint" />
+        <mxPoint x="2167.68" y="1098.33" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_sh4" edge="1" parent="1" source="class_DisasterEvent" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.000000;exitY=0.785714;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.000000;entryY=0.520000;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;jumpStyle=arc;" target="class_RescueAssignment" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="960" y="950" />
+          <mxPoint x="960" y="1280" />
+          <mxPoint x="2130" y="1280" />
+          <mxPoint x="2130" y="1120" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_sh5" edge="1" parent="1" source="class_District_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1;exitY=0.673;exitDx=0;exitDy=0;exitPerimeter=0;startArrow=none;endArrow=none;jumpStyle=arc;" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="560" y="980" />
+          <mxPoint x="560" y="1350" />
+          <mxPoint x="1500" y="1350" />
+          <mxPoint x="2250" y="1350" />
+        </Array>
+        <mxPoint x="2250" y="1241.77" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d1" edge="1" parent="1" source="class_PostDisasterReportController" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;exitX=0.408;exitY=1.011;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="2500" y="1550.46" as="sourcePoint" />
+        <mxPoint x="2318" y="1640" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d2" edge="1" parent="1" source="class_DisasterAnalysisService" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;" value="">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="2305" y="1860" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d3" edge="1" parent="1" source="class_DisasterAnalysisService_title" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.031;exitY=0.068;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.860000;entryY=1.000000;entryDx=0;entryDy=0;entryPerimeter=1;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;jumpStyle=arc;" target="class_PostDisasterReport" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2190" y="1260" />
+          <mxPoint x="1320" y="1260" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d4" edge="1" parent="1" source="class_EmergencyResponseController_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;exitX=1.005;exitY=0.298;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="520" y="1576.71" as="sourcePoint" />
+        <mxPoint x="779.4" y="1520" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d5" edge="1" parent="1" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=light-dark(#19191a, #efc0ff);strokeWidth=2;exitX=1.004;exitY=0.382;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.002;entryY=0.436;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;fillColor=light-dark(#000000,transparent);" value="">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="1081.8399999999997" y="1550.1604000000007" as="sourcePoint" />
+        <mxPoint x="1390" y="1548.6034000000009" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d6" edge="1" parent="1" source="class_EmergencyResponseService_title" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.463;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.000000;entryY=0.840000;entryDx=0;entryDy=0;entryPerimeter=1;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;jumpStyle=arc;" target="class_RescueTeam" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="920" y="1380" />
+          <mxPoint x="1760" y="1380" />
+          <mxPoint x="1760" y="1200" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d7" edge="1" parent="1" source="class_EmergencyResponseService_title" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.975;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.000000;entryY=0.680000;entryDx=0;entryDy=0;entryPerimeter=1;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;jumpStyle=arc;" target="class_RescueAssignment" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1072.5" y="1400" />
+          <mxPoint x="2150" y="1400" />
+          <mxPoint x="2150" y="1160" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_d8" edge="1" parent="1" source="class_Verification_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;jumpStyle=arc;entryX=0;entryY=0.328;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.008;exitY=0.804608;exitDx=0;exitDy=0;exitPerimeter=0;" target="class_HazardWarning_methods" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1120" y="280" />
+          <mxPoint x="1123" y="461" />
+          <mxPoint x="1553" y="461" />
+          <mxPoint x="1553" y="391" />
+          <mxPoint x="1553" y="261" />
+        </Array>
+        <mxPoint x="930" y="300" as="sourcePoint" />
+        <mxPoint x="1653" y="261.0267999999999" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_i1" edge="1" parent="1" source="class_AffectedCitizen" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.000000;exitY=0.380952;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.881;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;endArrow=none;" target="class_AlertDelivery" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1924.3" y="630" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_i2" edge="1" parent="1" source="class_Reporter_methods" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=0.513;exitY=0.995;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.000000;entryY=0.866667;entryDx=0;entryDy=0;entryPerimeter=1;startArrow=none;endArrow=none;jumpStyle=arc;" target="class_Notification" value="">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="260" y="690" />
+          <mxPoint x="1140" y="685" />
+          <mxPoint x="1140" y="630" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="class_Reporter" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="230" width="230" x="140" y="90" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Reporter_title" parent="class_Reporter" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="Reporter" vertex="1">
+      <mxGeometry height="30" width="230.00000000000003" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Reporter_attrs" parent="class_Reporter" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String reporterId&lt;br&gt;-String name&lt;br&gt;-String phone&lt;br&gt;-String email&lt;br&gt;-ReporterType userType&lt;/div&gt;" vertex="1">
+      <mxGeometry height="102" width="230.00000000000003" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Reporter_methods" parent="class_Reporter" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;&lt;strike&gt;&lt;font color=&quot;#e67e22&quot;&gt;+submitReport()&lt;/font&gt;&lt;/strike&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL1]&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;strike&gt;&lt;font color=&quot;#e67e22&quot;&gt;+receiveNotification()&lt;/font&gt;&lt;/strike&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL1]&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="98" width="230.00000000000003" y="132" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Reporter_sep1" parent="class_Reporter" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="230.00000000000003" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Reporter_sep2" parent="class_Reporter" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="230.00000000000003" y="132" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReport" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="230" width="240" x="490" y="80" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReport_title" parent="class_HazardReport" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="HazardReport" vertex="1">
+      <mxGeometry height="22.258064516129032" width="240" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReport_attrs" parent="class_HazardReport" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=2;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String reportId&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-String reference&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL5]&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-String clientRequestId&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL5]&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-HazardType hazardType&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL2]&lt;/font&gt;&lt;/b&gt;&lt;br&gt;-String description&lt;br&gt;-ReportStatus status&lt;br&gt;-DateTime createdAt&lt;br&gt;-DateTime updatedAt&lt;/div&gt;" vertex="1">
+      <mxGeometry height="131" width="240" y="22.258064516129032" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReport_methods" parent="class_HazardReport" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+addPhoto()&lt;br&gt;+setLocation()&lt;br&gt;&lt;strike&gt;&lt;font color=&quot;#e67e22&quot;&gt;+setStatus()&lt;/font&gt;&lt;/strike&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL3]&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="59.35483870967742" width="240" y="153.25806451612902" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReport_sep1" parent="class_HazardReport" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.7419354838709677" width="240" y="22.258064516129032" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReport_sep2" parent="class_HazardReport" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.7419354838709677" width="240" y="160.25806451612902" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Verification" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="216.72" width="170" x="820" y="81.28" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Verification_title" parent="class_Verification" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="Verification" vertex="1">
+      <mxGeometry height="26.006400000000003" width="170" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Verification_attrs" parent="class_Verification" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=2;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;&lt;strike&gt;&lt;font color=&quot;#e67e22&quot;&gt;-String verification&lt;/font&gt;&lt;/strike&gt;&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-ReportStatus decision&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-RejectionReason reason&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-String reasonDetails&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-String officerNotes&lt;/font&gt;&lt;br&gt;-DateTime verifiedAt&lt;/div&gt;" vertex="1">
+      <mxGeometry height="99" width="170" y="26.006400000000003" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Verification_methods" parent="class_Verification" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+setDecision()&lt;br&gt;+reason()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="91.7136" width="170" y="125.0064" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Verification_sep1" parent="class_Verification" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.8668800000000001" width="170" y="26.006400000000003" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Verification_sep2" parent="class_Verification" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.8668800000000001" width="170" y="132.00639999999999" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DutyOfficer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="290" width="270" x="1170" y="60" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DutyOfficer_title" parent="class_DutyOfficer" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="DutyOfficer" vertex="1">
+      <mxGeometry height="24.857142857142854" width="270" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DutyOfficer_attrs" parent="class_DutyOfficer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String officerId&lt;br&gt;-String name&lt;br&gt;-String email&lt;br&gt;-String rank&lt;br&gt;-String phone&lt;/div&gt;" vertex="1">
+      <mxGeometry height="84.5142857142857" width="270" y="24.857142857142854" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DutyOfficer_methods" parent="class_DutyOfficer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+reviewReport()&lt;br&gt;+verifyReport()&lt;br&gt;+rejectReport()&lt;br&gt;+createWarning()&lt;br&gt;+confirmWarning()&lt;br&gt;+cancellingWarning()&lt;br&gt;+reviewWarning()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="126.875" width="270" y="109.37531249999998" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DutyOfficer_sep1" parent="class_DutyOfficer" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.8285714285714284" width="270" y="24.857142857142854" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DutyOfficer_sep2" parent="class_DutyOfficer" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="7.612499999999999" width="270" y="113.2" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportPhoto" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="150" width="300" x="420" y="450" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportPhoto_title" parent="class_ReportPhoto" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="ReportPhoto" vertex="1">
+      <mxGeometry height="30" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportPhoto_attrs" parent="class_ReportPhoto" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String photoId&lt;br&gt;-String fileUrl&lt;br&gt;-DateTime captureAt&lt;/div&gt;" vertex="1">
+      <mxGeometry height="66" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportPhoto_methods" parent="class_ReportPhoto" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="54" width="300" y="96" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportPhoto_sep1" parent="class_ReportPhoto" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportPhoto_sep2" parent="class_ReportPhoto" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="96" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Location" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="230" width="330" x="780" y="430" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Location_title" parent="class_Location" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="Location" vertex="1">
+      <mxGeometry height="30" width="330" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Location_attrs" parent="class_Location" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String locationId&lt;br&gt;-String district&lt;br&gt;-String riverBasin&lt;br&gt;-double latitude&lt;br&gt;-double longitude&lt;br&gt;-String address&lt;/div&gt;" vertex="1">
+      <mxGeometry height="120" width="330" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Location_methods" parent="class_Location" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+getCoordinates()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="80" width="330" y="150" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Location_sep1" parent="class_Location" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="330" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Location_sep2" parent="class_Location" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="330" y="150" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Notification" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="150" width="320" x="1160" y="500" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Notification_title" parent="class_Notification" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="Notification" vertex="1">
+      <mxGeometry height="30" width="320" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Notification_attrs" parent="class_Notification" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=2;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String notificationId&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-String reportId&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL5]&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-NotificationKind kind&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL5]&lt;/font&gt;&lt;/b&gt;&lt;br&gt;-String message&lt;br&gt;-DateTime sentAt&lt;br&gt;&lt;font color=&quot;#e67e22&quot;&gt;-DateTime readAt&lt;/font&gt; &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL5]&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="99" width="320" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Notification_methods" parent="class_Notification" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=1;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+send()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="21" width="320" y="125" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Notification_sep1" parent="class_Notification" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="320" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Notification_sep2" parent="class_Notification" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="320" y="132" as="geometry" />
+    </mxCell>
+    <mxCell id="class_WarningDetail" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="160" width="300" x="2090" y="59.64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_WarningDetail_title" parent="class_WarningDetail" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="WarningDetail" vertex="1">
+      <mxGeometry height="17.142857142857142" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_WarningDetail_attrs" parent="class_WarningDetail" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String detailed&lt;br&gt;-String key&lt;br&gt;-String value&lt;/div&gt;" vertex="1">
+      <mxGeometry height="37.714285714285715" width="300" y="17.142857142857142" as="geometry" />
+    </mxCell>
+    <mxCell id="class_WarningDetail_methods" parent="class_WarningDetail" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="30.857142857142854" width="300" y="54.857142857142854" as="geometry" />
+    </mxCell>
+    <mxCell id="class_WarningDetail_sep1" parent="class_WarningDetail" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.5714285714285714" width="300" y="17.142857142857142" as="geometry" />
+    </mxCell>
+    <mxCell id="class_WarningDetail_sep2" parent="class_WarningDetail" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.5714285714285714" width="300" y="54.857142857142854" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisseminationStatus" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="200" width="260" x="2100" y="270" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisseminationStatus_title" parent="class_DisseminationStatus" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="DisseminationStatus" vertex="1">
+      <mxGeometry height="22.372811214856586" width="250" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisseminationStatus_attrs" parent="class_DisseminationStatus" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String statusId&lt;br&gt;-ChannelType channel&lt;br&gt;-ChannelStatus status&lt;br&gt;-DateTime sentAt&lt;br&gt;-String remarks&lt;/div&gt;" vertex="1">
+      <mxGeometry height="86.68451318659532" width="260" y="22.377553043823127" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisseminationStatus_methods" parent="class_DisseminationStatus" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="19.085861590323223" width="250" y="158.63573269879043" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisseminationStatus_sep1" parent="class_DisseminationStatus" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.75" width="260" y="22.37" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisseminationStatus_sep2" parent="class_DisseminationStatus" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="19.09" width="260" y="129.64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AffectedCitizen" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="210" width="280" x="2050" y="550" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AffectedCitizen_title" parent="class_AffectedCitizen" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="AffectedCitizen" vertex="1">
+      <mxGeometry height="30" width="280" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AffectedCitizen_attrs" parent="class_AffectedCitizen" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String citizenId&lt;br&gt;-String name&lt;br&gt;-String phone&lt;br&gt;-String address&lt;br&gt;-double latitude&lt;br&gt;-double longitude&lt;/div&gt;" vertex="1">
+      <mxGeometry height="120" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AffectedCitizen_methods" parent="class_AffectedCitizen" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="60" width="280" y="150" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AffectedCitizen_sep1" parent="class_AffectedCitizen" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AffectedCitizen_sep2" parent="class_AffectedCitizen" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="150" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationLog" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="220" width="280" x="2460" y="270" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationLog_title" parent="class_NotificationLog" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="NotificationLog" vertex="1">
+      <mxGeometry height="30" width="280" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationLog_attrs" parent="class_NotificationLog" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String logId&lt;br&gt;-ChannelType channel&lt;br&gt;-String message&lt;br&gt;-String responseCode&lt;br&gt;-DateTime loggedAt&lt;/div&gt;" vertex="1">
+      <mxGeometry height="102" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationLog_methods" parent="class_NotificationLog" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="88" width="280" y="132" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationLog_sep1" parent="class_NotificationLog" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationLog_sep2" parent="class_NotificationLog" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="132" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AlertDelivery" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="150" width="300" x="1660" y="430" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AlertDelivery_title" parent="class_AlertDelivery" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="AlertDelivery" vertex="1">
+      <mxGeometry height="30" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AlertDelivery_attrs" parent="class_AlertDelivery" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String deliveryId&lt;br&gt;-String deliveryStatus&lt;/div&gt;" vertex="1">
+      <mxGeometry height="48" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AlertDelivery_methods" parent="class_AlertDelivery" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="72" width="300" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AlertDelivery_sep1" parent="class_AlertDelivery" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AlertDelivery_sep2" parent="class_AlertDelivery" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_District" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="140" width="280" x="230" y="860" as="geometry" />
+    </mxCell>
+    <mxCell id="class_District_title" parent="class_District" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="District" vertex="1">
+      <mxGeometry height="30" width="280" as="geometry" />
+    </mxCell>
+    <mxCell id="class_District_attrs" parent="class_District" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String districtId&lt;br&gt;-String districtName&lt;/div&gt;" vertex="1">
+      <mxGeometry height="48" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_District_methods" parent="class_District" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="62" width="280" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_District_sep1" parent="class_District" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_District_sep2" parent="class_District" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterEvent" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="140" width="300" x="620" y="840" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterEvent_title" parent="class_DisasterEvent" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="DisasterEvent" vertex="1">
+      <mxGeometry height="30" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterEvent_attrs" parent="class_DisasterEvent" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String eventId&lt;br&gt;-String eventStatus&lt;/div&gt;" vertex="1">
+      <mxGeometry height="48" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterEvent_methods" parent="class_DisasterEvent" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="62" width="300" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterEvent_sep1" parent="class_DisasterEvent" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterEvent_sep2" parent="class_DisasterEvent" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Shelter" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="140" width="280" x="230" y="1070" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Shelter_title" parent="class_Shelter" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="Shelter" vertex="1">
+      <mxGeometry height="30" width="280" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Shelter_attrs" parent="class_Shelter" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String shelterId&lt;br&gt;-int capacity&lt;/div&gt;" vertex="1">
+      <mxGeometry height="48" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Shelter_methods" parent="class_Shelter" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="62" width="280" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Shelter_sep1" parent="class_Shelter" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Shelter_sep2" parent="class_Shelter" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="280" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ShelterOccupancyRecord" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="160" width="330" x="600" y="1060" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ShelterOccupancyRecord_title" parent="class_ShelterOccupancyRecord" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="ShelterOccupancyRecord" vertex="1">
+      <mxGeometry height="30" width="330" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ShelterOccupancyRecord_attrs" parent="class_ShelterOccupancyRecord" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-DateTime recordedAt&lt;br&gt;-int occupancyCount&lt;/div&gt;" vertex="1">
+      <mxGeometry height="48" width="330" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ShelterOccupancyRecord_methods" parent="class_ShelterOccupancyRecord" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="82" width="330" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ShelterOccupancyRecord_sep1" parent="class_ShelterOccupancyRecord" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="330" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ShelterOccupancyRecord_sep2" parent="class_ShelterOccupancyRecord" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="330" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Resource" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="160" width="190" x="1450" y="1060" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Resource_title" parent="class_Resource" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="Resource" vertex="1">
+      <mxGeometry height="30" width="190" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Resource_attrs" parent="class_Resource" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String resourceId&lt;br&gt;-String resourceName&lt;br&gt;-String resourceType&lt;/div&gt;" vertex="1">
+      <mxGeometry height="66" width="190" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Resource_methods" parent="class_Resource" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="64" width="190" y="96" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Resource_sep1" parent="class_Resource" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="190" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Resource_sep2" parent="class_Resource" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="190" y="96" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResourceDistribution" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="150" width="260" x="1030" y="1060" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResourceDistribution_title" parent="class_ResourceDistribution" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="ResourceDistribution" vertex="1">
+      <mxGeometry height="30" width="260" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResourceDistribution_attrs" parent="class_ResourceDistribution" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String distributionId&lt;br&gt;-int quantity&lt;/div&gt;" vertex="1">
+      <mxGeometry height="48" width="260" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResourceDistribution_methods" parent="class_ResourceDistribution" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="72" width="260" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResourceDistribution_sep1" parent="class_ResourceDistribution" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="260" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResourceDistribution_sep2" parent="class_ResourceDistribution" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="260" y="78" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Organisation" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="160" width="235" x="1815" y="770" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Organisation_title" parent="class_Organisation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="Organisation" vertex="1">
+      <mxGeometry height="30" width="235" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Organisation_attrs" parent="class_Organisation" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String organisationId&lt;br&gt;-String organisationName&lt;br&gt;-String organisationType&lt;/div&gt;" vertex="1">
+      <mxGeometry height="66" width="235" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Organisation_methods" parent="class_Organisation" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="64" width="235" y="96" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Organisation_sep1" parent="class_Organisation" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="235" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_Organisation_sep2" parent="class_Organisation" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="235" y="96" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueTeam" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="250" width="220" x="1830" y="990" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueTeam_title" parent="class_RescueTeam" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="RescueTeam" vertex="1">
+      <mxGeometry height="30" width="219.99999999999997" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueTeam_attrs" parent="class_RescueTeam" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String teamId&lt;br&gt;-String teamName&lt;br&gt;-String currentStatus&lt;br&gt;-String currentLocation&lt;/div&gt;" vertex="1">
+      <mxGeometry height="84" width="219.99999999999997" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueTeam_methods" parent="class_RescueTeam" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+updateStatus()&lt;br&gt;+isAvailable()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="116" width="219.99999999999997" y="114" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueTeam_sep1" parent="class_RescueTeam" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="219.99999999999997" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueTeam_sep2" parent="class_RescueTeam" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="219.99999999999997" y="114" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueAssignment" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="250" width="220" x="2170" y="990" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueAssignment_title" parent="class_RescueAssignment" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="RescueAssignment" vertex="1">
+      <mxGeometry height="30" width="220.00000000000003" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueAssignment_attrs" parent="class_RescueAssignment" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String assignmentId&lt;br&gt;-DateTime assignedAt&lt;br&gt;-String emergencyLocation&lt;br&gt;-String status&lt;/div&gt;" vertex="1">
+      <mxGeometry height="84" width="220.00000000000003" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueAssignment_methods" parent="class_RescueAssignment" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+updateStatus()&amp;nbsp;&lt;br&gt;+completeAssignment()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="136" width="220.00000000000003" y="114" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueAssignment_sep1" parent="class_RescueAssignment" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="220.00000000000003" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RescueAssignment_sep2" parent="class_RescueAssignment" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="220.00000000000003" y="114" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseController" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="190" width="310" x="290" y="1470" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseController_title" parent="class_EmergencyResponseController" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="EmergencyResponseController" vertex="1">
+      <mxGeometry height="13.902439024390244" width="310" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseController_attrs" parent="class_EmergencyResponseController" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="11.121951219512196" width="310" y="13.902439024390244" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseController_methods" parent="class_EmergencyResponseController" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ getAvailableDisasterEvents()&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ getActiveDisasterEvent()&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ requestEmergencyResponse()&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ getResponseStatus()&lt;/span&gt;&amp;nbsp;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="85.80645161290323" width="310" y="25.024838709677418" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseController_sep1" parent="class_EmergencyResponseController" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.4634146341463415" width="310" y="25.492439024390244" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseController_sep2" parent="class_EmergencyResponseController" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.4634146341463415" width="310" y="25.024390243902438" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseService" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="158.76" width="300" x="780" y="1470" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseService_title" parent="class_EmergencyResponseService" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="EmergencyResponseService" vertex="1">
+      <mxGeometry height="9.374999999999998" width="300" y="7.5" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseService_attrs" parent="class_EmergencyResponseService" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="7.499999999999998" width="300" y="9.374999999999998" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseService_methods" parent="class_EmergencyResponseService" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="+ getAvailableDisasterEvents()&amp;nbsp;&lt;div&gt;+ requestEmergencyResponse()&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ triggerShelterOccupancy()&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ notifyEmergencyServices()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="132.79999999999998" width="300" y="25.959999999999994" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseService_sep1" parent="class_EmergencyResponseService" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.31249999999999994" width="300" y="25.652499999999996" as="geometry" />
+    </mxCell>
+    <mxCell id="class_EmergencyResponseService_sep2" parent="class_EmergencyResponseService" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.31249999999999994" width="300" y="25.964999999999993" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResponseDataRepository" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="170" width="320" x="1390" y="1440" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResponseDataRepository_title" parent="class_ResponseDataRepository" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="ResponseDataRepository" vertex="1">
+      <mxGeometry height="12.750000000000002" width="320" x="-10" y="9.444444444444445" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResponseDataRepository_attrs" parent="class_ResponseDataRepository" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="10.200000000000001" width="320" y="12.750000000000002" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResponseDataRepository_methods" parent="class_ResponseDataRepository" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&amp;nbsp;+ findActiveDisasterEvent()&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;+ findAvailableResources()&amp;nbsp;&lt;/span&gt;&lt;div&gt;&amp;nbsp;+ saveResponseAssignment()&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ findResponseStatus()&lt;/div&gt;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="72.82580645161292" width="320" y="22.95" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResponseDataRepository_sep1" parent="class_ResponseDataRepository" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.42500000000000004" width="320" y="22.95" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ResponseDataRepository_sep2" parent="class_ResponseDataRepository" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.42500000000000004" width="320" y="22.95" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReport" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="262" width="380" x="990" y="708" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReport_title" parent="class_PostDisasterReport" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="PostDisasterReport" vertex="1">
+      <mxGeometry height="25.35483870967742" width="380" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReport_attrs" parent="class_PostDisasterReport" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String reportId&lt;br&gt;-DateTime generatedAt&lt;br&gt;-List&amp;lt;String&amp;gt; districtIds&lt;br&gt;-int citizensReached&lt;br&gt;-String dataCompletenessStatus&lt;/div&gt;" vertex="1">
+      <mxGeometry height="86.20645161290324" width="380" y="25.35483870967742" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReport_methods" parent="class_PostDisasterReport" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+getAlertTimeline()&amp;nbsp;&lt;br&gt;+getShelterOccupancySummary()&amp;nbsp;&lt;br&gt;+getResourceDistributionSummary()&amp;nbsp;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="150.43870967741938" width="380" y="111.56129032258065" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReport_sep1" parent="class_PostDisasterReport" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.8451612903225807" width="380" y="25.35483870967742" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReport_sep2" parent="class_PostDisasterReport" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.8451612903225807" width="380" y="111.56129032258065" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReportController" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="170" width="249" x="2216" y="1380" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReportController_title" parent="class_PostDisasterReportController" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="PostDisasterReportController" vertex="1">
+      <mxGeometry height="30" width="249.00000000000003" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReportController_attrs" parent="class_PostDisasterReportController" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="24" width="249.00000000000003" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReportController_methods" parent="class_PostDisasterReportController" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+getAvailableEvents()&amp;nbsp;&lt;br&gt;+requestReport()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="116" width="249.00000000000003" y="54" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReportController_sep1" parent="class_PostDisasterReportController" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="249.00000000000003" y="53" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PostDisasterReportController_sep2" parent="class_PostDisasterReportController" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="249.00000000000003" y="54" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterAnalysisService" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="130" width="250" x="2180" y="1640" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterAnalysisService_title" parent="class_DisasterAnalysisService" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="DisasterAnalysisService" vertex="1">
+      <mxGeometry height="13" width="250" y="9.97" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterAnalysisService_attrs" parent="class_DisasterAnalysisService" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="10.4" width="250" y="13" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterAnalysisService_methods" parent="class_DisasterAnalysisService" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="+ analyzeDisasterEvent()&lt;div&gt;+ calculateRiskLevel()&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ generateDisasterReport()&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ analyzeCitizenFeedback()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="72.38947368421053" width="250" y="23.400000000000002" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterAnalysisService_sep1" parent="class_DisasterAnalysisService" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.43333333333333335" width="250" y="22.968947368421052" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DisasterAnalysisService_sep2" parent="class_DisasterAnalysisService" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.43333333333333335" width="250" y="23.4" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AnalysisDataRepository" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="170" width="320" x="2145" y="1860" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AnalysisDataRepository_title" parent="class_AnalysisDataRepository" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="AnalysisDataRepository" vertex="1">
+      <mxGeometry height="18.88888888888889" width="320" y="14.48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AnalysisDataRepository_attrs" parent="class_AnalysisDataRepository" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="15.11111111111111" width="320" y="14.47888888888889" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AnalysisDataRepository_methods" parent="class_AnalysisDataRepository" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+findCompletedEvents()&amp;nbsp;&lt;br&gt;+findWarningsByEvent()&amp;nbsp;&lt;br&gt;+countCitizensReached()&lt;br&gt;+findShelterOccupancyByEvent()&amp;nbsp;&lt;br&gt;+findResourceDistributions()&amp;nbsp;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="136" width="179.6923076923077" y="34" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AnalysisDataRepository_sep1" parent="class_AnalysisDataRepository" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.6296296296296297" width="320" y="33.36888888888889" as="geometry" />
+    </mxCell>
+    <mxCell id="class_AnalysisDataRepository_sep2" parent="class_AnalysisDataRepository" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.6296296296296297" width="320" y="34" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_r1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="364" y="169" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_r1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..&lt;/b&gt;&lt;font style=&quot;&quot;&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="446" y="169" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_r2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="720" y="160" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_r2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;0..1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="785" y="160" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_r3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;0..&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="990" y="142" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_r3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1123" y="142" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_r4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="1" vertex="1">
+      <mxGeometry height="18" width="36" x="550" y="310" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_r4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;1..&lt;/b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="550" y="430" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_r5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="709" y="320" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_r5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="933" y="409" as="geometry" />
+    </mxCell>
+    <mxCell id="label_r5" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;captured at&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="110" x="745" y="371" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_r6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b style=&quot;&quot;&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="990" y="292" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_r6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1126" y="570" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_s1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1450" y="173" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_s1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1621" y="173" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_s2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1990" y="99" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_s2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1..*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="2056" y="99" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_s3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1695" y="330" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_s3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1060" y="412" as="geometry" />
+    </mxCell>
+    <mxCell id="label_s3" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;targets&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="78" x="1703" y="371" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_s4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1990" y="210" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_s4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;1..&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="2056" y="333" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_s5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="894" y="663" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_s5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;0..&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="2004" y="680" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_s6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;0..&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="2430" y="333" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_s6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="2360" y="333" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="510" y="962" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="586" y="910" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n1" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;affects&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="60" x="535" y="910" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="870" y="820" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;0..&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1582" y="280" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n2" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;includes&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="86" x="1257" y="651" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1796" y="330" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;0..&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1788" y="412" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n3" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;has&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="60" x="1830" y="371" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;1&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="808" y="981" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="815" y="1042" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;records&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="60" x="755" y="985" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="374" y="1000" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="374" y="1049" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n5" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;has&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="60" x="374" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="504" y="1122" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="566" y="1121" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n7" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="870" y="982" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n7" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1150" y="1042" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n7" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;includes&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="86" x="996" y="1031" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n8" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="504" y="910" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n8" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="996" y="1153" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n8" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;receives&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="86" x="669" y="999" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n9" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1414" y="1119" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n9" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1280" y="1119" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n9" parent="1" style="text;html=1;strokeColor=none;fillColor=default;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;b style=&quot;&quot;&gt;distributed as&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="48" x="1343" y="1119" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_n10" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="909" y="859" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_n10" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;0..*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="952" y="859" as="geometry" />
+    </mxCell>
+    <mxCell id="label_n10" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;has&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="16" x="937" y="859" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_sh1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1926" y="972" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_sh1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1922" y="930" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_sh2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="1780" y="820" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_sh2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;0..&lt;/span&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1560" y="1039" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_sh3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="2040" y="1070" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_sh3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="2136" y="1070" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_sh4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="916" y="929" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_sh4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="2135" y="1104" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_sh5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="498" y="1003" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_sh5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;0..*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="2214" y="1242" as="geometry" />
+    </mxCell>
+    <mxCell id="label_d1" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;requests&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="86" x="2334" y="1580" as="geometry" />
+    </mxCell>
+    <mxCell id="label_d2" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;retrieves data&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="134" x="2310" y="1820" as="geometry" />
+    </mxCell>
+    <mxCell id="label_d3" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;creates&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="78" x="1617" y="1230" as="geometry" />
+    </mxCell>
+    <mxCell id="label_d8" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;informs&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="78" x="1351" y="403" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_i1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="2012" y="610" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_i1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;0..&lt;font style=&quot;font-size: 14px;&quot;&gt;*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1916" y="580" as="geometry" />
+    </mxCell>
+    <mxCell id="label_i1" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;receives&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="86" x="1926" y="610" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_s_i2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="250" y="320" as="geometry" />
+    </mxCell>
+    <mxCell id="mult_t_i2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;0..&lt;/b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;" vertex="1">
+      <mxGeometry height="18" width="44" x="1125" y="610" as="geometry" />
+    </mxCell>
+    <mxCell id="label_i2" parent="1" style="text;html=1;strokeColor=none;fillColor=#ffffff;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=2;" value="&lt;b&gt;receives&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="86" x="477" y="664" as="geometry" />
+    </mxCell>
+    <mxCell id="XI4JJXBJED2NayDC1myr-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;has&lt;/b&gt;" vertex="1">
+      <mxGeometry height="30" width="52" x="528" y="1115" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardWarning" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="270" width="330" x="1660" y="59.64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardWarning_title" parent="class_HazardWarning" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="HazardWarning" vertex="1">
+      <mxGeometry height="27" width="330" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardWarning_attrs" parent="class_HazardWarning" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;-String warningId&lt;br&gt;-DateTime issuedAt&lt;br&gt;-String hazardType&lt;br&gt;-String description&lt;br&gt;-WarningLevel warningLevel&lt;br&gt;-String affectedDistrict&lt;br&gt;-WarningStatus status&lt;br&gt;-String issuedBy&lt;/div&gt;" vertex="1">
+      <mxGeometry height="140.4" width="330" y="27" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardWarning_methods" parent="class_HazardWarning" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+validate()&lt;br&gt;+markAsConfirmed()&lt;br&gt;+markAsCancelled()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="102.60000000000001" width="330" y="167.4" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardWarning_sep1" parent="class_HazardWarning" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.9" width="330" y="27" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardWarning_sep2" parent="class_HazardWarning" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="0.9" width="330" y="167.4" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_s2" edge="1" parent="1" source="class_HazardWarning_attrs" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;strokeWidth=2;exitX=1.002;exitY=0.235;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.001;entryY=0.171;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=diamond;startFill=1;endArrow=none;" target="class_WarningDetail_methods" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardType" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="178" width="300" x="-340" y="60" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardType_title" parent="class_HazardType" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="&lt;font style=&quot;font-size:12px;font-weight:normal&quot;&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/font&gt;&lt;br&gt;HazardType &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL2]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="48" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardType_sep1" parent="class_HazardType" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardType_attrs" parent="class_HazardType" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;FLOOD&lt;br&gt;RISING_RIVER_LEVEL&lt;br&gt;LANDSLIDE&lt;br&gt;ROAD_BLOCKAGE&lt;br&gt;WILDFIRE&lt;br&gt;STRONG_WINDS&lt;br&gt;OTHER&lt;/div&gt;" vertex="1">
+      <mxGeometry height="130" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportStatus" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="130" width="300" x="-340" y="330" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportStatus_title" parent="class_ReportStatus" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="&lt;font style=&quot;font-size:12px;font-weight:normal&quot;&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/font&gt;&lt;br&gt;ReportStatus &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL2]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="48" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportStatus_sep1" parent="class_ReportStatus" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_ReportStatus_attrs" parent="class_ReportStatus" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;PENDING_SYNC&lt;br&gt;PENDING_VERIFICATION&lt;br&gt;VERIFIED&lt;br&gt;REJECTED&lt;/div&gt;" vertex="1">
+      <mxGeometry height="82" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RejectionReason" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="146" width="300" x="-340" y="540" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RejectionReason_title" parent="class_RejectionReason" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="&lt;font style=&quot;font-size:12px;font-weight:normal&quot;&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/font&gt;&lt;br&gt;RejectionReason &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL2]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="48" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RejectionReason_sep1" parent="class_RejectionReason" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_RejectionReason_attrs" parent="class_RejectionReason" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;DUPLICATE&lt;br&gt;INSUFFICIENT_INFORMATION&lt;br&gt;UNVERIFIABLE&lt;br&gt;OUT_OF_AREA&lt;br&gt;OTHER&lt;/div&gt;" vertex="1">
+      <mxGeometry height="98" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationKind" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="98" width="300" x="-340" y="780" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationKind_title" parent="class_NotificationKind" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="&lt;font style=&quot;font-size:12px;font-weight:normal&quot;&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/font&gt;&lt;br&gt;NotificationKind &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL5]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="48" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationKind_sep1" parent="class_NotificationKind" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_NotificationKind_attrs" parent="class_NotificationKind" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;REPORT_VERIFIED&lt;br&gt;REPORT_REJECTED&lt;/div&gt;" vertex="1">
+      <mxGeometry height="50" width="300" y="48" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PhotoStorage" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="114" width="300" x="490" y="-540" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PhotoStorage_title" parent="class_PhotoStorage" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="PhotoStorage &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL4]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="30" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PhotoStorage_sep1" parent="class_PhotoStorage" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PhotoStorage_attrs" parent="class_PhotoStorage" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="34" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PhotoStorage_sep2" parent="class_PhotoStorage" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_PhotoStorage_methods" parent="class_PhotoStorage" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+ upload()&lt;br&gt;+ remove()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="50" width="300" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DecisionNotifier" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="98" width="320" x="890" y="-540" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DecisionNotifier_title" parent="class_DecisionNotifier" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="DecisionNotifier &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL4]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="30" width="320" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DecisionNotifier_sep1" parent="class_DecisionNotifier" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="320" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DecisionNotifier_attrs" parent="class_DecisionNotifier" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="34" width="320" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DecisionNotifier_sep2" parent="class_DecisionNotifier" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="320" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_DecisionNotifier_methods" parent="class_DecisionNotifier" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+ notifyDecision()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="34" width="320" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportController" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="178" width="310" x="80" y="-240" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportController_title" parent="class_HazardReportController" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="HazardReportController &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL4]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="30" width="310" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportController_sep1" parent="class_HazardReportController" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="310" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportController_attrs" parent="class_HazardReportController" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="34" width="310" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportController_sep2" parent="class_HazardReportController" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="310" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportController_methods" parent="class_HazardReportController" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+ submitReport()&lt;br&gt;+ getMyReports()&lt;br&gt;+ getPendingReports()&lt;br&gt;+ getReport()&lt;br&gt;+ verifyReport()&lt;br&gt;+ rejectReport()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="114" width="310" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportService" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="162" width="300" x="490" y="-240" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportService_title" parent="class_HazardReportService" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="HazardReportService &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL4]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="30" width="300" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportService_sep1" parent="class_HazardReportService" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportService_attrs" parent="class_HazardReportService" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="34" width="300" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportService_sep2" parent="class_HazardReportService" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="300" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportService_methods" parent="class_HazardReportService" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+ submitReport()&lt;br&gt;+ getMyReports()&lt;br&gt;+ getPendingReports()&lt;br&gt;+ verifyReport()&lt;br&gt;+ rejectReport()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="98" width="300" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportRepository" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontFamily=Arial;connectable=1;" value="" vertex="1">
+      <mxGeometry height="162" width="320" x="890" y="-240" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportRepository_title" parent="class_HazardReportRepository" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=17;fontStyle=1;spacing=0;" value="HazardReportRepository &lt;b&gt;&lt;font color=&quot;#e67e22&quot;&gt;[CL4]&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="30" width="320" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportRepository_sep1" parent="class_HazardReportRepository" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="320" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportRepository_attrs" parent="class_HazardReportRepository" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="" vertex="1">
+      <mxGeometry height="34" width="320" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportRepository_sep2" parent="class_HazardReportRepository" style="shape=line;html=1;strokeColor=#000000;strokeWidth=1;" value="" vertex="1">
+      <mxGeometry height="1" width="320" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="class_HazardReportRepository_methods" parent="class_HazardReportRepository" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontFamily=Arial;fontSize=13;spacingLeft=8;spacingRight=6;spacingTop=5;whiteSpace=wrap;overflow=hidden;" value="&lt;div&gt;+ create()&lt;br&gt;+ findByClientRequestId()&lt;br&gt;+ findByReporter()&lt;br&gt;+ findPending()&lt;br&gt;+ decide()&lt;/div&gt;" vertex="1">
+      <mxGeometry height="98" width="320" y="64" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_e1" edge="1" parent="1" source="class_HazardReportController" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#e67e22;strokeWidth=2;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;" target="class_HazardReportService" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_e2" edge="1" parent="1" source="class_HazardReportService" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#e67e22;strokeWidth=2;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;" target="class_HazardReportRepository" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_e3" edge="1" parent="1" source="class_HazardReportService" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#e67e22;strokeWidth=2;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;" target="class_PhotoStorage" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_e4" edge="1" parent="1" source="class_HazardReportService" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#e67e22;strokeWidth=2;dashed=1;dashPattern=8 6;startArrow=none;endArrow=open;endFill=0;" target="class_DecisionNotifier" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_e5" edge="1" parent="1" source="class_HazardReportService" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#e67e22;strokeWidth=2;startArrow=none;endArrow=none;" target="class_HazardReport" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_e6" edge="1" parent="1" source="class_HazardReportService" style="html=1;rounded=0;edgeStyle=none;orthogonalLoop=1;jettySize=auto;strokeColor=#e67e22;strokeWidth=2;startArrow=none;endArrow=none;" target="class_Verification" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m1a" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="394.31169696893045" y="-147.4993321025039" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m1b" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="449.68830303106955" y="-180.59943332959486" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m2a" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="794" y="-152" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m2b" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="850" y="-184" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m3a" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="638" y="-271" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m3b" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="606" y="-413" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m4a" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="722.1964816886345" y="-269.41025486587984" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m4b" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="926.3215906005221" y="-435.58974513412016" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m5a" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="597.3349926548921" y="-66.42966651924641" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m5b" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;0..*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="619.5463632773112" y="50.4296665192464" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m6a" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="680.1427044744291" y="-65.80313451650744" as="geometry" />
+    </mxCell>
+    <mxCell id="cl_m6b" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;spacing=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#e67e22&quot;&gt;0..*&lt;/font&gt;&lt;/b&gt;" vertex="1">
+      <mxGeometry height="18" width="36" x="813.0610587196966" y="45.08313451650743" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>

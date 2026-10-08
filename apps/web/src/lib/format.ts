@@ -79,3 +79,47 @@ const clock = new Intl.DateTimeFormat('en-GB', {
 export function formatClock(iso: string): string {
   return clock.format(new Date(iso));
 }
+
+const dateOnly = new Intl.DateTimeFormat('en-GB', {
+  timeZone: TIME_ZONE,
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+
+const dayMonth = new Intl.DateTimeFormat('en-GB', {
+  timeZone: TIME_ZONE,
+  day: 'numeric',
+  month: 'short',
+});
+
+/** "10 Mar 2026". */
+export function formatDate(iso: string): string {
+  return dateOnly.format(new Date(iso));
+}
+
+/** "10 Mar 2026 - 12 Mar 2026", or "10 Mar 2026 - ongoing" without an end. */
+export function formatPeriod(startIso: string, endIso: string | null): string {
+  return `${formatDate(startIso)} - ${endIso ? formatDate(endIso) : 'ongoing'}`;
+}
+
+/** "10 Mar, 09:30": a point on a chart axis or timeline. */
+export function formatDayTime(iso: string): string {
+  const date = new Date(iso);
+  return `${dayMonth.format(date)}, ${new Intl.DateTimeFormat('en-GB', {
+    timeZone: TIME_ZONE,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date)}`;
+}
+
+/** 12345 as "12,345". */
+export function formatNumber(value: number): string {
+  return value.toLocaleString('en-GB');
+}
+
+/** 0.8421 as "84.2%". */
+export function formatPercent(fraction: number): string {
+  return `${(fraction * 100).toFixed(1)}%`;
+}

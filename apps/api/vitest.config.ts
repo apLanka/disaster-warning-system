@@ -43,6 +43,7 @@ export default defineConfig({
         'src/testing/**',
         'src/**/testing/**',
         'src/**/testing.ts',
+        'src/analysis/seed/seed-analysis.ts',
       ],
       // The use case code is held to the assignment's 80% expectation; a drop
       // below it fails `bun run test:cov`.
@@ -50,6 +51,7 @@ export default defineConfig({
         ...MINIMUM,
         'src/hazard-reports/**': MINIMUM,
         'src/notifications/**': MINIMUM,
+        'src/analysis/**': MINIMUM,
         'src/hazard-warnings/**': MINIMUM,
         'src/citizens/**': MINIMUM,
       },

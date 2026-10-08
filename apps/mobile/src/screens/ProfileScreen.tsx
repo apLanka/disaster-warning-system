@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput } from 'react-native';
 
 import {
-  DISTRICTS,
+  DISTRICT_KEYS,
   districtName,
   normalizeSriLankanMobile,
   type District,
@@ -18,7 +18,7 @@ import { useAlerts } from '../context/AlertsContext';
 import { formatLocalMobile } from '../lib/alerts';
 import { colors, spacing, typography } from '../theme';
 
-const OPTIONS = [...DISTRICTS]
+const OPTIONS = [...DISTRICT_KEYS]
   .map((value) => ({ value, label: districtName(value) }))
   .sort((a, b) => a.label.localeCompare(b.label));
 

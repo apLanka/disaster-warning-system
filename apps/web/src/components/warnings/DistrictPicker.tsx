@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import { useState } from 'react';
 
-import { DISTRICTS, districtName, type District } from '@repo/types';
+import { DISTRICT_KEYS, districtName, type District } from '@repo/types';
 
 import { Field, INPUT_CLASSES } from '../ui/Field';
 
@@ -24,7 +24,7 @@ export function DistrictPicker({
   const matches =
     needle === ''
       ? []
-      : DISTRICTS.filter(
+      : DISTRICT_KEYS.filter(
           (district) =>
             !value.includes(district) &&
             districtName(district).toLowerCase().includes(needle),

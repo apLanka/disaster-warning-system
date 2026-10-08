@@ -1,7 +1,49 @@
 import type { GeoLocation } from './hazard-report.js';
 
-/** Sri Lanka's 25 administrative districts. Codes are stored; names are shown. */
+/** The 25 districts with the three-letter codes the post-disaster analysis data uses. */
 export const DISTRICTS = [
+  { code: 'AMP', name: 'Ampara' },
+  { code: 'ANU', name: 'Anuradhapura' },
+  { code: 'BDL', name: 'Badulla' },
+  { code: 'BTC', name: 'Batticaloa' },
+  { code: 'CMB', name: 'Colombo' },
+  { code: 'GAL', name: 'Galle' },
+  { code: 'GMP', name: 'Gampaha' },
+  { code: 'HBA', name: 'Hambantota' },
+  { code: 'JAF', name: 'Jaffna' },
+  { code: 'KAL', name: 'Kalutara' },
+  { code: 'KAN', name: 'Kandy' },
+  { code: 'KEG', name: 'Kegalle' },
+  { code: 'KIL', name: 'Kilinochchi' },
+  { code: 'KUR', name: 'Kurunegala' },
+  { code: 'MAN', name: 'Mannar' },
+  { code: 'MTL', name: 'Matale' },
+  { code: 'MTR', name: 'Matara' },
+  { code: 'MON', name: 'Monaragala' },
+  { code: 'MUL', name: 'Mullaitivu' },
+  { code: 'NUW', name: 'Nuwara Eliya' },
+  { code: 'POL', name: 'Polonnaruwa' },
+  { code: 'PUT', name: 'Puttalam' },
+  { code: 'RAT', name: 'Ratnapura' },
+  { code: 'TRI', name: 'Trincomalee' },
+  { code: 'VAV', name: 'Vavuniya' },
+] as const;
+
+export type DistrictCode = (typeof DISTRICTS)[number]['code'];
+
+export const DISTRICT_CODES: readonly DistrictCode[] = DISTRICTS.map(
+  (d) => d.code,
+);
+
+export function isDistrictCode(value: string): value is DistrictCode {
+  return (DISTRICT_CODES as readonly string[]).includes(value);
+}
+
+/**
+ * Sri Lanka's 25 administrative districts as stored by hazard warnings and citizens.
+ * Codes are stored; names are shown.
+ */
+export const DISTRICT_KEYS = [
   'AMPARA',
   'ANURADHAPURA',
   'BADULLA',
@@ -29,7 +71,7 @@ export const DISTRICTS = [
   'VAVUNIYA',
 ] as const;
 
-export type District = (typeof DISTRICTS)[number];
+export type District = (typeof DISTRICT_KEYS)[number];
 
 export interface DistrictInfo extends GeoLocation {
   name: string;
@@ -64,8 +106,16 @@ export const DISTRICT_INFO: Record<District, DistrictInfo> = {
   VAVUNIYA: { name: 'Vavuniya', latitude: 8.7514, longitude: 80.4971 },
 };
 
-export function districtName(district: District): string {
-  return DISTRICT_INFO[district].name;
+/**
+ * Display name for either kind of district code: a District key ("COLOMBO")
+ * or a three-letter DistrictCode ("CMB"). Falls back to the code itself.
+ */
+export function districtName(code: string): string {
+  return (
+    DISTRICT_INFO[code as District]?.name ??
+    DISTRICTS.find((d) => d.code === code)?.name ??
+    code
+  );
 }
 
 /**
@@ -77,10 +127,10 @@ export function nearestDistrict({
   longitude,
 }: GeoLocation): District {
   const scale = Math.cos((latitude * Math.PI) / 180);
-  let best: District = DISTRICTS[0];
+  let best: District = DISTRICT_KEYS[0];
   let bestDistance = Number.POSITIVE_INFINITY;
 
-  for (const district of DISTRICTS) {
+  for (const district of DISTRICT_KEYS) {
     const centre = DISTRICT_INFO[district];
     const dx = (centre.longitude - longitude) * scale;
     const dy = centre.latitude - latitude;
