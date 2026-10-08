@@ -281,6 +281,7 @@ describe('hazard warning HTTP API', () => {
 
     const partial = issuedWarning({
       status: 'PARTIALLY_DISSEMINATED',
+      validUntil: new Date(future()),
       channels: [
         channel('PUSH'),
         channel('SMS', { state: 'FAILED' }),
