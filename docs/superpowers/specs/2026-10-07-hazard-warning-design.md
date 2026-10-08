@@ -158,7 +158,7 @@ interface NotificationChannel {
 | `GET /hazard-warnings/:id` | officer | Detail with channels and the latest 50 logs. |
 | `PUT /citizens/me` `{ district, phone? }` | citizen | Upsert; returns the profile. |
 | `GET /citizens/me` | citizen | Profile or 404. |
-| `GET /alerts/mine` | citizen | Warnings for the citizen's district that are active, plus those cancelled or expired in the last 7 days, each with `acknowledgedAt`. Empty list if not registered. |
+| `GET /alerts/mine` | citizen | Warnings **delivered to this device** that are active, plus those cancelled or expired in the last 7 days, each with `acknowledgedAt`. The delivery row is the in-app push, so a citizen who registers after a warning was sent does not receive it, as with any push. |
 | `POST /alerts/:warningId/acknowledge` | citizen | Sets acknowledgedAt (idempotent). 404 if the warning was not delivered to them. |
 
 Static routes (`preview`, `stats`, `prefill`) are declared before `:id`, as in the reports controller.
@@ -195,7 +195,7 @@ Level colours: Critical `danger`, High `orange`, Medium amber, Low `success`, al
 
 ## Citizen App (`apps/mobile`)
 
-- **Profile tab**: Alert Area, searchable district list, optional phone, Save. Explains why the district is needed.
+- **Profile tab**: Alert Area, district list (25 entries fit one scrolling sheet), optional phone, Save. Explains why the district is needed.
 - **Alerts tab** (screen 4): active warnings first as level-coloured cards, then All Clear and expired ones greyed. Prompt card linking to Profile when no district is set.
 - **Hazard Alert** (screen 5, stack): title and level badge, districts, issued and valid until, description, numbered safety instructions, View Map (opens the maps app at the district centre via `Linking`), Acknowledge Warning (then Safety Info). Cancelled warnings show the All Clear banner and reason, no acknowledge.
 - **Safety Info** (screen 6): Alert Acknowledged, emergency contacts 117 / 119 / 110 as `tel:` links, the safety instructions, Back to alerts.

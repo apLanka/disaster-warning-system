@@ -107,6 +107,21 @@ One shared chip component per app. Never restyle a status locally.
 
 Other use cases extend this table here (for example Dispatched, En route, Issued, Critical, Warning, Resolved) using the same pattern: tint background, strong-color text, a leading dot or icon.
 
+#### Warning levels (Issue and Disseminate Hazard Warning)
+
+Taken from the Issue Hazard Warning wireframe's level buttons. Same colour on every screen; always shown with the level's name, never colour alone.
+
+| Level | Background | Text | Token |
+|---|---|---|---|
+| Critical | `danger` | white | `bg-danger text-white` / `levelColors.CRITICAL` |
+| High | `orange` | white | `bg-orange text-white` / `levelColors.HIGH` |
+| Medium | `warning-tint` | `warning-text` | `bg-warning-tint text-warning-text` / `levelColors.MEDIUM` |
+| Low | `success` | white | `bg-success text-white` / `levelColors.LOW` |
+
+Orange is used here for status on purpose: the wireframe's High level is orange. It is the only status use of orange.
+
+Warning status chips: Draft and Cancelled neutral, Disseminating and Partially Disseminated amber, Disseminated green, Pending Dissemination red, Expired neutral.
+
 ### 5.4 Cards
 
 White surface, 1px `border`, radius 12, padding 16, 12 gap between cards. Section label at the top, content below.
