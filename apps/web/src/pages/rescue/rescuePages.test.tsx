@@ -195,7 +195,7 @@ describe('District Officer Rescue Pages', () => {
 
   describe('RescueTeamPortalPage (SQ4 & SQ6)', () => {
     it('renders rescue team leader portal with assigned mission and offline queue banner', async () => {
-      vi.mocked(rescueApi.fetchLeaderMission).mockResolvedValue({
+      const mockMission = {
         id: 'mission-1',
         missionId: 'RA-001',
         disasterEventId: 'ev-1',
@@ -207,10 +207,13 @@ describe('District Officer Rescue Pages', () => {
         organization: 'DMC',
         emergencyLocation: 'Riverside Area, Gampaha',
         assignedBy: 'Duty Officer',
-        status: 'ASSIGNED',
+        status: 'ASSIGNED' as const,
         assignedAt: '2026-10-06T12:00:00.000Z',
         updatedAt: '2026-10-06T12:00:00.000Z',
-      });
+      };
+
+      vi.mocked(rescueApi.fetchLeaderMission).mockResolvedValue(mockMission);
+      vi.mocked(rescueApi.fetchLeaderMissions).mockResolvedValue([mockMission]);
 
       render(
         <MemoryRouter initialEntries={['/rescue/portal/missions/RA-001']}>

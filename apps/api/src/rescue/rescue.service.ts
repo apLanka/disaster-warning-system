@@ -671,6 +671,53 @@ export class RescueService {
     return this.getMission(id);
   }
 
+  /**
+   * List all missions for the rescue portal and team leader
+   */
+  async getLeaderMissions(_leaderId?: string): Promise<RescueAssignment[]> {
+    const list: RescueAssignment[] = [];
+    try {
+      const dbAssignments = await this.prisma.rescueAssignment.findMany({
+        orderBy: { updatedAt: 'desc' },
+      });
+      for (const a of dbAssignments) {
+        list.push({
+          id: a.id,
+          missionId: a.missionId,
+          disasterEventId: a.disasterEventId,
+          disasterEventName: a.disasterEventName,
+          districtCode: a.districtCode,
+          districtName: a.districtName,
+          rescueTeamId: a.rescueTeamId,
+          rescueTeamName: a.rescueTeamName,
+          organization: a.organization,
+          emergencyLocation: a.emergencyLocation,
+          assignedBy: a.assignedBy,
+          status: a.status as any,
+          assignedAt: a.assignedAt.toISOString(),
+          updatedAt: a.updatedAt.toISOString(),
+          notes: a.notes ?? undefined,
+          syncStatus: 'SYNCHRONIZED',
+        });
+      }
+    } catch {
+      // Fallback
+    }
+
+    if (list.length === 0) {
+      for (const val of this.inMemoryAssignments.values()) {
+        if (!list.some((m) => m.missionId === val.missionId)) {
+          list.push(val);
+        }
+      }
+    }
+
+    return list.sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    );
+  }
+
   async getMission(id: string): Promise<RescueAssignment> {
     const isValidObjectId = (val?: string): boolean =>
       typeof val === 'string' && /^[0-9a-fA-F]{24}$/.test(val);

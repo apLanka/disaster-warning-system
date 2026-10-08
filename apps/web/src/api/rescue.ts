@@ -75,6 +75,16 @@ export async function fetchMission(id: string): Promise<RescueAssignment> {
   );
 }
 
+export async function fetchLeaderMissions(
+  leaderId = 'leader-squad-1',
+): Promise<RescueAssignment[]> {
+  return request<RescueAssignment[]>('/api/rescue/portal/missions', {
+    headers: {
+      'x-leader-id': leaderId,
+    },
+  });
+}
+
 export async function fetchLeaderMission(
   id: string,
   leaderId = 'leader-squad-1',

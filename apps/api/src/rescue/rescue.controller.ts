@@ -106,6 +106,16 @@ export class RescueController {
     return this.rescueService.getMission(id);
   }
 
+  @Get('portal/missions')
+  @ApiOperation({
+    summary: 'Rescue Team Portal: List all assigned missions for leader (SQ4)',
+  })
+  async getLeaderMissions(
+    @Headers('x-leader-id') leaderId?: string,
+  ): Promise<RescueAssignment[]> {
+    return this.rescueService.getLeaderMissions(leaderId);
+  }
+
   @Get('portal/missions/:id')
   @ApiOperation({
     summary: 'Rescue Team Portal: View assigned mission details (SQ4)',
