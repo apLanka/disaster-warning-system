@@ -5,9 +5,15 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { fetchHealth } from '../../api/health';
 import { getStats } from '../../api/hazardReports';
+import { getWarningStats } from '../../api/hazardWarnings';
 import { stats } from '../../test/fixtures';
 import { DashboardLayout } from './DashboardLayout';
 
+vi.mock('../../api/hazardWarnings', () => ({
+  getWarningStats: vi
+    .fn()
+    .mockResolvedValue({ active: 0, drafts: 0, issuedToday: 0 }),
+}));
 vi.mock('../../api/hazardReports', () => ({ getStats: vi.fn() }));
 vi.mock('../../api/health', () => ({ fetchHealth: vi.fn() }));
 
@@ -153,5 +159,21 @@ describe('DashboardLayout', () => {
     );
 
     expect(screen.getAllByRole('navigation', { name: 'Main' })).toHaveLength(1);
+  });
+  it('links the warning pages and counts active warnings', async () => {
+    vi.mocked(getWarningStats).mockResolvedValue({
+      active: 2,
+      drafts: 0,
+      issuedToday: 1,
+    });
+    renderLayout('/warnings');
+
+    const nav = screen.getByRole('navigation', { name: 'Main' });
+    expect(
+      within(nav).getByRole('link', { name: /Issue Warning/ }),
+    ).toHaveAttribute('href', '/warnings/new');
+    const warnings = within(nav).getByRole('link', { name: /^Warnings/ });
+    expect(warnings).toHaveAttribute('aria-current', 'page');
+    expect(await within(warnings).findByText('2 active:')).toBeInTheDocument();
   });
 });

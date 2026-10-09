@@ -42,16 +42,17 @@ Nothing secret is committed. Each app reads its own file, and each has a `.env.e
 
 ### API: `apps/api/.env`
 
-| Variable                | Required  | What to put                                                                                       |
-| ----------------------- | --------- | ------------------------------------------------------------------------------------------------- |
-| `DATABASE_URL`          | yes       | Atlas connection string with the database name in the path, ending `/dws_dev?...`                 |
-| `DATABASE_URL_TEST`     | for tests | Same cluster, database name containing `test`, e.g. `/dws_test?...`. Tests refuse any other name. |
-| `OFFICER_API_KEY`       | yes       | Any random string of 16+ characters (`openssl rand -hex 24`). Stand-in for officer login.         |
-| `CLOUDINARY_CLOUD_NAME` | yes       | From the Cloudinary dashboard                                                                     |
-| `CLOUDINARY_API_KEY`    | yes       | From the Cloudinary dashboard                                                                     |
-| `CLOUDINARY_API_SECRET` | yes       | From the Cloudinary dashboard. Server only: never put it in the web or mobile app.                |
-| `PORT`                  | no        | Default `3000`                                                                                    |
-| `CORS_ORIGIN`           | no        | Web origin allowed to call the API. Default `http://localhost:5173`                               |
+| Variable                   | Required  | What to put                                                                                                                           |
+| -------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`             | yes       | Atlas connection string with the database name in the path, ending `/dws_dev?...`                                                     |
+| `DATABASE_URL_TEST`        | for tests | Same cluster, database name containing `test`, e.g. `/dws_test?...`. Tests refuse any other name.                                     |
+| `OFFICER_API_KEY`          | yes       | Any random string of 16+ characters (`openssl rand -hex 24`). Stand-in for officer login.                                             |
+| `CLOUDINARY_CLOUD_NAME`    | yes       | From the Cloudinary dashboard                                                                                                         |
+| `CLOUDINARY_API_KEY`       | yes       | From the Cloudinary dashboard                                                                                                         |
+| `CLOUDINARY_API_SECRET`    | yes       | From the Cloudinary dashboard. Server only: never put it in the web or mobile app.                                                    |
+| `PORT`                     | no        | Default `3000`                                                                                                                        |
+| `SIMULATE_CHANNEL_FAILURE` | no        | Comma list of `PUSH`, `SMS`, `AUDIBLE` whose simulated gateway fails, to demonstrate partial dissemination and retry. Empty normally. |
+| `CORS_ORIGIN`              | no        | Web origin allowed to call the API. Default `http://localhost:5173`                                                                   |
 
 The API validates these at start-up and lists every problem at once. In Atlas, add your IP address under Network Access, or the connection will time out.
 
@@ -80,11 +81,11 @@ Restart Expo after changing it. The phone and computer must be on the same netwo
 
 ## Running each app
 
-| App    | Command                       | Notes                                                                                                |
-| ------ | ----------------------------- | ---------------------------------------------------------------------------------------------------- |
-| API    | `bun run --filter api dev`    | Must be running first. Reloads on change.                                                            |
-| Web    | `bun run --filter web dev`    | Officer pages: Pending, Verified and Rejected reports, and a review page with the decision.          |
-| Mobile | `bun run --filter mobile dev` | In the iOS simulator, set a location first: Simulator menu, Features, Location. Press `r` to reload. |
+| App    | Command                       | Notes                                                                                                                                                                       |
+| ------ | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API    | `bun run --filter api dev`    | Must be running first. Reloads on change.                                                                                                                                   |
+| Web    | `bun run --filter web dev`    | Officer pages: Pending, Verified and Rejected reports, a review page with the decision, and Warnings: Issue Warning, Warnings (Active, Drafts, Past), Dissemination Status. |
+| Mobile | `bun run --filter mobile dev` | In the iOS simulator, set a location first: Simulator menu, Features, Location. Press `r` to reload.                                                                        |
 
 `bun run dev` starts all three through turbo, but turbo's combined terminal makes Expo's key prompts awkward, so separate terminals are easier.
 
@@ -94,6 +95,12 @@ Restart Expo after changing it. The phone and computer must be on the same netwo
 2. **Portal:** Pending Reports shows it. Open it, add a note, then Verify, or choose a reason and Reject (it asks to confirm).
 3. **Phone:** open Home or the Reports tab. The result shows as a notice on Home and in the report's status.
 4. **Offline:** stop the API and submit again. The phone shows "Report Saved / Pending Synchronization". Start the API and it sends by itself (retries start at 30 s and back off to 15 min).
+5. **Warning (phone):** Profile tab, choose a district (and optionally a mobile number), Save alert area.
+6. **Warning (portal):** Issue Warning, fill the form for the same district, Review Warning (shows how many citizens it reaches), Confirm Warning. The status page shows Push, SMS and Audible Alert delivery.
+7. **Phone:** the Alerts tab and Home show the warning within 30 seconds. Open it, Acknowledge Warning, see Safety Info.
+8. **Portal:** Cancel Warning with a reason. The phone shows the All Clear.
+9. **Partial delivery:** stop the API, set `SIMULATE_CHANNEL_FAILURE=SMS` in `apps/api/.env`, start it, issue a warning: status is Partially Disseminated. Remove the setting, restart, press Retry on the SMS card.
+10. **From a report:** open a Verified report in the portal and press "Issue Warning from this report".
 
 ### Post-disaster analysis (portal only)
 

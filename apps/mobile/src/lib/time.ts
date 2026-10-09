@@ -24,3 +24,8 @@ export function formatRelativeTime(iso: string, now = new Date()): string {
   if (elapsed < DAY) return plural(Math.floor(elapsed / HOUR), 'hr');
   return absolute.format(new Date(iso)).replace(' at ', ', ');
 }
+
+/** Always the full date and time, e.g. "7 Oct 2026, 14:30" (Sri Lanka time). */
+export function formatDateTime(iso: string): string {
+  return absolute.format(new Date(iso)).replace(' at ', ', ');
+}

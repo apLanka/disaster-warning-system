@@ -1,3 +1,5 @@
+import { CHANNEL_KINDS, type ChannelKind } from '@repo/types';
+
 export interface Env {
   PORT: number;
   DATABASE_URL: string;
@@ -6,6 +8,7 @@ export interface Env {
   CLOUDINARY_CLOUD_NAME: string;
   CLOUDINARY_API_KEY: string;
   CLOUDINARY_API_SECRET: string;
+  SIMULATE_CHANNEL_FAILURE: ChannelKind[];
 }
 
 const DEFAULT_PORT = 3000;
@@ -29,6 +32,27 @@ function readString(
   if (typeof value !== 'string') return undefined;
   const trimmed = value.trim();
   return trimmed === '' ? undefined : trimmed;
+}
+
+/** Channels whose simulated gateway should fail, for demonstrating partial dissemination. */
+function readFailingChannels(
+  config: Record<string, unknown>,
+  errors: string[],
+): ChannelKind[] {
+  const raw = readString(config, 'SIMULATE_CHANNEL_FAILURE');
+  if (raw === undefined) return [];
+
+  const kinds: ChannelKind[] = [];
+  for (const part of raw.split(',')) {
+    const name = part.trim().toUpperCase();
+    if (name === '') continue;
+    if ((CHANNEL_KINDS as readonly string[]).includes(name)) {
+      kinds.push(name as ChannelKind);
+    } else {
+      errors.push(`SIMULATE_CHANNEL_FAILURE has unknown channel ${name}`);
+    }
+  }
+  return kinds;
 }
 
 /**
@@ -73,6 +97,8 @@ export function validateEnv(config: Record<string, unknown>): Env {
     errors.push('PORT must be an integer between 1 and 65535');
   }
 
+  const failingChannels = readFailingChannels(config, errors);
+
   if (errors.length > 0) {
     throw new Error(`Invalid environment:\n- ${errors.join('\n- ')}`);
   }
@@ -85,5 +111,6 @@ export function validateEnv(config: Record<string, unknown>): Env {
     CLOUDINARY_CLOUD_NAME: values['CLOUDINARY_CLOUD_NAME'] as string,
     CLOUDINARY_API_KEY: values['CLOUDINARY_API_KEY'] as string,
     CLOUDINARY_API_SECRET: values['CLOUDINARY_API_SECRET'] as string,
+    SIMULATE_CHANNEL_FAILURE: failingChannels,
   };
 }

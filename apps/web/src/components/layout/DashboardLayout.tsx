@@ -4,12 +4,23 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 
 import { config } from '../../config';
 import { ReportStatsProvider } from '../../context/ReportStatsProvider';
+import { WarningStatsProvider } from '../../context/WarningStatsProvider';
 import { useReportStats } from '../../hooks/useReportStats';
+import { useWarningStats } from '../../hooks/useWarningStats';
 import { HealthStatus } from '../HealthStatus';
-import { NAV_ITEMS } from './navItems';
+import { NAV_ITEMS, type NavBadge } from './navItems';
 
 function Sidebar({ onNavigate }: { onNavigate: () => void }) {
   const { stats } = useReportStats();
+  const { stats: warningStats } = useWarningStats();
+  const counts: Record<NavBadge, number> = {
+    pendingReports: stats?.pending ?? 0,
+    activeWarnings: warningStats?.active ?? 0,
+  };
+  const spoken: Record<NavBadge, string> = {
+    pendingReports: 'pending',
+    activeWarnings: 'active',
+  };
 
   return (
     <nav
@@ -30,10 +41,11 @@ function Sidebar({ onNavigate }: { onNavigate: () => void }) {
       </div>
 
       <ul className="flex-1 space-y-1 p-3">
-        {NAV_ITEMS.map(({ to, label, icon: Icon, showPendingCount }) => (
+        {NAV_ITEMS.map(({ to, label, icon: Icon, badge, end }) => (
           <li key={to}>
             <NavLink
               to={to}
+              end={end}
               onClick={onNavigate}
               className={({ isActive }) =>
                 `flex items-center gap-3 rounded-lg border-l-4 px-3 py-2 text-sm ${
@@ -45,10 +57,12 @@ function Sidebar({ onNavigate }: { onNavigate: () => void }) {
             >
               <Icon aria-hidden="true" className="size-4" />
               <span className="flex-1">{label}</span>
-              {showPendingCount && stats && stats.pending > 0 && (
+              {badge && counts[badge] > 0 && (
                 <span className="bg-orange rounded-full px-2 py-0.5 text-xs font-semibold">
-                  <span className="sr-only">{stats.pending} pending: </span>
-                  {stats.pending}
+                  <span className="sr-only">
+                    {counts[badge]} {spoken[badge]}:{' '}
+                  </span>
+                  {counts[badge]}
                 </span>
               )}
             </NavLink>
@@ -153,7 +167,9 @@ function Shell() {
 export function DashboardLayout() {
   return (
     <ReportStatsProvider>
-      <Shell />
+      <WarningStatsProvider>
+        <Shell />
+      </WarningStatsProvider>
     </ReportStatsProvider>
   );
 }

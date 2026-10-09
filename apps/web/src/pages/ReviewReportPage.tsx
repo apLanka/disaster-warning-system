@@ -1,4 +1,4 @@
-import { ArrowLeft, SearchX } from 'lucide-react';
+import { ArrowLeft, Megaphone, SearchX } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import { useReportStats } from '../hooks/useReportStats';
 import { useResource } from '../hooks/useResource';
 import { formatIncidentTime, formatRelativeTime } from '../lib/format';
-import { listPathFor, PENDING_PATH } from '../lib/routes';
+import { listPathFor, NEW_WARNING_PATH, PENDING_PATH } from '../lib/routes';
 
 const LOADING_LAYOUT = (
   <div className="space-y-4" role="status" aria-label="Loading report">
@@ -183,6 +183,23 @@ export function ReviewReportPage() {
         <Banner tone="warning">
           Carefully review the submitted details and evidence before taking
           action.
+        </Banner>
+      )}
+      {report.status === 'VERIFIED' && (
+        <Banner
+          tone="success"
+          action={
+            <Link
+              to={`${NEW_WARNING_PATH}?fromReport=${encodeURIComponent(report.id)}`}
+              className="bg-orange inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-semibold text-white"
+            >
+              <Megaphone aria-hidden="true" className="size-4" />
+              Issue Warning from this report
+            </Link>
+          }
+        >
+          This report is verified. If citizens need to act, issue a warning for
+          the area.
         </Banner>
       )}
 

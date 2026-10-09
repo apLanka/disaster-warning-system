@@ -26,8 +26,11 @@ export class NetworkError extends Error {
 export const REQUEST_TIMEOUT_MS = 30_000;
 
 interface RequestOptions {
-  method?: 'GET' | 'POST' | 'PATCH';
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH';
+  /** Multipart uploads. Use `json` for everything else. */
   body?: FormData;
+  /** Sent as JSON with its content type. */
+  json?: unknown;
   signal?: AbortSignal;
   timeoutMs?: number;
 }
@@ -50,12 +53,17 @@ export async function request<T>(
   {
     method = 'GET',
     body,
+    json,
     signal,
     timeoutMs = REQUEST_TIMEOUT_MS,
   }: RequestOptions = {},
 ): Promise<ApiResponse<T>> {
   // No content-type for multipart: fetch adds it, with the boundary.
-  const headers = { 'x-reporter-id': await getReporterId() };
+  const headers: Record<string, string> = {
+    'x-reporter-id': await getReporterId(),
+  };
+  if (json !== undefined) headers['content-type'] = 'application/json';
+  const payloadBody = json !== undefined ? JSON.stringify(json) : body;
 
   // One controller covers both the caller cancelling and the timeout.
   const controller = new AbortController();
@@ -74,7 +82,7 @@ export async function request<T>(
     response = await fetch(`${config.apiBaseUrl}${path}`, {
       method,
       headers,
-      body,
+      body: payloadBody,
       signal: controller.signal,
     });
   } catch (cause) {

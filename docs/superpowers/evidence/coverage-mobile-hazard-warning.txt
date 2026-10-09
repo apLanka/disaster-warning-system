@@ -1,0 +1,70 @@
+----------------------------|---------|----------|---------|---------|--------------------
+File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s  
+----------------------------|---------|----------|---------|---------|--------------------
+All files                   |   95.16 |    90.06 |    93.3 |   96.11 |                    
+ src                        |     100 |      100 |     100 |     100 |                    
+  config.ts                 |     100 |      100 |     100 |     100 |                    
+  theme.ts                  |     100 |      100 |     100 |     100 |                    
+ src/api                    |   83.54 |    92.85 |      70 |   82.85 |                    
+  alerts.ts                 |   91.66 |      100 |     100 |    90.9 | 17                 
+  client.ts                 |   97.72 |    96.87 |    87.5 |     100 | 94                 
+  hazardReports.ts          |   61.11 |      100 |   42.85 |   56.25 | 83-112             
+  health.ts                 |      20 |       50 |       0 |      20 | 9-15               
+ src/components             |   97.87 |    90.65 |   94.87 |    97.7 |                    
+  AlertCard.tsx             |     100 |    88.88 |     100 |     100 | 25,43              
+  Banner.tsx                |     100 |      100 |     100 |     100 |                    
+  Button.tsx                |     100 |    89.47 |     100 |     100 | 51,55              
+  FormField.tsx             |     100 |      100 |     100 |     100 |                    
+  HealthStatus.tsx          |     100 |       75 |     100 |     100 | 18-19              
+  LevelBadge.tsx            |     100 |        0 |     100 |     100 | 10                 
+  LocationField.tsx         |     100 |      100 |     100 |     100 |                    
+  OfflineBanner.tsx         |     100 |      100 |     100 |     100 |                    
+  PhotoField.tsx            |     100 |      100 |     100 |     100 |                    
+  ReportCard.tsx            |     100 |       90 |     100 |     100 | 40                 
+  ResultCard.tsx            |     100 |      100 |     100 |     100 |                    
+  Screen.tsx                |     100 |    66.66 |     100 |     100 | 22-27              
+  SelectField.tsx           |   85.71 |      100 |      80 |   84.61 | 67-72              
+  StatusChip.tsx            |     100 |      100 |     100 |     100 |                    
+ src/context                |   96.32 |    76.31 |   97.67 |   99.15 |                    
+  AlertsContext.tsx         |   94.28 |    77.27 |   94.44 |     100 | 81,100,109-122,143 
+  ReportDraftContext.tsx    |   93.33 |       50 |     100 |    92.3 | 61                 
+  ReportQueueContext.tsx    |     100 |    78.57 |     100 |     100 | 48-61,119          
+ src/hooks                  |    96.7 |    67.85 |   96.87 |   98.61 |                    
+  useLocation.ts            |   97.61 |       75 |     100 |     100 | 32,57,64,83        
+  useNetworkStatus.ts       |     100 |      100 |     100 |     100 |                    
+  useNotifications.ts       |    92.3 |    66.66 |    90.9 |   95.23 | 62                 
+  useResource.ts            |     100 |       50 |     100 |     100 | 31-37              
+ src/lib                    |     100 |      100 |     100 |     100 |                    
+  alerts.ts                 |     100 |      100 |     100 |     100 |                    
+  cloudinary.ts             |     100 |      100 |     100 |     100 |                    
+  draft.ts                  |     100 |      100 |     100 |     100 |                    
+  format.ts                 |     100 |      100 |     100 |     100 |                    
+  photos.ts                 |     100 |      100 |     100 |     100 |                    
+  time.ts                   |     100 |      100 |     100 |     100 |                    
+ src/navigation             |     100 |    83.33 |     100 |     100 |                    
+  MainTabs.tsx              |     100 |    83.33 |     100 |     100 | 42                 
+  RootNavigator.tsx         |     100 |      100 |     100 |     100 |                    
+ src/offline                |     100 |      100 |     100 |     100 |                    
+  deliver.ts                |     100 |      100 |     100 |     100 |                    
+  reportQueue.ts            |     100 |      100 |     100 |     100 |                    
+ src/screens                |   92.52 |    91.33 |   89.74 |   93.96 |                    
+  AlertsScreen.tsx          |     100 |      100 |     100 |     100 |                    
+  HazardAlertScreen.tsx     |    90.9 |    82.35 |   85.71 |   90.47 | 27-33              
+  HomeScreen.tsx            |   94.11 |    88.88 |   88.88 |   94.11 | 113                
+  MyReportsScreen.tsx       |   78.26 |    93.75 |   81.81 |   76.19 | 39-46,59           
+  ProfileScreen.tsx         |     100 |    95.83 |     100 |     100 | 48                 
+  ReportDetailScreen.tsx    |   92.85 |      100 |   83.33 |    92.3 | 103                
+  ReportHazardScreen.tsx    |   96.42 |    94.44 |     100 |     100 | 69                 
+  ReportResultScreen.tsx    |     100 |    91.66 |     100 |     100 | 35                 
+  ReportSubmittedScreen.tsx |     100 |      100 |     100 |     100 |                    
+  ReviewReportScreen.tsx    |   85.29 |    66.66 |   83.33 |   93.33 | 34,148             
+  SafetyInfoScreen.tsx      |      90 |      100 |   83.33 |   88.88 | 33                 
+ src/storage                |     100 |      100 |     100 |     100 |                    
+  reporterId.ts             |     100 |      100 |     100 |     100 |                    
+----------------------------|---------|----------|---------|---------|--------------------
+
+Test Suites: 21 passed, 21 total
+Tests:       257 passed, 257 total
+Snapshots:   0 total
+Time:        5.312 s
+Ran all test suites.

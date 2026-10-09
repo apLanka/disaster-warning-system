@@ -19,6 +19,10 @@ import { RescueTeamPortalPage } from './pages/rescue/RescueTeamPortalPage';
 import { ResourcesPage } from './pages/rescue/ResourcesPage';
 import { SheltersPage } from './pages/rescue/SheltersPage';
 import { ReviewReportPage } from './pages/ReviewReportPage';
+import { ReviewWarningPage } from './pages/ReviewWarningPage';
+import { WarningFormPage } from './pages/WarningFormPage';
+import { WarningsListPage } from './pages/WarningsListPage';
+import { WarningStatusPage } from './pages/WarningStatusPage';
 
 function App() {
   return (
@@ -75,6 +79,13 @@ function App() {
           element={<ReportsListPage status="REJECTED" />}
         />
         <Route path="reports/:id" element={<ReviewReportPage />} />
+
+        {/* Hazard Warnings Dissemination */}
+        <Route path="warnings" element={<WarningsListPage />} />
+        <Route path="warnings/new" element={<WarningFormPage />} />
+        <Route path="warnings/review" element={<ReviewWarningPage />} />
+        <Route path="warnings/:id/edit" element={<WarningFormPage />} />
+        <Route path="warnings/:id" element={<WarningStatusPage />} />
 
         {/* Analysis & Reports */}
         <Route path="analysis" element={<AnalysisEventsPage />} />

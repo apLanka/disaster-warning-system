@@ -397,13 +397,14 @@ describe.skipIf(!canRunIntegration)(
             )
             .map((method) => `${method.toUpperCase()} ${path}`),
       );
+      // Other use cases document their own routes in their own e2e suites.
+      const ours = documented.filter((entry) =>
+        /^\w+ \/api\/(health|hazard-reports|notifications)(\/|$)/.test(entry),
+      );
 
-      expect(documented.sort()).toEqual(
+      expect(ours.sort()).toEqual(
         [
           'GET /api/health',
-          'GET /api/disaster-events',
-          'GET /api/disaster-events/{id}',
-          'GET /api/disaster-events/{id}/report',
           'POST /api/hazard-reports',
           'GET /api/hazard-reports',
           'GET /api/hazard-reports/mine',
@@ -413,12 +414,6 @@ describe.skipIf(!canRunIntegration)(
           'PATCH /api/hazard-reports/{id}/reject',
           'GET /api/notifications',
           'PATCH /api/notifications/{id}/read',
-          'GET /api/rescue/events/active',
-          'GET /api/rescue/events/{eventId}/districts',
-          'GET /api/rescue/teams',
-          'POST /api/rescue/assignments',
-          'GET /api/rescue/missions/{id}',
-          'PATCH /api/rescue/missions/{id}/status',
         ].sort(),
       );
     });

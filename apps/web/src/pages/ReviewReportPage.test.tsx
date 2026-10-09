@@ -273,4 +273,24 @@ describe('ReviewReportPage', () => {
     ).not.toBeInTheDocument();
     expect(getReport).toHaveBeenCalledTimes(2);
   });
+  it('offers to issue a warning from a verified report only', async () => {
+    vi.mocked(getReport).mockResolvedValue(decidedReport('VERIFIED'));
+    renderReview();
+
+    expect(
+      await screen.findByRole('link', {
+        name: 'Issue Warning from this report',
+      }),
+    ).toHaveAttribute('href', `/warnings/new?fromReport=${ID}`);
+  });
+
+  it('does not offer a warning for a rejected report', async () => {
+    vi.mocked(getReport).mockResolvedValue(decidedReport('REJECTED'));
+    renderReview();
+
+    await screen.findByRole('heading', { name: 'Review Hazard Report' });
+    expect(
+      screen.queryByRole('link', { name: 'Issue Warning from this report' }),
+    ).not.toBeInTheDocument();
+  });
 });
