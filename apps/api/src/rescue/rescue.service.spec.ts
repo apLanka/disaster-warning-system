@@ -86,9 +86,11 @@ describe('RescueService', () => {
   describe('getActiveEvents', () => {
     it('returns default active event summary if none in database', async () => {
       const events = await service.getActiveEvents();
-      expect(events).toHaveLength(1);
-      expect(events[0]!.name).toBe('Flood Warning');
+      expect(events).toHaveLength(4);
+      expect(events[0]!.name).toContain('Flood Warning');
       expect(events[0]!.warningLevel).toBe('HIGH');
+      expect(events.some((e) => e.warningLevel === 'CRITICAL')).toBe(true);
+      expect(events.some((e) => e.warningLevel === 'MEDIUM')).toBe(true);
     });
   });
 
@@ -188,6 +190,8 @@ describe('RescueService', () => {
       expect(assignment.missionId).toBe('RA-001');
       expect(assignment.rescueTeamName).toBe('Team A');
       expect(assignment.status).toBe('ASSIGNED');
+      expect(assignment.timeline).toBeDefined();
+      expect(assignment.timeline![0]!.status).toBe('ASSIGNED');
     });
 
     it('throws custom message when assignment storage fails (SQ7)', async () => {
@@ -306,9 +310,15 @@ describe('RescueService', () => {
       const updated = await service.updateMissionStatus('assign-1', {
         status: 'EN_ROUTE',
         leaderId: 'leader-squad-1',
+        notes: 'Departed base',
       });
 
       expect(updated.status).toBe('EN_ROUTE');
+      expect(updated.timeline).toBeDefined();
+      expect(updated.timeline!.length).toBeGreaterThan(0);
+      expect(updated.timeline![updated.timeline!.length - 1]!.status).toBe(
+        'EN_ROUTE',
+      );
     });
 
     it('rejects invalid status transitions', async () => {

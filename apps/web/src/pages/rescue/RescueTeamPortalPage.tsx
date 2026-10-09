@@ -25,6 +25,8 @@ import {
   syncPendingStatusUpdates,
   updateMissionStatus,
 } from '../../api/rescue';
+import { MissionStatusStepper } from '../../components/rescue/MissionStatusStepper';
+import { MissionTimelineFeed } from '../../components/rescue/MissionTimelineFeed';
 import { Banner } from '../../components/ui/Banner';
 import { Skeleton } from '../../components/ui/Skeleton';
 
@@ -221,51 +223,61 @@ export function RescueTeamPortalPage() {
     (activeTab === 'ACTIVE' ? activeMissions[0] : completedMissions[0]) ||
     null;
 
-  const handleExecuteStatusUpdate = async (
-    nextStatus: MissionStatus,
-    notes?: string,
-  ) => {
-    if (!currentMission) return;
+  const handleExecuteStatusUpdate = useCallback(
+    async (nextStatus: MissionStatus, notes?: string) => {
+      if (!currentMission) return;
 
-    if (!navigator.onLine) {
-      // SQ6: Store in local pending status queue
-      queueStatusUpdateLocally(currentMission.id, {
+      if (!navigator.onLine) {
+        // SQ6: Store in local pending status queue
+        queueStatusUpdateLocally(currentMission.id, {
+          status: nextStatus,
+          notes,
+          leaderId,
+        });
+        refreshQueueCount();
+        setAllMissions((prev) =>
+          prev.map((m) =>
+            m.id === currentMission.id ||
+            m.missionId === currentMission.missionId
+              ? {
+                  ...m,
+                  status: nextStatus,
+                  updatedAt: new Date().toISOString(),
+                  syncStatus: 'PENDING_OFFLINE',
+                }
+              : m,
+          ),
+        );
+        setSuccessMessage(
+          `Offline: Mission status queued locally as ${nextStatus.replace('_', ' ')}. Will sync when reconnected.`,
+        );
+        setTimeout(() => setSuccessMessage(null), 5000);
+        return;
+      }
+
+      const optimisticNote =
+        notes || `Status transitioned to ${nextStatus.replace('_', ' ')}.`;
+      const optimisticUpdated: RescueAssignment = {
+        ...currentMission,
         status: nextStatus,
-        notes,
-        leaderId,
-      });
-      refreshQueueCount();
+        notes: notes || currentMission.notes,
+        updatedAt: new Date().toISOString(),
+        timeline: [
+          ...(currentMission.timeline || []),
+          {
+            status: nextStatus,
+            by: leaderId || 'Team Leader',
+            at: new Date().toISOString(),
+            note: optimisticNote,
+          },
+        ],
+      };
+
+      // Immediate 0ms optimistic UI update
       setAllMissions((prev) =>
         prev.map((m) =>
           m.id === currentMission.id || m.missionId === currentMission.missionId
-            ? {
-                ...m,
-                status: nextStatus,
-                updatedAt: new Date().toISOString(),
-                syncStatus: 'PENDING_OFFLINE',
-              }
-            : m,
-        ),
-      );
-      setSuccessMessage(
-        `Offline: Mission status queued locally as ${nextStatus.replace('_', ' ')}. Will sync when reconnected.`,
-      );
-      setTimeout(() => setSuccessMessage(null), 5000);
-      return;
-    }
-
-    try {
-      setUpdating(true);
-      setError(null);
-      const updated = await updateMissionStatus(currentMission.id, {
-        status: nextStatus,
-        notes,
-        leaderId,
-      });
-      setAllMissions((prev) =>
-        prev.map((m) =>
-          m.id === updated.id || m.missionId === updated.missionId
-            ? updated
+            ? optimisticUpdated
             : m,
         ),
       );
@@ -275,7 +287,7 @@ export function RescueTeamPortalPage() {
       setCustomNotes('');
       setTimeout(() => setSuccessMessage(null), 4000);
 
-      // If finished, transition cleanly
+      // If finished, transition view cleanly
       if (
         nextStatus === MISSION_STATUS.COMPLETED ||
         nextStatus === MISSION_STATUS.CANCELLED
@@ -295,34 +307,53 @@ export function RescueTeamPortalPage() {
           setSelectedMissionId(currentMission.missionId);
         }
       }
-    } catch {
-      // SQ6 fallback: if network fails during request, offer offline queue
-      queueStatusUpdateLocally(currentMission.id, {
-        status: nextStatus,
-        notes,
-        leaderId,
-      });
-      refreshQueueCount();
-      setAllMissions((prev) =>
-        prev.map((m) =>
-          m.id === currentMission.id || m.missionId === currentMission.missionId
-            ? {
-                ...m,
-                status: nextStatus,
-                updatedAt: new Date().toISOString(),
-                syncStatus: 'PENDING_OFFLINE',
-              }
-            : m,
-        ),
-      );
-      setSuccessMessage(
-        `Connection failed: Update queued locally as Pending Sync.`,
-      );
-      setTimeout(() => setSuccessMessage(null), 5000);
-    } finally {
-      setUpdating(false);
-    }
-  };
+
+      try {
+        setUpdating(true);
+        setError(null);
+        const updated = await updateMissionStatus(currentMission.id, {
+          status: nextStatus,
+          notes,
+          leaderId,
+        });
+        setAllMissions((prev) =>
+          prev.map((m) =>
+            m.id === updated.id || m.missionId === updated.missionId
+              ? updated
+              : m,
+          ),
+        );
+      } catch {
+        // SQ6 fallback: if network fails during request, offer offline queue
+        queueStatusUpdateLocally(currentMission.id, {
+          status: nextStatus,
+          notes,
+          leaderId,
+        });
+        refreshQueueCount();
+        setAllMissions((prev) =>
+          prev.map((m) =>
+            m.id === currentMission.id ||
+            m.missionId === currentMission.missionId
+              ? {
+                  ...m,
+                  status: nextStatus,
+                  updatedAt: new Date().toISOString(),
+                  syncStatus: 'PENDING_OFFLINE',
+                }
+              : m,
+          ),
+        );
+        setSuccessMessage(
+          `Connection failed: Update queued locally as Pending Sync.`,
+        );
+        setTimeout(() => setSuccessMessage(null), 5000);
+      } finally {
+        setUpdating(false);
+      }
+    },
+    [currentMission, leaderId, allMissions, refreshQueueCount],
+  );
 
   return (
     <div className="min-h-screen bg-page text-ink flex flex-col">
@@ -571,6 +602,14 @@ export function RescueTeamPortalPage() {
                 </div>
               )}
 
+              {/* Live Mission Progress Stepper */}
+              {currentMission && (
+                <MissionStatusStepper
+                  status={currentMission.status}
+                  lastUpdated={currentMission.updatedAt}
+                />
+              )}
+
               {/* Selected Active Mission Details Card */}
               {currentMission && (
                 <div className="bg-surface border border-border rounded-2xl shadow-xs overflow-hidden">
@@ -765,6 +804,11 @@ export function RescueTeamPortalPage() {
                     </div>
                   </div>
                 </div>
+              )}
+
+              {/* Mission Activity Timeline Feed */}
+              {currentMission && (
+                <MissionTimelineFeed timeline={currentMission.timeline} />
               )}
             </div>
           )

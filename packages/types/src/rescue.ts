@@ -62,6 +62,21 @@ export interface RescueTeamItem {
   allowsCrossDistrict: boolean;
   activeMissionId?: string;
   activeAssignmentId?: string;
+  activeMissionStatus?: MissionStatus;
+}
+
+export interface MissionTimelineEntry {
+  status: MissionStatus;
+  note?: string;
+  by: string;
+  at: string;
+}
+
+export interface MissionResourceItem {
+  resourceCode: string;
+  name: string;
+  unit: string;
+  quantity: number;
 }
 
 export interface RescueAssignment {
@@ -80,6 +95,8 @@ export interface RescueAssignment {
   assignedAt: string;
   updatedAt: string;
   notes?: string;
+  resources?: MissionResourceItem[];
+  timeline?: MissionTimelineEntry[];
   syncStatus?: 'SYNCHRONIZED' | 'PENDING_OFFLINE';
 }
 

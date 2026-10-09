@@ -10,6 +10,7 @@ import type {
   DispatchValidationResult,
   EventResponseStatusSummary,
   MissionStatus,
+  MissionTimelineEntry,
   RescueAssignment,
   RescueEligibility,
   RescueTeamItem,
@@ -91,6 +92,14 @@ export class RescueService {
         status: MISSION_STATUS.ASSIGNED,
         assignedAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
+        timeline: [
+          {
+            status: MISSION_STATUS.ASSIGNED,
+            by: 'Duty Officer',
+            at: new Date().toISOString(),
+            note: 'Rescue unit deployed to Riverside Area, Gampaha.',
+          },
+        ],
         syncStatus: 'SYNCHRONIZED',
       },
     ],
@@ -98,12 +107,37 @@ export class RescueService {
 
   constructor(private readonly prisma: PrismaService) {}
 
+  /**
+   * Fast timeout helper to prevent queries from hanging when DB is slow/offline
+   */
+  private async withFastTimeout<T>(
+    operation: () => Promise<T>,
+    fallback: T,
+    timeoutMs = 1200,
+  ): Promise<T> {
+    let timer: any;
+    const timeoutPromise = new Promise<T>((resolve) => {
+      timer = setTimeout(() => resolve(fallback), timeoutMs);
+    });
+    try {
+      return await Promise.race([operation(), timeoutPromise]);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   async getActiveEvents(): Promise<ActiveDisasterEventSummary[]> {
     try {
-      const events = await this.prisma.disasterEvent.findMany({
-        where: { status: 'ACTIVE' },
-        orderBy: { startedAt: 'desc' },
-      });
+      const events = await this.withFastTimeout(
+        async () => {
+          return await this.prisma.disasterEvent.findMany({
+            where: { status: 'ACTIVE' },
+            orderBy: { startedAt: 'desc' },
+          });
+        },
+        [],
+        1000,
+      );
 
       if (events.length > 0) {
         return events.map((ev) => ({
@@ -123,17 +157,50 @@ export class RescueService {
       // Fallback on DB connection timeout / offline
     }
 
-    // Default active flood event from Screen 1
+    // Comprehensive active disaster events with Critical, High, and Medium severity stages
     return [
       {
         id: 'EV-2026-FLOOD-01',
         eventId: 'EV-2026-FLOOD-01',
-        name: 'Flood Warning',
+        name: 'Kelani & Kalu Ganga River Flood Warning',
         hazardType: 'FLOOD',
         badge: 'Escalated',
         affectedDistrictsCount: 3,
         warningLevel: 'HIGH',
         responseAction: 'Rescue deployment required',
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        id: 'EV-2026-LANDSLIDE-02',
+        eventId: 'EV-2026-LANDSLIDE-02',
+        name: 'Central Highlands Severe Landslide Disaster',
+        hazardType: 'LANDSLIDE',
+        badge: 'Critical Escalation',
+        affectedDistrictsCount: 4,
+        warningLevel: 'CRITICAL',
+        responseAction: 'Urgent rescue & aerial evacuation required',
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        id: 'EV-2026-CYCLONE-03',
+        eventId: 'EV-2026-CYCLONE-03',
+        name: 'Bay of Bengal Cyclone Storm Surge & Coastal Gale',
+        hazardType: 'CYCLONE',
+        badge: 'Red Alert Surge',
+        affectedDistrictsCount: 5,
+        warningLevel: 'HIGH',
+        responseAction: 'Rapid boat rescue deployment active',
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        id: 'EV-2026-RAIN-04',
+        eventId: 'EV-2026-RAIN-04',
+        name: 'Southern Province Monsoon Flash Inundation Advisory',
+        hazardType: 'FLASH_FLOOD',
+        badge: 'Advisory Active',
+        affectedDistrictsCount: 2,
+        warningLevel: 'MEDIUM',
+        responseAction: 'Standby mobilization & monitoring',
         updatedAt: new Date().toISOString(),
       },
     ];
@@ -143,8 +210,63 @@ export class RescueService {
     event: ActiveDisasterEventSummary;
     districts: AffectedDistrictInfo[];
   }> {
-    let eventName = 'Flood Warning';
-    let districtCodes = ['LK-12', 'LK-11', 'LK-13']; // Gampaha, Colombo, Kalutara
+    const knownEvents: Record<
+      string,
+      {
+        name: string;
+        hazardType: string;
+        badge: string;
+        warningLevel: 'CRITICAL' | 'HIGH' | 'MEDIUM';
+        responseAction: string;
+        districtCodes: string[];
+      }
+    > = {
+      'EV-2026-FLOOD-01': {
+        name: 'Kelani & Kalu Ganga River Flood Warning',
+        hazardType: 'FLOOD',
+        badge: 'Escalated',
+        warningLevel: 'HIGH',
+        responseAction: 'Rescue deployment required',
+        districtCodes: ['LK-12', 'LK-11', 'LK-13'],
+      },
+      'EV-2026-LANDSLIDE-02': {
+        name: 'Central Highlands Severe Landslide Disaster',
+        hazardType: 'LANDSLIDE',
+        badge: 'Critical Escalation',
+        warningLevel: 'CRITICAL',
+        responseAction: 'Urgent rescue & aerial evacuation required',
+        districtCodes: ['LK-91', 'LK-21', 'LK-22', 'LK-92'],
+      },
+      'EV-2026-CYCLONE-03': {
+        name: 'Bay of Bengal Cyclone Storm Surge & Coastal Gale',
+        hazardType: 'CYCLONE',
+        badge: 'Red Alert Surge',
+        warningLevel: 'HIGH',
+        responseAction: 'Rapid boat rescue deployment active',
+        districtCodes: ['LK-52', 'LK-51', 'LK-53', 'LK-41', 'LK-31'],
+      },
+      'EV-2026-RAIN-04': {
+        name: 'Southern Province Monsoon Flash Inundation Advisory',
+        hazardType: 'FLASH_FLOOD',
+        badge: 'Advisory Active',
+        warningLevel: 'MEDIUM',
+        responseAction: 'Standby mobilization & monitoring',
+        districtCodes: ['LK-32', 'LK-33'],
+      },
+    };
+
+    const fallbackMeta = knownEvents[eventId] ||
+      knownEvents['EV-2026-FLOOD-01'] || {
+        name: 'Disaster Warning',
+        hazardType: 'FLOOD',
+        badge: 'Escalated',
+        warningLevel: 'HIGH' as const,
+        responseAction: 'Rescue deployment required',
+        districtCodes: ['LK-12', 'LK-11', 'LK-13'],
+      };
+
+    let eventName = fallbackMeta.name;
+    let districtCodes = fallbackMeta.districtCodes;
 
     try {
       const dbEvent = await this.prisma.disasterEvent.findFirst({
@@ -165,7 +287,12 @@ export class RescueService {
 
     const districtMap: Record<
       string,
-      { name: string; level: 'HIGH' | 'MEDIUM'; status: string; need: string }
+      {
+        name: string;
+        level: 'CRITICAL' | 'HIGH' | 'MEDIUM';
+        status: string;
+        need: string;
+      }
     > = {
       'LK-11': {
         name: 'Colombo',
@@ -181,6 +308,72 @@ export class RescueService {
       },
       'LK-13': {
         name: 'Kalutara',
+        level: 'MEDIUM',
+        status: 'Monitoring',
+        need: 'Not required',
+      },
+      'LK-21': {
+        name: 'Kandy',
+        level: 'CRITICAL',
+        status: 'Requires Response',
+        need: 'Rescue deployment required',
+      },
+      'LK-91': {
+        name: 'Badulla',
+        level: 'CRITICAL',
+        status: 'Requires Response',
+        need: 'Rescue deployment required',
+      },
+      'LK-22': {
+        name: 'Nuwara Eliya',
+        level: 'HIGH',
+        status: 'Requires Response',
+        need: 'Rescue deployment required',
+      },
+      'LK-92': {
+        name: 'Ratnapura',
+        level: 'HIGH',
+        status: 'Monitoring',
+        need: 'Not required',
+      },
+      'LK-52': {
+        name: 'Batticaloa',
+        level: 'HIGH',
+        status: 'Requires Response',
+        need: 'Rescue deployment required',
+      },
+      'LK-51': {
+        name: 'Trincomalee',
+        level: 'HIGH',
+        status: 'Requires Response',
+        need: 'Rescue deployment required',
+      },
+      'LK-53': {
+        name: 'Ampara',
+        level: 'HIGH',
+        status: 'Monitoring',
+        need: 'Not required',
+      },
+      'LK-41': {
+        name: 'Jaffna',
+        level: 'MEDIUM',
+        status: 'Monitoring',
+        need: 'Not required',
+      },
+      'LK-31': {
+        name: 'Galle',
+        level: 'MEDIUM',
+        status: 'Monitoring',
+        need: 'Not required',
+      },
+      'LK-32': {
+        name: 'Matara',
+        level: 'MEDIUM',
+        status: 'Requires Response',
+        need: 'Precautionary standby',
+      },
+      'LK-33': {
+        name: 'Hambantota',
         level: 'MEDIUM',
         status: 'Monitoring',
         need: 'Not required',
@@ -208,7 +401,7 @@ export class RescueService {
     const districts: AffectedDistrictInfo[] = districtCodes.map((code) => {
       const match = districtMap[code] || {
         name: code,
-        level: 'HIGH',
+        level: fallbackMeta.warningLevel,
         status: 'Requires Response',
         need: 'Rescue deployment required',
       };
@@ -220,6 +413,8 @@ export class RescueService {
         rescueNeed: match.need,
         selected:
           match.name.toLowerCase() === 'gampaha' ||
+          match.name.toLowerCase() === 'badulla' ||
+          match.name.toLowerCase() === 'batticaloa' ||
           match.status === 'Requires Response',
       };
     });
@@ -227,13 +422,13 @@ export class RescueService {
     return {
       event: {
         id: eventId,
-        eventId: 'EV-2026-FLOOD-01',
+        eventId: eventId.startsWith('EV-') ? eventId : 'EV-2026-FLOOD-01',
         name: eventName,
-        hazardType: 'FLOOD',
-        badge: 'Escalated',
+        hazardType: fallbackMeta.hazardType,
+        badge: fallbackMeta.badge,
         affectedDistrictsCount: districts.length,
-        warningLevel: 'HIGH',
-        responseAction: 'Rescue deployment required',
+        warningLevel: fallbackMeta.warningLevel,
+        responseAction: fallbackMeta.responseAction,
         updatedAt: new Date().toISOString(),
       },
       districts,
@@ -244,15 +439,26 @@ export class RescueService {
     districtCode?: string,
     includeExternal = false,
   ): Promise<RescueTeamItem[]> {
+    let teams: any[] = [];
+    let assignments: any[] = [];
+
     try {
-      const [teams, assignments] = await Promise.all([
-        this.prisma.rescueTeam.findMany({
-          orderBy: { teamCode: 'asc' },
-        }),
-        this.prisma.rescueAssignment.findMany({
-          orderBy: { updatedAt: 'desc' },
-        }),
-      ]);
+      const dbResult = await this.withFastTimeout(
+        async () => {
+          return await Promise.all([
+            this.prisma.rescueTeam.findMany({
+              orderBy: { teamCode: 'asc' },
+            }),
+            this.prisma.rescueAssignment.findMany({
+              orderBy: { updatedAt: 'desc' },
+            }),
+          ]);
+        },
+        [[], []],
+        1200,
+      );
+      teams = dbResult[0];
+      assignments = dbResult[1];
 
       if (teams.length > 0) {
         const filtered = teams.filter((t) => {
@@ -270,19 +476,35 @@ export class RescueService {
             t.districtCode.toLowerCase() === districtCode.toLowerCase() ||
             t.districtCode.includes(districtCode);
 
+          const matchedAssignment = assignments.find(
+            (a) =>
+              (a.rescueTeamId === t.id ||
+                a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
+                a.rescueTeamId === t.teamCode) &&
+              a.status !== MISSION_STATUS.COMPLETED &&
+              a.status !== MISSION_STATUS.CANCELLED,
+          );
+
+          const latestAssignment =
+            matchedAssignment ||
+            assignments.find(
+              (a) =>
+                a.rescueTeamId === t.id ||
+                a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
+                a.rescueTeamId === t.teamCode,
+            );
+
+          const isActive = !!matchedAssignment;
+          const currentStatus: RescueTeamStatus = isActive
+            ? 'ASSIGNED'
+            : (t.status as RescueTeamStatus);
+
           let eligibility: RescueEligibility = RESCUE_ELIGIBILITY.ELIGIBLE;
-          if (t.status !== 'AVAILABLE') {
+          if (currentStatus !== 'AVAILABLE') {
             eligibility = RESCUE_ELIGIBILITY.NOT_AVAILABLE;
           } else if (!isLocal && t.allowsCrossDistrict) {
             eligibility = RESCUE_ELIGIBILITY.CROSS_DISTRICT_ALLOWED;
           }
-
-          const matchedAssignment = assignments.find(
-            (a) =>
-              a.rescueTeamId === t.id ||
-              a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
-              a.rescueTeamId === t.teamCode,
-          );
 
           return {
             id: t.id,
@@ -291,13 +513,14 @@ export class RescueService {
             organization: t.organization,
             districtCode: t.districtCode,
             districtName: t.districtCode,
-            currentStatus: t.status as RescueTeamStatus,
+            currentStatus,
             eligibility,
             allowsCrossDistrict: t.allowsCrossDistrict,
             contactNumber: t.contactNumber ?? undefined,
             leaderName: t.leaderName ?? undefined,
-            activeMissionId: matchedAssignment?.missionId,
-            activeAssignmentId: matchedAssignment?.id,
+            activeMissionId: latestAssignment?.missionId,
+            activeAssignmentId: latestAssignment?.id,
+            activeMissionStatus: latestAssignment?.status as MissionStatus,
           };
         });
       }
@@ -326,25 +549,43 @@ export class RescueService {
         t.districtCode.toLowerCase() === districtCode.toLowerCase() ||
         t.districtName.toLowerCase() === districtCode.toLowerCase();
 
+      const matchedAssignment = memAssignments.find(
+        (a) =>
+          (a.rescueTeamId === t.id ||
+            a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
+            a.rescueTeamId === t.teamCode) &&
+          a.status !== MISSION_STATUS.COMPLETED &&
+          a.status !== MISSION_STATUS.CANCELLED,
+      );
+
+      const latestAssignment =
+        matchedAssignment ||
+        memAssignments.find(
+          (a) =>
+            a.rescueTeamId === t.id ||
+            a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
+            a.rescueTeamId === t.teamCode,
+        );
+
+      const isActive = !!matchedAssignment;
+      const currentStatus: RescueTeamStatus = isActive
+        ? 'ASSIGNED'
+        : t.currentStatus;
+
       let eligibility: RescueEligibility = RESCUE_ELIGIBILITY.ELIGIBLE;
-      if (t.currentStatus !== 'AVAILABLE') {
+      if (currentStatus !== 'AVAILABLE') {
         eligibility = RESCUE_ELIGIBILITY.NOT_AVAILABLE;
       } else if (!isLocal && t.allowsCrossDistrict) {
         eligibility = RESCUE_ELIGIBILITY.CROSS_DISTRICT_ALLOWED;
       }
 
-      const matchedAssignment = memAssignments.find(
-        (a) =>
-          a.rescueTeamId === t.id ||
-          a.rescueTeamName.toLowerCase() === t.name.toLowerCase() ||
-          a.rescueTeamId === t.teamCode,
-      );
-
       return {
         ...t,
+        currentStatus,
         eligibility,
-        activeMissionId: matchedAssignment?.missionId,
-        activeAssignmentId: matchedAssignment?.id,
+        activeMissionId: latestAssignment?.missionId,
+        activeAssignmentId: latestAssignment?.id,
+        activeMissionStatus: latestAssignment?.status as MissionStatus,
       };
     });
   }
@@ -396,21 +637,42 @@ export class RescueService {
     const isValidObjectId = (val?: string): boolean =>
       typeof val === 'string' && /^[0-9a-fA-F]{24}$/.test(val);
 
-    // 1. Validate Disaster Event is Active
+    // 1. Parallel validation of Disaster Event and Rescue Team with fast timeout
     let isEventActive = true;
+    let dbTeam: any = null;
+
     try {
       const eventFilters: any[] = [{ eventId }];
       if (isValidObjectId(eventId)) {
         eventFilters.unshift({ id: eventId });
       }
-      const event = await this.prisma.disasterEvent.findFirst({
-        where: { OR: eventFilters },
-      });
-      if (event && event.status !== 'ACTIVE') {
+
+      const teamFilters: any[] = [{ teamCode: teamId }, { name: teamId }];
+      if (isValidObjectId(teamId)) {
+        teamFilters.unshift({ id: teamId });
+      }
+
+      const [eventResult, teamResult] = await this.withFastTimeout(
+        async () => {
+          return await Promise.all([
+            this.prisma.disasterEvent.findFirst({
+              where: { OR: eventFilters },
+            }),
+            this.prisma.rescueTeam.findFirst({
+              where: { OR: teamFilters },
+            }),
+          ]);
+        },
+        [null, null],
+        800,
+      );
+
+      if (eventResult && eventResult.status !== 'ACTIVE') {
         isEventActive = false;
       }
+      dbTeam = teamResult;
     } catch {
-      // DB offline - fallback
+      // DB offline / fallback
     }
 
     if (!isEventActive) {
@@ -423,29 +685,18 @@ export class RescueService {
     let team = this.inMemoryTeams.find(
       (t) => t.id === teamId || t.teamCode === teamId || t.name === teamId,
     );
-    try {
-      const teamFilters: any[] = [{ teamCode: teamId }, { name: teamId }];
-      if (isValidObjectId(teamId)) {
-        teamFilters.unshift({ id: teamId });
-      }
-      const dbTeam = await this.prisma.rescueTeam.findFirst({
-        where: { OR: teamFilters },
-      });
-      if (dbTeam) {
-        team = {
-          id: dbTeam.id,
-          teamCode: dbTeam.teamCode,
-          name: dbTeam.name,
-          organization: dbTeam.organization,
-          districtCode: dbTeam.districtCode,
-          districtName: dbTeam.districtCode,
-          currentStatus: dbTeam.status as RescueTeamStatus,
-          eligibility: RESCUE_ELIGIBILITY.ELIGIBLE,
-          allowsCrossDistrict: dbTeam.allowsCrossDistrict,
-        };
-      }
-    } catch {
-      // DB offline
+    if (dbTeam) {
+      team = {
+        id: dbTeam.id,
+        teamCode: dbTeam.teamCode,
+        name: dbTeam.name,
+        organization: dbTeam.organization,
+        districtCode: dbTeam.districtCode,
+        districtName: dbTeam.districtCode,
+        currentStatus: dbTeam.status as RescueTeamStatus,
+        eligibility: RESCUE_ELIGIBILITY.ELIGIBLE,
+        allowsCrossDistrict: dbTeam.allowsCrossDistrict,
+      };
     }
 
     if (!team) {
@@ -506,121 +757,142 @@ export class RescueService {
     );
 
     try {
-      return await this.prisma.$transaction(async (tx) => {
-        const teamFilters: any[] = [
-          { teamCode: memTeam?.teamCode || dto.rescueTeamId },
-          { name: memTeam?.name || dto.rescueTeamId },
-        ];
-        if (isValidObjectId(dto.rescueTeamId)) {
-          teamFilters.unshift({ id: dto.rescueTeamId });
-        }
+      const assignmentResult = await this.withFastTimeout(
+        async () => {
+          return await this.prisma.$transaction(async (tx) => {
+            const teamFilters: any[] = [
+              { teamCode: memTeam?.teamCode || dto.rescueTeamId },
+              { name: memTeam?.name || dto.rescueTeamId },
+            ];
+            if (isValidObjectId(dto.rescueTeamId)) {
+              teamFilters.unshift({ id: dto.rescueTeamId });
+            }
 
-        let team = await tx.rescueTeam.findFirst({
-          where: { OR: teamFilters },
-        });
+            let team = await tx.rescueTeam.findFirst({
+              where: { OR: teamFilters },
+            });
 
-        if (!team) {
-          team = await tx.rescueTeam.create({
-            data: {
-              teamCode: memTeam?.teamCode || 'TEAM-A',
-              name: memTeam?.name || 'Team A',
-              organization: memTeam?.organization || 'DMC',
-              districtCode:
-                memTeam?.districtCode || dto.districtCode || 'Gampaha',
-              status: 'AVAILABLE',
-              allowsCrossDistrict: memTeam?.allowsCrossDistrict ?? true,
-            },
+            if (!team) {
+              team = await tx.rescueTeam.create({
+                data: {
+                  teamCode: memTeam?.teamCode || 'TEAM-A',
+                  name: memTeam?.name || 'Team A',
+                  organization: memTeam?.organization || 'DMC',
+                  districtCode:
+                    memTeam?.districtCode || dto.districtCode || 'Gampaha',
+                  status: 'AVAILABLE',
+                  allowsCrossDistrict: memTeam?.allowsCrossDistrict ?? true,
+                },
+              });
+            }
+
+            // Final atomic availability check
+            if (team.status !== 'AVAILABLE') {
+              throw new ConflictException(
+                `Rescue team "${team.name}" is no longer available (currently ${team.status}). Please select another team.`,
+              );
+            }
+
+            const eventFilters: any[] = [
+              { eventId: dto.disasterEventId },
+              { name: dto.disasterEventId },
+            ];
+            if (isValidObjectId(dto.disasterEventId)) {
+              eventFilters.unshift({ id: dto.disasterEventId });
+            }
+
+            let event = await tx.disasterEvent.findFirst({
+              where: { OR: eventFilters },
+            });
+
+            if (!event) {
+              event = await tx.disasterEvent.create({
+                data: {
+                  eventId: 'EV-2026-FLOOD-01',
+                  name: 'Flood Warning',
+                  hazardType: 'FLOOD',
+                  districtCodes: ['LK-12', 'LK-11', 'LK-13'],
+                  startedAt: new Date(),
+                  status: 'ACTIVE',
+                  isDemoData: true,
+                },
+              });
+            }
+
+            // Update team status atomically to ASSIGNED
+            await tx.rescueTeam.update({
+              where: { id: team.id },
+              data: { status: 'ASSIGNED' },
+            });
+
+            const assignmentCount = await tx.rescueAssignment.count();
+            const nextNumber = assignmentCount + 1;
+            const missionId = `RA-${nextNumber.toString().padStart(3, '0')}`;
+
+            // Store rescue assignment record
+            const assignment = await tx.rescueAssignment.create({
+              data: {
+                missionId,
+                disasterEventId: event.id,
+                disasterEventName: event.name,
+                districtCode: dto.districtCode,
+                districtName: dto.districtCode,
+                rescueTeamId: team.id,
+                rescueTeamName: team.name,
+                organization: team.organization,
+                emergencyLocation: location,
+                assignedBy: dto.assignedBy || 'Duty Officer',
+                status: MISSION_STATUS.ASSIGNED,
+              },
+            });
+
+            const initialTimeline: MissionTimelineEntry[] = [
+              {
+                status: MISSION_STATUS.ASSIGNED,
+                by: dto.assignedBy || 'Duty Officer',
+                at: assignment.assignedAt.toISOString(),
+                note: `Mission initiated. Squad dispatched to ${location}.`,
+              },
+            ];
+
+            return {
+              id: assignment.id,
+              missionId: assignment.missionId,
+              disasterEventId: assignment.disasterEventId,
+              disasterEventName: assignment.disasterEventName,
+              districtCode: assignment.districtCode,
+              districtName: assignment.districtName,
+              rescueTeamId: assignment.rescueTeamId,
+              rescueTeamName: assignment.rescueTeamName,
+              organization: assignment.organization,
+              emergencyLocation: assignment.emergencyLocation,
+              assignedBy: assignment.assignedBy,
+              status: assignment.status as any,
+              assignedAt: assignment.assignedAt.toISOString(),
+              updatedAt: assignment.updatedAt.toISOString(),
+              notes: assignment.notes ?? undefined,
+              timeline: initialTimeline,
+              syncStatus: 'SYNCHRONIZED' as const,
+            };
           });
-        }
+        },
+        null,
+        1500,
+      );
 
-        // Final atomic availability check
-        if (team.status !== 'AVAILABLE') {
-          throw new ConflictException(
-            `Rescue team "${team.name}" is no longer available (currently ${team.status}). Please select another team.`,
-          );
-        }
-
-        const eventFilters: any[] = [
-          { eventId: dto.disasterEventId },
-          { name: dto.disasterEventId },
-        ];
-        if (isValidObjectId(dto.disasterEventId)) {
-          eventFilters.unshift({ id: dto.disasterEventId });
-        }
-
-        let event = await tx.disasterEvent.findFirst({
-          where: { OR: eventFilters },
-        });
-
-        if (!event) {
-          event = await tx.disasterEvent.create({
-            data: {
-              eventId: 'EV-2026-FLOOD-01',
-              name: 'Flood Warning',
-              hazardType: 'FLOOD',
-              districtCodes: ['LK-12', 'LK-11', 'LK-13'],
-              startedAt: new Date(),
-              status: 'ACTIVE',
-              isDemoData: true,
-            },
-          });
-        }
-
-        const assignmentCount = await tx.rescueAssignment.count();
-        const nextNumber = assignmentCount + 1;
-        const missionId = `RA-${nextNumber.toString().padStart(3, '0')}`;
-
-        // Update team status atomically to ASSIGNED
-        await tx.rescueTeam.update({
-          where: { id: team.id },
-          data: { status: 'ASSIGNED' },
-        });
-
-        // Store rescue assignment record
-        const assignment = await tx.rescueAssignment.create({
-          data: {
-            missionId,
-            disasterEventId: event.id,
-            disasterEventName: event.name,
-            districtCode: dto.districtCode,
-            districtName: dto.districtCode,
-            rescueTeamId: team.id,
-            rescueTeamName: team.name,
-            organization: team.organization,
-            emergencyLocation: location,
-            assignedBy: dto.assignedBy || 'Duty Officer',
-            status: MISSION_STATUS.ASSIGNED,
-          },
-        });
-
-        const result: RescueAssignment = {
-          id: assignment.id,
-          missionId: assignment.missionId,
-          disasterEventId: assignment.disasterEventId,
-          disasterEventName: assignment.disasterEventName,
-          districtCode: assignment.districtCode,
-          districtName: assignment.districtName,
-          rescueTeamId: assignment.rescueTeamId,
-          rescueTeamName: assignment.rescueTeamName,
-          organization: assignment.organization,
-          emergencyLocation: assignment.emergencyLocation,
-          assignedBy: assignment.assignedBy,
-          status: assignment.status as any,
-          assignedAt: assignment.assignedAt.toISOString(),
-          updatedAt: assignment.updatedAt.toISOString(),
-          notes: assignment.notes ?? undefined,
-          syncStatus: 'SYNCHRONIZED',
-        };
-
+      if (assignmentResult) {
         if (memTeam) {
           memTeam.currentStatus = 'ASSIGNED';
           memTeam.eligibility = RESCUE_ELIGIBILITY.NOT_AVAILABLE;
         }
 
-        this.inMemoryAssignments.set(result.missionId, result);
-        this.inMemoryAssignments.set(result.id, result);
-        return result;
-      });
+        this.inMemoryAssignments.set(
+          assignmentResult.missionId,
+          assignmentResult,
+        );
+        this.inMemoryAssignments.set(assignmentResult.id, assignmentResult);
+        return assignmentResult;
+      }
     } catch (err: any) {
       if (
         err instanceof BadRequestException ||
@@ -656,7 +928,17 @@ export class RescueService {
     team.currentStatus = 'ASSIGNED';
     team.eligibility = RESCUE_ELIGIBILITY.NOT_AVAILABLE;
 
+    const initialTimeline: MissionTimelineEntry[] = [
+      {
+        status: MISSION_STATUS.ASSIGNED,
+        by: dto.assignedBy || 'Duty Officer',
+        at: new Date().toISOString(),
+        note: `Mission initiated. Squad dispatched to ${location}.`,
+      },
+    ];
+
     const missionId = `RA-${(this.inMemoryAssignments.size + 1).toString().padStart(3, '0')}`;
+
     const newAssignment: RescueAssignment = {
       id: `assignment-${Date.now()}`,
       missionId,
@@ -672,6 +954,7 @@ export class RescueService {
       status: MISSION_STATUS.ASSIGNED,
       assignedAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      timeline: initialTimeline,
       syncStatus: 'SYNCHRONIZED',
     };
 
@@ -705,10 +988,20 @@ export class RescueService {
   async getLeaderMissions(_leaderId?: string): Promise<RescueAssignment[]> {
     const list: RescueAssignment[] = [];
     try {
-      const dbAssignments = await this.prisma.rescueAssignment.findMany({
-        orderBy: { updatedAt: 'desc' },
-      });
+      const dbAssignments = await this.withFastTimeout(
+        async () => {
+          return await this.prisma.rescueAssignment.findMany({
+            orderBy: { updatedAt: 'desc' },
+          });
+        },
+        [],
+        1000,
+      );
+
       for (const a of dbAssignments) {
+        const mem =
+          this.inMemoryAssignments.get(a.id) ||
+          this.inMemoryAssignments.get(a.missionId);
         list.push({
           id: a.id,
           missionId: a.missionId,
@@ -725,6 +1018,14 @@ export class RescueService {
           assignedAt: a.assignedAt.toISOString(),
           updatedAt: a.updatedAt.toISOString(),
           notes: a.notes ?? undefined,
+          timeline: mem?.timeline || [
+            {
+              status: MISSION_STATUS.ASSIGNED,
+              by: a.assignedBy,
+              at: a.assignedAt.toISOString(),
+              note: `Dispatched to ${a.emergencyLocation}.`,
+            },
+          ],
           syncStatus: 'SYNCHRONIZED',
         });
       }
@@ -759,13 +1060,46 @@ export class RescueService {
       if (isValidObjectId(id)) {
         filters.unshift({ id });
       }
-      const mission = await this.prisma.rescueAssignment.findFirst({
-        where: { OR: filters },
-        orderBy: { updatedAt: 'desc' },
-      });
+      const mission = await this.withFastTimeout(
+        async () => {
+          return await this.prisma.rescueAssignment.findFirst({
+            where: { OR: filters },
+            orderBy: { updatedAt: 'desc' },
+          });
+        },
+        null,
+        1000,
+      );
 
       if (mission) {
-        return {
+        const memMatch =
+          this.inMemoryAssignments.get(mission.id) ||
+          this.inMemoryAssignments.get(mission.missionId);
+
+        const timeline: MissionTimelineEntry[] = memMatch?.timeline || [
+          {
+            status: MISSION_STATUS.ASSIGNED,
+            by: mission.assignedBy,
+            at: mission.assignedAt.toISOString(),
+            note: `Squad deployed to ${mission.emergencyLocation}.`,
+          },
+        ];
+
+        if (
+          mission.status !== MISSION_STATUS.ASSIGNED &&
+          !timeline.some((t) => t.status === mission.status)
+        ) {
+          timeline.push({
+            status: mission.status as MissionStatus,
+            by: 'Team Leader',
+            at: mission.updatedAt.toISOString(),
+            note:
+              mission.notes ??
+              `Status transitioned to ${mission.status.replace('_', ' ')}.`,
+          });
+        }
+
+        const res: RescueAssignment = {
           id: mission.id,
           missionId: mission.missionId,
           disasterEventId: mission.disasterEventId,
@@ -781,8 +1115,13 @@ export class RescueService {
           assignedAt: mission.assignedAt.toISOString(),
           updatedAt: mission.updatedAt.toISOString(),
           notes: mission.notes ?? undefined,
+          timeline,
           syncStatus: 'SYNCHRONIZED',
         };
+
+        this.inMemoryAssignments.set(res.id, res);
+        this.inMemoryAssignments.set(res.missionId, res);
+        return res;
       }
     } catch {
       // Fallback
@@ -822,6 +1161,14 @@ export class RescueService {
       status: MISSION_STATUS.ASSIGNED,
       assignedAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      timeline: [
+        {
+          status: MISSION_STATUS.ASSIGNED,
+          by: 'Duty Officer',
+          at: new Date().toISOString(),
+          note: 'Squad deployed to Riverside Area, Gampaha.',
+        },
+      ],
       syncStatus: 'SYNCHRONIZED',
     };
   }
@@ -884,6 +1231,25 @@ export class RescueService {
     // Run SQ5 status validation
     await this.validateMissionStatusUpdate(existing.status, dto.status);
 
+    const updatedTimeline: MissionTimelineEntry[] = [
+      ...(existing.timeline || [
+        {
+          status: MISSION_STATUS.ASSIGNED,
+          by: existing.assignedBy || 'Duty Officer',
+          at: existing.assignedAt || new Date().toISOString(),
+          note: 'Mission initiated.',
+        },
+      ]),
+      {
+        status: dto.status,
+        by: dto.leaderId || 'Team Leader',
+        at: new Date().toISOString(),
+        note:
+          dto.notes ||
+          `Status transitioned to ${dto.status.replace('_', ' ')}.`,
+      },
+    ];
+
     const isValidObjectId = (val?: string): boolean =>
       typeof val === 'string' && /^[0-9a-fA-F]{24}$/.test(val);
 
@@ -892,53 +1258,65 @@ export class RescueService {
       if (isValidObjectId(id)) {
         filters.unshift({ id });
       }
-      const dbRecord = await this.prisma.rescueAssignment.findFirst({
-        where: { OR: filters },
-      });
 
-      if (dbRecord) {
-        return await this.prisma.$transaction(async (tx) => {
-          const updated = await tx.rescueAssignment.update({
-            where: { id: dbRecord.id },
-            data: {
-              status: dto.status as any,
-              notes: dto.notes !== undefined ? dto.notes : dbRecord.notes,
-            },
+      const dbUpdateResult = await this.withFastTimeout(
+        async () => {
+          const dbRecord = await this.prisma.rescueAssignment.findFirst({
+            where: { OR: filters },
           });
 
-          if (
-            dto.status === MISSION_STATUS.COMPLETED ||
-            dto.status === MISSION_STATUS.CANCELLED
-          ) {
-            await tx.rescueTeam.update({
-              where: { id: dbRecord.rescueTeamId },
-              data: { status: 'AVAILABLE' },
+          if (!dbRecord) return null;
+
+          return await this.prisma.$transaction(async (tx) => {
+            const updated = await tx.rescueAssignment.update({
+              where: { id: dbRecord.id },
+              data: {
+                status: dto.status as any,
+                notes: dto.notes !== undefined ? dto.notes : dbRecord.notes,
+              },
             });
-          }
 
-          const res: RescueAssignment = {
-            id: updated.id,
-            missionId: updated.missionId,
-            disasterEventId: updated.disasterEventId,
-            disasterEventName: updated.disasterEventName,
-            districtCode: updated.districtCode,
-            districtName: updated.districtName,
-            rescueTeamId: updated.rescueTeamId,
-            rescueTeamName: updated.rescueTeamName,
-            organization: updated.organization,
-            emergencyLocation: updated.emergencyLocation,
-            assignedBy: updated.assignedBy,
-            status: updated.status as any,
-            assignedAt: updated.assignedAt.toISOString(),
-            updatedAt: updated.updatedAt.toISOString(),
-            notes: updated.notes ?? undefined,
-            syncStatus: 'SYNCHRONIZED',
-          };
+            if (
+              dto.status === MISSION_STATUS.COMPLETED ||
+              dto.status === MISSION_STATUS.CANCELLED
+            ) {
+              await tx.rescueTeam.update({
+                where: { id: dbRecord.rescueTeamId },
+                data: { status: 'AVAILABLE' },
+              });
+            }
 
-          this.inMemoryAssignments.set(res.id, res);
-          this.inMemoryAssignments.set(res.missionId, res);
-          return res;
-        });
+            const res: RescueAssignment = {
+              id: updated.id,
+              missionId: updated.missionId,
+              disasterEventId: updated.disasterEventId,
+              disasterEventName: updated.disasterEventName,
+              districtCode: updated.districtCode,
+              districtName: updated.districtName,
+              rescueTeamId: updated.rescueTeamId,
+              rescueTeamName: updated.rescueTeamName,
+              organization: updated.organization,
+              emergencyLocation: updated.emergencyLocation,
+              assignedBy: updated.assignedBy,
+              status: updated.status as any,
+              assignedAt: updated.assignedAt.toISOString(),
+              updatedAt: updated.updatedAt.toISOString(),
+              notes: updated.notes ?? undefined,
+              timeline: updatedTimeline,
+              syncStatus: 'SYNCHRONIZED',
+            };
+
+            return res;
+          });
+        },
+        null,
+        1200,
+      );
+
+      if (dbUpdateResult) {
+        this.inMemoryAssignments.set(dbUpdateResult.id, dbUpdateResult);
+        this.inMemoryAssignments.set(dbUpdateResult.missionId, dbUpdateResult);
+        return dbUpdateResult;
       }
     } catch {
       // Fallback
@@ -946,6 +1324,7 @@ export class RescueService {
 
     existing.status = dto.status;
     existing.updatedAt = new Date().toISOString();
+    existing.timeline = updatedTimeline;
     if (dto.notes) existing.notes = dto.notes;
 
     if (
@@ -977,14 +1356,26 @@ export class RescueService {
     const missions: RescueAssignment[] = [];
 
     try {
-      const dbAssignments = await this.prisma.rescueAssignment.findMany({
-        where: {
-          OR: [{ disasterEventId: eventId }, { disasterEventName: eventId }],
+      const dbAssignments = await this.withFastTimeout(
+        async () => {
+          return await this.prisma.rescueAssignment.findMany({
+            where: {
+              OR: [
+                { disasterEventId: eventId },
+                { disasterEventName: eventId },
+              ],
+            },
+            orderBy: { updatedAt: 'desc' },
+          });
         },
-        orderBy: { updatedAt: 'desc' },
-      });
+        [],
+        1000,
+      );
 
       for (const a of dbAssignments) {
+        const mem =
+          this.inMemoryAssignments.get(a.id) ||
+          this.inMemoryAssignments.get(a.missionId);
         missions.push({
           id: a.id,
           missionId: a.missionId,
@@ -1001,6 +1392,14 @@ export class RescueService {
           assignedAt: a.assignedAt.toISOString(),
           updatedAt: a.updatedAt.toISOString(),
           notes: a.notes ?? undefined,
+          timeline: mem?.timeline || [
+            {
+              status: a.status as any,
+              by: a.assignedBy,
+              at: a.assignedAt.toISOString(),
+              note: `Deployment to ${a.emergencyLocation}`,
+            },
+          ],
           syncStatus: 'SYNCHRONIZED',
         });
       }

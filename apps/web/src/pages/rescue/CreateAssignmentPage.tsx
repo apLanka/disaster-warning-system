@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { Info, Loader2 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import {
-  createRescueAssignment,
-  validateDispatchDeployment,
-} from '../../api/rescue';
+import { createRescueAssignment } from '../../api/rescue';
 import { Banner } from '../../components/ui/Banner';
 
 interface LocationState {
@@ -50,15 +47,7 @@ export function CreateAssignmentPage() {
       setSubmitting(true);
       setError(null);
 
-      // SQ1: Explicitly validate dispatch preconditions before creating assignment
-      await validateDispatchDeployment({
-        disasterEventId: eventId,
-        districtCode,
-        rescueTeamId: teamId,
-        emergencyLocation: emergencyLocation.trim(),
-      });
-
-      // SQ2 & SQ7: Atomic assignment creation
+      // SQ1, SQ2 & SQ7: Atomically validate and create assignment in a single fast request
       const assignment = await createRescueAssignment({
         disasterEventId: eventId,
         districtCode,
