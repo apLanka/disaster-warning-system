@@ -347,3 +347,57 @@ model ResourceDistribution {
   @@index([eventId, districtCode])
   @@map("resource_distributions")
 }
+
+enum RescueTeamStatus {
+  AVAILABLE
+  ASSIGNED
+  UNAVAILABLE
+}
+
+enum MissionStatus {
+  ASSIGNED
+  EN_ROUTE
+  ON_SCENE
+  COMPLETED
+  CANCELLED
+}
+
+model RescueTeam {
+  id                  String           @id @default(auto()) @map("_id") @db.ObjectId
+  teamCode            String           @unique
+  name                String
+  organization        String
+  districtCode        String
+  status              RescueTeamStatus @default(AVAILABLE)
+  allowsCrossDistrict Boolean          @default(false)
+  contactNumber       String?
+  leaderName          String?
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+
+  @@index([districtCode, status])
+  @@map("rescue_teams")
+}
+
+model RescueAssignment {
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
+  missionId         String        @unique
+  disasterEventId   String        @db.ObjectId
+  disasterEventName String
+  districtCode      String
+  districtName      String
+  rescueTeamId      String        @db.ObjectId
+  rescueTeamName    String
+  organization      String
+  emergencyLocation String
+  assignedBy        String        @default("Duty Officer")
+  status            MissionStatus @default(ASSIGNED)
+  assignedAt        DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  notes             String?
+
+  @@index([disasterEventId, districtCode])
+  @@index([rescueTeamId, status])
+  @@map("rescue_assignments")
+}
+

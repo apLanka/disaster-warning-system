@@ -24,6 +24,7 @@
     "prisma:push": "prisma db push",
     "prisma:push:test": "sh -c 'set -a; . ./.env; set +a; DATABASE_URL=\"$DATABASE_URL_TEST\" prisma db push'",
     "seed:analysis": "bun run src/analysis/seed/seed-analysis.ts",
+    "seed:rescue": "bun run src/rescue/seed/seed-rescue.ts",
     "test:cov": "vitest run --coverage",
     "test:e2e": "vitest run test/"
   },

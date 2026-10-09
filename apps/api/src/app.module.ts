@@ -8,6 +8,7 @@ import { HazardWarningsModule } from './hazard-warnings/hazard-warnings.module.j
 import { HealthModule } from './health/health.module.js';
 import { NotificationsModule } from './notifications/notifications.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
+import { RescueModule } from './rescue/rescue.module.js';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
     PrismaModule,
     HazardReportsModule,
     AnalysisModule,
+    RescueModule,
     NotificationsModule,
     CitizensModule,
     HazardWarningsModule,

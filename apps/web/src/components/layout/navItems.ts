@@ -21,8 +21,7 @@ export interface NavItem {
 }
 
 /**
- * Add an entry here to put a page in the sidebar. Each use case owns its own
- * entries, so the layout itself never needs to change.
+ * Navigation items for the DMC Officer Portal.
  */
 export const NAV_ITEMS: NavItem[] = [
   {
